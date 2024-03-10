@@ -15,8 +15,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions) {
+
             guard let windowScene = (scene as? UIWindowScene) else { return }
             self.window = UIWindow(windowScene: windowScene)
+
+            if UserDefaults.standard.bool(forKey: "isUserLogged") {
+                let insulinViewController = InsulinConfigViewController(viewModel: InsulinConfigViewModel())
+                insulinViewController.showMainScreen()
+            } else {
+                let nameRegisterViewModel = NameRegisterViewModel()
+                let nameRegisterViewController = NameRegisterViewController(viewModel: nameRegisterViewModel)
+                let navigationController = UINavigationController(rootViewController: nameRegisterViewController)
+                navigationController.isNavigationBarHidden = true
+                self.window?.rootViewController = navigationController
+                self.window?.makeKeyAndVisible()
+            }
 
     }
 

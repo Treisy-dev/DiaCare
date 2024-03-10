@@ -16,6 +16,35 @@
 		C3DCF9C72B9DF4C5007D7FF0 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C3DCF9C62B9DF4C5007D7FF0 /* SnapKit-Dynamic */; };
 		C3DCF9CA2B9DF4DB007D7FF0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C3DCF9C92B9DF4DB007D7FF0 /* Alamofire */; };
 		C3DCF9CC2B9DF4DB007D7FF0 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C3DCF9CB2B9DF4DB007D7FF0 /* AlamofireDynamic */; };
+		C3DCF9D02B9DF588007D7FF0 /* NameRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9CF2B9DF588007D7FF0 /* NameRegisterViewController.swift */; };
+		C3DCF9D22B9DF5A4007D7FF0 /* NameRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9D12B9DF5A4007D7FF0 /* NameRegisterView.swift */; };
+		C3DCF9D42B9DF5BA007D7FF0 /* NameRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9D32B9DF5BA007D7FF0 /* NameRegisterViewModel.swift */; };
+		C3DCF9D72B9E039E007D7FF0 /* SugarConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9D62B9E039E007D7FF0 /* SugarConfigView.swift */; };
+		C3DCF9D92B9E03AB007D7FF0 /* SugarConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9D82B9E03AB007D7FF0 /* SugarConfigViewController.swift */; };
+		C3DCF9DB2B9E03CD007D7FF0 /* SugarConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9DA2B9E03CD007D7FF0 /* SugarConfigViewModel.swift */; };
+		C3DCF9DD2B9E0B0D007D7FF0 /* CustomConfigTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9DC2B9E0B0D007D7FF0 /* CustomConfigTextField.swift */; };
+		C3DCF9E12B9E19A2007D7FF0 /* FoodConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9E02B9E19A2007D7FF0 /* FoodConfigViewController.swift */; };
+		C3DCF9E32B9E19AD007D7FF0 /* FoodConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9E22B9E19AD007D7FF0 /* FoodConfigViewModel.swift */; };
+		C3DCF9E52B9E19BE007D7FF0 /* FoodConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9E42B9E19BE007D7FF0 /* FoodConfigView.swift */; };
+		C3DCF9E82B9E337F007D7FF0 /* InsulinConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9E72B9E337F007D7FF0 /* InsulinConfigView.swift */; };
+		C3DCF9EA2B9E338D007D7FF0 /* InsulinConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9E92B9E338D007D7FF0 /* InsulinConfigViewController.swift */; };
+		C3DCF9EC2B9E339B007D7FF0 /* InsulinConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9EB2B9E339B007D7FF0 /* InsulinConfigViewModel.swift */; };
+		C3DCF9EE2B9E4A86007D7FF0 /* UserDefaultsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9ED2B9E4A86007D7FF0 /* UserDefaultsDataManager.swift */; };
+		C3DCF9F22B9E599B007D7FF0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9F12B9E599B007D7FF0 /* ProfileViewController.swift */; };
+		C3DCF9F42B9E59A8007D7FF0 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9F32B9E59A8007D7FF0 /* ProfileView.swift */; };
+		C3DCF9F62B9E59B4007D7FF0 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9F52B9E59B4007D7FF0 /* ProfileViewModel.swift */; };
+		C3DCF9F92B9E5A44007D7FF0 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9F82B9E5A44007D7FF0 /* NotificationViewModel.swift */; };
+		C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9FA2B9E5A5A007D7FF0 /* NotificationView.swift */; };
+		C3DCF9FD2B9E5A67007D7FF0 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9FC2B9E5A67007D7FF0 /* NotificationViewController.swift */; };
+		C3DCFA002B9E5ABA007D7FF0 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9FF2B9E5ABA007D7FF0 /* NewNoteViewController.swift */; };
+		C3DCFA022B9E5AC7007D7FF0 /* NewNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA012B9E5AC7007D7FF0 /* NewNoteView.swift */; };
+		C3DCFA042B9E5AD2007D7FF0 /* NewNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA032B9E5AD2007D7FF0 /* NewNoteViewModel.swift */; };
+		C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA062B9E5B0C007D7FF0 /* StatisticView.swift */; };
+		C3DCFA092B9E5B1A007D7FF0 /* StatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA082B9E5B1A007D7FF0 /* StatisticViewController.swift */; };
+		C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA0A2B9E5B26007D7FF0 /* StatisticViewModel.swift */; };
+		C3DCFA0E2B9E5C15007D7FF0 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA0D2B9E5C15007D7FF0 /* TemplateViewController.swift */; };
+		C3DCFA102B9E5C21007D7FF0 /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA0F2B9E5C21007D7FF0 /* TemplateView.swift */; };
+		C3DCFA122B9E5C2C007D7FF0 /* TemplateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCFA112B9E5C2C007D7FF0 /* TemplateViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +55,35 @@
 		C3DCF9B72B9DF31B007D7FF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3DCF9BA2B9DF31B007D7FF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3DCF9BC2B9DF31B007D7FF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3DCF9CF2B9DF588007D7FF0 /* NameRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegisterViewController.swift; sourceTree = "<group>"; };
+		C3DCF9D12B9DF5A4007D7FF0 /* NameRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegisterView.swift; sourceTree = "<group>"; };
+		C3DCF9D32B9DF5BA007D7FF0 /* NameRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegisterViewModel.swift; sourceTree = "<group>"; };
+		C3DCF9D62B9E039E007D7FF0 /* SugarConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarConfigView.swift; sourceTree = "<group>"; };
+		C3DCF9D82B9E03AB007D7FF0 /* SugarConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarConfigViewController.swift; sourceTree = "<group>"; };
+		C3DCF9DA2B9E03CD007D7FF0 /* SugarConfigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarConfigViewModel.swift; sourceTree = "<group>"; };
+		C3DCF9DC2B9E0B0D007D7FF0 /* CustomConfigTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConfigTextField.swift; sourceTree = "<group>"; };
+		C3DCF9E02B9E19A2007D7FF0 /* FoodConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodConfigViewController.swift; sourceTree = "<group>"; };
+		C3DCF9E22B9E19AD007D7FF0 /* FoodConfigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodConfigViewModel.swift; sourceTree = "<group>"; };
+		C3DCF9E42B9E19BE007D7FF0 /* FoodConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodConfigView.swift; sourceTree = "<group>"; };
+		C3DCF9E72B9E337F007D7FF0 /* InsulinConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConfigView.swift; sourceTree = "<group>"; };
+		C3DCF9E92B9E338D007D7FF0 /* InsulinConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConfigViewController.swift; sourceTree = "<group>"; };
+		C3DCF9EB2B9E339B007D7FF0 /* InsulinConfigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConfigViewModel.swift; sourceTree = "<group>"; };
+		C3DCF9ED2B9E4A86007D7FF0 /* UserDefaultsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataManager.swift; sourceTree = "<group>"; };
+		C3DCF9F12B9E599B007D7FF0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C3DCF9F32B9E59A8007D7FF0 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C3DCF9F52B9E59B4007D7FF0 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		C3DCF9F82B9E5A44007D7FF0 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		C3DCF9FA2B9E5A5A007D7FF0 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		C3DCF9FC2B9E5A67007D7FF0 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		C3DCF9FF2B9E5ABA007D7FF0 /* NewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
+		C3DCFA012B9E5AC7007D7FF0 /* NewNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteView.swift; sourceTree = "<group>"; };
+		C3DCFA032B9E5AD2007D7FF0 /* NewNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewModel.swift; sourceTree = "<group>"; };
+		C3DCFA062B9E5B0C007D7FF0 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
+		C3DCFA082B9E5B1A007D7FF0 /* StatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewController.swift; sourceTree = "<group>"; };
+		C3DCFA0A2B9E5B26007D7FF0 /* StatisticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewModel.swift; sourceTree = "<group>"; };
+		C3DCFA0D2B9E5C15007D7FF0 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		C3DCFA0F2B9E5C21007D7FF0 /* TemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
+		C3DCFA112B9E5C2C007D7FF0 /* TemplateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +120,8 @@
 		C3DCF9AA2B9DF31A007D7FF0 /* DiaCare */ = {
 			isa = PBXGroup;
 			children = (
+				C3DCF9EF2B9E597B007D7FF0 /* Main Screens */,
+				C3DCF9CD2B9DF517007D7FF0 /* Welcome Screens */,
 				C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */,
 				C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */,
 				C3DCF9B72B9DF31B007D7FF0 /* Assets.xcassets */,
@@ -70,6 +130,129 @@
 				C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */,
 			);
 			path = DiaCare;
+			sourceTree = "<group>";
+		};
+		C3DCF9CD2B9DF517007D7FF0 /* Welcome Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9ED2B9E4A86007D7FF0 /* UserDefaultsDataManager.swift */,
+				C3DCF9DE2B9E1782007D7FF0 /* CustomViews */,
+				C3DCF9E62B9E335F007D7FF0 /* InsulinConfigScreen */,
+				C3DCF9DF2B9E198A007D7FF0 /* FoodConfigScreen */,
+				C3DCF9D52B9E0373007D7FF0 /* SugarConfigScreen */,
+				C3DCF9CE2B9DF53A007D7FF0 /* NameRegisterScreen */,
+			);
+			path = "Welcome Screens";
+			sourceTree = "<group>";
+		};
+		C3DCF9CE2B9DF53A007D7FF0 /* NameRegisterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9CF2B9DF588007D7FF0 /* NameRegisterViewController.swift */,
+				C3DCF9D12B9DF5A4007D7FF0 /* NameRegisterView.swift */,
+				C3DCF9D32B9DF5BA007D7FF0 /* NameRegisterViewModel.swift */,
+			);
+			path = NameRegisterScreen;
+			sourceTree = "<group>";
+		};
+		C3DCF9D52B9E0373007D7FF0 /* SugarConfigScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9D62B9E039E007D7FF0 /* SugarConfigView.swift */,
+				C3DCF9D82B9E03AB007D7FF0 /* SugarConfigViewController.swift */,
+				C3DCF9DA2B9E03CD007D7FF0 /* SugarConfigViewModel.swift */,
+			);
+			path = SugarConfigScreen;
+			sourceTree = "<group>";
+		};
+		C3DCF9DE2B9E1782007D7FF0 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9DC2B9E0B0D007D7FF0 /* CustomConfigTextField.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		C3DCF9DF2B9E198A007D7FF0 /* FoodConfigScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9E02B9E19A2007D7FF0 /* FoodConfigViewController.swift */,
+				C3DCF9E22B9E19AD007D7FF0 /* FoodConfigViewModel.swift */,
+				C3DCF9E42B9E19BE007D7FF0 /* FoodConfigView.swift */,
+			);
+			path = FoodConfigScreen;
+			sourceTree = "<group>";
+		};
+		C3DCF9E62B9E335F007D7FF0 /* InsulinConfigScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9E72B9E337F007D7FF0 /* InsulinConfigView.swift */,
+				C3DCF9E92B9E338D007D7FF0 /* InsulinConfigViewController.swift */,
+				C3DCF9EB2B9E339B007D7FF0 /* InsulinConfigViewModel.swift */,
+			);
+			path = InsulinConfigScreen;
+			sourceTree = "<group>";
+		};
+		C3DCF9EF2B9E597B007D7FF0 /* Main Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCFA0C2B9E5BEE007D7FF0 /* TemplateScreen */,
+				C3DCFA052B9E5AE9007D7FF0 /* StatisticScreen */,
+				C3DCF9FE2B9E5A73007D7FF0 /* NewNoteScreen */,
+				C3DCF9F72B9E5A33007D7FF0 /* NotificationScreen */,
+				C3DCF9F02B9E598C007D7FF0 /* ProfileScreen */,
+			);
+			path = "Main Screens";
+			sourceTree = "<group>";
+		};
+		C3DCF9F02B9E598C007D7FF0 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9F12B9E599B007D7FF0 /* ProfileViewController.swift */,
+				C3DCF9F32B9E59A8007D7FF0 /* ProfileView.swift */,
+				C3DCF9F52B9E59B4007D7FF0 /* ProfileViewModel.swift */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		C3DCF9F72B9E5A33007D7FF0 /* NotificationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9F82B9E5A44007D7FF0 /* NotificationViewModel.swift */,
+				C3DCF9FA2B9E5A5A007D7FF0 /* NotificationView.swift */,
+				C3DCF9FC2B9E5A67007D7FF0 /* NotificationViewController.swift */,
+			);
+			path = NotificationScreen;
+			sourceTree = "<group>";
+		};
+		C3DCF9FE2B9E5A73007D7FF0 /* NewNoteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCF9FF2B9E5ABA007D7FF0 /* NewNoteViewController.swift */,
+				C3DCFA012B9E5AC7007D7FF0 /* NewNoteView.swift */,
+				C3DCFA032B9E5AD2007D7FF0 /* NewNoteViewModel.swift */,
+			);
+			path = NewNoteScreen;
+			sourceTree = "<group>";
+		};
+		C3DCFA052B9E5AE9007D7FF0 /* StatisticScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCFA062B9E5B0C007D7FF0 /* StatisticView.swift */,
+				C3DCFA082B9E5B1A007D7FF0 /* StatisticViewController.swift */,
+				C3DCFA0A2B9E5B26007D7FF0 /* StatisticViewModel.swift */,
+			);
+			path = StatisticScreen;
+			sourceTree = "<group>";
+		};
+		C3DCFA0C2B9E5BEE007D7FF0 /* TemplateScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3DCFA0D2B9E5C15007D7FF0 /* TemplateViewController.swift */,
+				C3DCFA0F2B9E5C21007D7FF0 /* TemplateView.swift */,
+				C3DCFA112B9E5C2C007D7FF0 /* TemplateViewModel.swift */,
+			);
+			path = TemplateScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,9 +358,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3DCF9DB2B9E03CD007D7FF0 /* SugarConfigViewModel.swift in Sources */,
+				C3DCF9D02B9DF588007D7FF0 /* NameRegisterViewController.swift in Sources */,
+				C3DCF9DD2B9E0B0D007D7FF0 /* CustomConfigTextField.swift in Sources */,
+				C3DCFA022B9E5AC7007D7FF0 /* NewNoteView.swift in Sources */,
+				C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */,
+				C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */,
+				C3DCF9D22B9DF5A4007D7FF0 /* NameRegisterView.swift in Sources */,
+				C3DCFA002B9E5ABA007D7FF0 /* NewNoteViewController.swift in Sources */,
+				C3DCF9EA2B9E338D007D7FF0 /* InsulinConfigViewController.swift in Sources */,
+				C3DCF9FD2B9E5A67007D7FF0 /* NotificationViewController.swift in Sources */,
+				C3DCF9D72B9E039E007D7FF0 /* SugarConfigView.swift in Sources */,
+				C3DCF9F22B9E599B007D7FF0 /* ProfileViewController.swift in Sources */,
+				C3DCF9EE2B9E4A86007D7FF0 /* UserDefaultsDataManager.swift in Sources */,
+				C3DCF9D42B9DF5BA007D7FF0 /* NameRegisterViewModel.swift in Sources */,
+				C3DCFA102B9E5C21007D7FF0 /* TemplateView.swift in Sources */,
+				C3DCF9D92B9E03AB007D7FF0 /* SugarConfigViewController.swift in Sources */,
+				C3DCF9E82B9E337F007D7FF0 /* InsulinConfigView.swift in Sources */,
+				C3DCFA092B9E5B1A007D7FF0 /* StatisticViewController.swift in Sources */,
+				C3DCF9E12B9E19A2007D7FF0 /* FoodConfigViewController.swift in Sources */,
+				C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */,
 				C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */,
+				C3DCF9EC2B9E339B007D7FF0 /* InsulinConfigViewModel.swift in Sources */,
+				C3DCF9F62B9E59B4007D7FF0 /* ProfileViewModel.swift in Sources */,
+				C3DCF9E52B9E19BE007D7FF0 /* FoodConfigView.swift in Sources */,
 				C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */,
+				C3DCF9F92B9E5A44007D7FF0 /* NotificationViewModel.swift in Sources */,
+				C3DCFA122B9E5C2C007D7FF0 /* TemplateViewModel.swift in Sources */,
+				C3DCF9F42B9E59A8007D7FF0 /* ProfileView.swift in Sources */,
+				C3DCFA0E2B9E5C15007D7FF0 /* TemplateViewController.swift in Sources */,
+				C3DCF9E32B9E19AD007D7FF0 /* FoodConfigViewModel.swift in Sources */,
 				C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */,
+				C3DCFA042B9E5AD2007D7FF0 /* NewNoteViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
