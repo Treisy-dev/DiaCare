@@ -8,5 +8,5 @@
 import Foundation
 
 class ProfileViewModel {
-    
+    let userInfoData: [String: String] = UserDefaultsDataManager.shared.getUserInfo()
 }

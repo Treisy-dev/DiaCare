@@ -93,7 +93,7 @@ extension InsulinConfigViewController: InsulinConfigViewDelegate {
             selectedImage: nil)
         notificationViewController.tabBarItem = notificationTabBarItem
 
-        let profileViewController = ProfileViewController()
+        let profileViewController = ProfileViewController(viewModel: ProfileViewModel())
         let profileTabBarItem = UITabBarItem(
             title: nil,
             image: UIImage.profileIcon,
@@ -107,7 +107,7 @@ extension InsulinConfigViewController: InsulinConfigViewDelegate {
             UINavigationController(rootViewController: notificationViewController),
             UINavigationController(rootViewController: profileViewController)
             ]
-        tbController.selectedIndex = 5
+        tbController.selectedIndex = 4
 
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             sceneDelegate.window?.rootViewController = tbController
