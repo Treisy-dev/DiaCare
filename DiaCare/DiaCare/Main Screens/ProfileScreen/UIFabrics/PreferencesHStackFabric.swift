@@ -14,16 +14,18 @@ class PreferencesHStackFabric {
     private init() {
     }
 
-    func makeSugarHStack(
+    func makeHStackWithIcon(
         withLabel lableText: String,
         withImage image: UIImage,
-        withCountLable countLableText: String) -> UIStackView {
+        withCountLable countLableText: String?,
+        coloredText: String) -> UIStackView {
             let hStack = UIStackView()
             let lable = UILabel()
             let imageView = UIImageView()
             let countLable = UILabel()
+            let coloredLabel = UILabel()
             hStack.axis = .horizontal
-            hStack.spacing = 10
+            hStack.distribution = .equalSpacing
 
             imageView.image = image
             imageView.contentMode = .center
@@ -42,18 +44,47 @@ class PreferencesHStackFabric {
             hStack.addArrangedSubview(lable)
 
             countLable.font = UIFont.systemFont(ofSize: 16)
-            let attributedString = NSMutableAttributedString(string: countLableText)
-            attributedString.addAttribute(
-                NSAttributedString.Key.foregroundColor,
-                value: UIColor.black,
-                range: NSRange(location: 0, length: 4))
-            attributedString.addAttribute(
-                NSAttributedString.Key.foregroundColor,
-                value: UIColor.mainApp,
-                range: NSRange(location: 4, length: countLableText.count - 4))
-            countLable.attributedText = attributedString
+            countLable.text = countLableText
+            coloredLabel.text = coloredText
+            coloredLabel.textColor = .mainApp
+            coloredLabel.font = UIFont.systemFont(ofSize: 16)
+            coloredLabel.minimumScaleFactor = 0.5
+            coloredLabel.adjustsFontSizeToFitWidth = true
 
             hStack.addArrangedSubview(countLable)
+            hStack.addArrangedSubview(coloredLabel)
+
+            return hStack
+        }
+
+    func makeFoodHStack(
+        withLabel lableText: String,
+        withCountLable countLableText: String,
+        coloredText: String) -> UIStackView {
+            let hStack = UIStackView()
+            let lable = UILabel()
+            let countLable = UILabel()
+            let coloredLabel = UILabel()
+            hStack.axis = .horizontal
+            hStack.distribution = .equalSpacing
+
+            lable.font = UIFont.systemFont(ofSize: 16)
+            lable.textColor = .black
+            lable.text = lableText
+            lable.snp.makeConstraints { make in
+                make.width.equalTo(185)
+            }
+
+            hStack.addArrangedSubview(lable)
+
+            countLable.font = UIFont.systemFont(ofSize: 16)
+            countLable.text = countLableText
+            coloredLabel.text = coloredText
+            coloredLabel.textColor = .mainApp
+            coloredLabel.font = UIFont.systemFont(ofSize: 16)
+
+            hStack.addArrangedSubview(countLable)
+            hStack.addArrangedSubview(coloredLabel)
 
             return hStack
         }

@@ -11,12 +11,17 @@ class ProfileView: UIView {
 
     private var userNameSubView: UserNameSubView?
     private var preferencesSubView: PreferencesSubView?
+    private var dragSubView: DragSubView?
+    var settingsSubView: SettingsSubView?
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var titleLable: UILabel = UILabel()
     private lazy var profileContentView: UIView = UIView()
     private lazy var doctorImageView: UIImageView = UIImageView()
 
-    init(frame: CGRect, userNameData: [String: String]) {
+    private var initialCenterYConstraintConstant: CGFloat = 0
+    private var panGestureRecognizer: UIPanGestureRecognizer?
+
+    init(frame: CGRect, userNameData: [String: String], selectedLanguage: String) {
         super.init(frame: frame)
         userNameSubView = UserNameSubView(
             frame: frame,
@@ -24,9 +29,16 @@ class ProfileView: UIView {
             email: prepareData(with: userNameData, for: "email"))
         preferencesSubView = PreferencesSubView(
             frame: frame,
-            targetSugarText: prepareData(with: userNameData, for: "targetSugar") + " ммоль/л",
-            highSugarText: prepareData(with: userNameData, for: "hightSugar") + " ммоль/л",
-            lowSugarText: prepareData(with: userNameData, for: "lowSugar") + " ммоль/л")
+            targetSugarText: prepareData(with: userNameData, for: "targetSugar"),
+            highSugarText: prepareData(with: userNameData, for: "hightSugar"),
+            lowSugarText: prepareData(with: userNameData, for: "lowSugar"),
+            foodText: prepareData(with: userNameData, for: "breadCount"),
+            insulinText: prepareData(with: userNameData, for: "insulinCount"))
+        dragSubView = DragSubView(
+            frame: frame,
+            shortInsulin: prepareData(with: userNameData, for: "shortInsulin"),
+            longInsulin: prepareData(with: userNameData, for: "longInsulin"))
+        settingsSubView = SettingsSubView(frame: frame, selectedLanguage: selectedLanguage)
         backgroundColor = .white
         setUp()
     }
@@ -40,6 +52,15 @@ class ProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if panGestureRecognizer == nil {
+            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+            profileContentView.addGestureRecognizer(panGestureRecognizer!)
+        }
+    }
+
     private func setUp() {
         setUpGradientView()
         setUpTitleLable()
@@ -47,6 +68,8 @@ class ProfileView: UIView {
         setUpDoctorImageView()
         setUpUserNameSubView()
         setUpPreferencesSubView()
+        setUpDragSubView()
+        setUpSettingsSubView()
     }
 
     private func setUpGradientView() {
@@ -105,9 +128,40 @@ class ProfileView: UIView {
     private func setUpPreferencesSubView() {
         profileContentView.addSubview(preferencesSubView ?? UIView())
         preferencesSubView?.snp.makeConstraints { make in
-            make.top.equalTo(userNameSubView!.snp_bottomMargin).offset(50)
-            make.leading.equalToSuperview().offset(50)
-            make.trailing.lessThanOrEqualToSuperview().offset(50)
+            make.top.lessThanOrEqualTo(userNameSubView!.snp_bottomMargin).offset((42))
+            make.trailing.greaterThanOrEqualToSuperview().inset(50)
+            make.leading.lessThanOrEqualToSuperview().offset(50)
+        }
+    }
+
+    private func setUpDragSubView() {
+        profileContentView.addSubview(dragSubView ?? UIView())
+        dragSubView?.snp.makeConstraints { make in
+            make.top.lessThanOrEqualTo(preferencesSubView!.snp_bottomMargin).offset((42))
+            make.trailing.greaterThanOrEqualToSuperview().inset(50)
+            make.leading.lessThanOrEqualToSuperview().offset(50)
+        }
+    }
+
+    private func setUpSettingsSubView() {
+        profileContentView.addSubview(settingsSubView ?? UIView())
+        settingsSubView?.snp.makeConstraints { make in
+            make.top.lessThanOrEqualTo(dragSubView!.snp_bottomMargin).offset(42)
+            make.trailing.greaterThanOrEqualToSuperview().inset(50)
+            make.leading.lessThanOrEqualToSuperview().offset(50)
+        }
+    }
+
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+
+        if recognizer.state == .began {
+            initialCenterYConstraintConstant = profileContentView.frame.maxY
+        } else if recognizer.state == .changed {
+            let newMaxY = initialCenterYConstraintConstant + translation.y
+            if newMaxY <= 565 && newMaxY >= 500 {
+                profileContentView.center.y = newMaxY - profileContentView.frame.height/2
+            }
         }
     }
 }

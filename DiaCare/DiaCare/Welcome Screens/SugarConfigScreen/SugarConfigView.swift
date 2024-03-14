@@ -9,6 +9,7 @@ import UIKit
 
 protocol SugarConfigViewDelegate: AnyObject {
     func didPressNext(lowSugar: String?, targetSugar: String?, hightSugar: String?)
+    func didPressBack()
 }
 
 class SugarConfigView: UIView {
@@ -28,6 +29,7 @@ class SugarConfigView: UIView {
         placeholder: "Выберете высокий сахар")
     lazy var pickerView: UIPickerView = UIPickerView()
     lazy var nextButton: UIButton = UIButton()
+    lazy var backButton: UIButton = UIButton()
 
     weak var delegate: SugarConfigViewDelegate?
 
@@ -42,6 +44,7 @@ class SugarConfigView: UIView {
     }
 
     private func setUp() {
+        setUpBackButton()
         setUpWelcomeImageView()
         setUpConfigLabel()
         setUpLowSugarTextField()
@@ -133,6 +136,23 @@ class SugarConfigView: UIView {
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
             make.width.equalToSuperview().inset(80)
+        }
+    }
+
+    private func setUpBackButton() {
+        addSubview(backButton)
+        backButton.layer.cornerRadius = 10
+        backButton.setImage(UIImage.leftArrowIcon, for: .normal)
+        let backAction: UIAction = UIAction { [weak self] _ in
+            self?.delegate?.didPressBack()
+        }
+        backButton.addAction(backAction, for: .touchUpInside)
+
+        backButton.snp.makeConstraints { make in
+            make.top.lessThanOrEqualToSuperview().offset(70)
+            make.leading.lessThanOrEqualToSuperview().offset(20)
+            make.height.equalTo(20)
+            make.width.equalTo(20)
         }
     }
 

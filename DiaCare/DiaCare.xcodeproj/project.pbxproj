@@ -13,6 +13,10 @@
 		C333ABA82B9FC5AB00EA100E /* UserNameSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABA72B9FC5AB00EA100E /* UserNameSubView.swift */; };
 		C333ABAA2B9FC79300EA100E /* PreferencesHStackFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABA92B9FC79300EA100E /* PreferencesHStackFabric.swift */; };
 		C333ABAD2B9FCA9200EA100E /* UserDefaultsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABAC2B9FCA9200EA100E /* UserDefaultsDataManager.swift */; };
+		C333ABB02BA0F4DD00EA100E /* WelcomeScreensControllerFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABAF2BA0F4DD00EA100E /* WelcomeScreensControllerFabric.swift */; };
+		C333ABB22BA2417600EA100E /* DragSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABB12BA2417600EA100E /* DragSubView.swift */; };
+		C333ABB42BA2534A00EA100E /* SettingsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABB32BA2534A00EA100E /* SettingsSubView.swift */; };
+		C333ABB62BA2549400EA100E /* CustomLanguageTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABB52BA2549400EA100E /* CustomLanguageTextField.swift */; };
 		C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */; };
 		C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */; };
 		C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */; };
@@ -59,6 +63,10 @@
 		C333ABA72B9FC5AB00EA100E /* UserNameSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameSubView.swift; sourceTree = "<group>"; };
 		C333ABA92B9FC79300EA100E /* PreferencesHStackFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesHStackFabric.swift; sourceTree = "<group>"; };
 		C333ABAC2B9FCA9200EA100E /* UserDefaultsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataManager.swift; sourceTree = "<group>"; };
+		C333ABAF2BA0F4DD00EA100E /* WelcomeScreensControllerFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreensControllerFabric.swift; sourceTree = "<group>"; };
+		C333ABB12BA2417600EA100E /* DragSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSubView.swift; sourceTree = "<group>"; };
+		C333ABB32BA2534A00EA100E /* SettingsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSubView.swift; sourceTree = "<group>"; };
+		C333ABB52BA2549400EA100E /* CustomLanguageTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLanguageTextField.swift; sourceTree = "<group>"; };
 		C3DCF9A82B9DF31A007D7FF0 /* DiaCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +124,7 @@
 			children = (
 				C333AB9F2B9F09BF00EA100E /* CustomGradientView.swift */,
 				C333ABA12B9F820700EA100E /* CustomUnderlineView.swift */,
+				C333ABB52BA2549400EA100E /* CustomLanguageTextField.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -124,6 +133,14 @@
 			isa = PBXGroup;
 			children = (
 				C333ABA92B9FC79300EA100E /* PreferencesHStackFabric.swift */,
+			);
+			path = UIFabrics;
+			sourceTree = "<group>";
+		};
+		C333ABAE2BA0F4BA00EA100E /* UIFabrics */ = {
+			isa = PBXGroup;
+			children = (
+				C333ABAF2BA0F4DD00EA100E /* WelcomeScreensControllerFabric.swift */,
 			);
 			path = UIFabrics;
 			sourceTree = "<group>";
@@ -163,6 +180,7 @@
 		C3DCF9CD2B9DF517007D7FF0 /* Welcome Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C333ABAE2BA0F4BA00EA100E /* UIFabrics */,
 				C3DCF9DE2B9E1782007D7FF0 /* CustomViews */,
 				C3DCF9E62B9E335F007D7FF0 /* InsulinConfigScreen */,
 				C3DCF9DF2B9E198A007D7FF0 /* FoodConfigScreen */,
@@ -242,6 +260,8 @@
 				C3DCF9F52B9E59B4007D7FF0 /* ProfileViewModel.swift */,
 				C333ABA72B9FC5AB00EA100E /* UserNameSubView.swift */,
 				C333ABA52B9FBBD900EA100E /* PreferencesSubView.swift */,
+				C333ABB12BA2417600EA100E /* DragSubView.swift */,
+				C333ABB32BA2534A00EA100E /* SettingsSubView.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -392,6 +412,7 @@
 				C333ABA22B9F820700EA100E /* CustomUnderlineView.swift in Sources */,
 				C3DCF9DB2B9E03CD007D7FF0 /* SugarConfigViewModel.swift in Sources */,
 				C3DCF9D02B9DF588007D7FF0 /* NameRegisterViewController.swift in Sources */,
+				C333ABB62BA2549400EA100E /* CustomLanguageTextField.swift in Sources */,
 				C333ABAD2B9FCA9200EA100E /* UserDefaultsDataManager.swift in Sources */,
 				C3DCF9DD2B9E0B0D007D7FF0 /* CustomConfigTextField.swift in Sources */,
 				C3DCFA022B9E5AC7007D7FF0 /* NewNoteView.swift in Sources */,
@@ -403,6 +424,7 @@
 				C3DCF9EA2B9E338D007D7FF0 /* InsulinConfigViewController.swift in Sources */,
 				C3DCF9FD2B9E5A67007D7FF0 /* NotificationViewController.swift in Sources */,
 				C3DCF9D72B9E039E007D7FF0 /* SugarConfigView.swift in Sources */,
+				C333ABB22BA2417600EA100E /* DragSubView.swift in Sources */,
 				C3DCF9F22B9E599B007D7FF0 /* ProfileViewController.swift in Sources */,
 				C3DCF9D42B9DF5BA007D7FF0 /* NameRegisterViewModel.swift in Sources */,
 				C3DCFA102B9E5C21007D7FF0 /* TemplateView.swift in Sources */,
@@ -410,6 +432,7 @@
 				C3DCF9E82B9E337F007D7FF0 /* InsulinConfigView.swift in Sources */,
 				C3DCFA092B9E5B1A007D7FF0 /* StatisticViewController.swift in Sources */,
 				C3DCF9E12B9E19A2007D7FF0 /* FoodConfigViewController.swift in Sources */,
+				C333ABB42BA2534A00EA100E /* SettingsSubView.swift in Sources */,
 				C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */,
 				C333ABA02B9F09BF00EA100E /* CustomGradientView.swift in Sources */,
 				C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */,
@@ -426,6 +449,7 @@
 				C3DCF9E32B9E19AD007D7FF0 /* FoodConfigViewModel.swift in Sources */,
 				C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */,
 				C3DCFA042B9E5AD2007D7FF0 /* NewNoteViewModel.swift in Sources */,
+				C333ABB02BA0F4DD00EA100E /* WelcomeScreensControllerFabric.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

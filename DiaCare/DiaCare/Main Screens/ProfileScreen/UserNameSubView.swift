@@ -37,7 +37,7 @@ class UserNameSubView: UIView {
 
     private func setUpNameHStack() {
         nameHStack.axis = .horizontal
-        nameHStack.spacing = 15
+        nameHStack.spacing = 10
 
         nameIconImageView.image = UIImage.personIcon
         nameIconImageView.contentMode = .center
@@ -58,7 +58,7 @@ class UserNameSubView: UIView {
 
     private func setUpEmailHStack() {
         emailHStack.axis = .horizontal
-        emailHStack.spacing = 15
+        emailHStack.spacing = 10
         emailHStack.distribution = .equalSpacing
         emailIconImageView.image = UIImage.emailIcon
         emailIconImageView.contentMode = .center

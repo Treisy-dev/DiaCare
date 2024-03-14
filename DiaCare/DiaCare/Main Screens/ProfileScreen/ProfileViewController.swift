@@ -15,7 +15,10 @@ class ProfileViewController: UIViewController {
 
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
-        contentView = ProfileView(frame: CGRect(), userNameData: viewModel.userInfoData)
+        contentView = ProfileView(
+            frame: CGRect(),
+            userNameData: viewModel.userInfoData,
+            selectedLanguage: viewModel.getSelectedLanguage())
         super.init(nibName: nil, bundle: nil)
         navigationController?.isNavigationBarHidden = true
     }
@@ -29,6 +32,18 @@ class ProfileViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        contentView.settingsSubView?.customTextField.languagePickerView.delegate = self
+        contentView.settingsSubView?.customTextField.languagePickerView.dataSource = viewModel
+    }
+}
+
+extension ProfileViewController: UIPickerViewDelegate {
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        contentView.settingsSubView?.customTextField.text = viewModel.languageDataSource[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        viewModel.languageDataSource[row]
     }
 }

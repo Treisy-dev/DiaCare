@@ -34,6 +34,15 @@ class InsulinConfigViewController: UIViewController {
         contentView.longPickerView.delegate = self
         contentView.longPickerView.dataSource = viewModel
     }
+
+    func showMainScreen() {
+        let tbController = WelcomeScreensControllerFabric.shared.makeMainAppTabBarController()
+
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.window?.rootViewController = tbController
+            sceneDelegate.window?.makeKeyAndVisible()
+        }
+    }
 }
 
 extension InsulinConfigViewController: UIPickerViewDelegate {
@@ -61,57 +70,7 @@ extension InsulinConfigViewController: InsulinConfigViewDelegate {
         showMainScreen()
     }
 
-    func showMainScreen() {
-        let tbController: UITabBarController = UITabBarController()
-        tbController.tabBar.tintColor = .mainApp
-
-        let templateViewController = TemplateViewController()
-        let templateTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.listIcon,
-            selectedImage: nil)
-        templateViewController.tabBarItem = templateTabBarItem
-
-        let statisticViewController = StatisticViewController()
-        let statisticTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.chartIcon,
-            selectedImage: nil)
-        statisticViewController.tabBarItem = statisticTabBarItem
-
-        let newNoteViewController = NewNoteViewController()
-        let newNoteTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.plusIcon,
-            selectedImage: nil)
-        newNoteViewController.tabBarItem = newNoteTabBarItem
-
-        let notificationViewController = NotificationViewController()
-        let notificationTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.bellIcon,
-            selectedImage: nil)
-        notificationViewController.tabBarItem = notificationTabBarItem
-
-        let profileViewController = ProfileViewController(viewModel: ProfileViewModel())
-        let profileTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.profileIcon,
-            selectedImage: nil)
-        profileViewController.tabBarItem = profileTabBarItem
-
-        tbController.viewControllers = [
-            UINavigationController(rootViewController: templateViewController),
-            UINavigationController(rootViewController: statisticViewController),
-            UINavigationController(rootViewController: newNoteViewController),
-            UINavigationController(rootViewController: notificationViewController),
-            UINavigationController(rootViewController: profileViewController)
-            ]
-        tbController.selectedIndex = 4
-
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.window?.rootViewController = tbController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
+    func didPressBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

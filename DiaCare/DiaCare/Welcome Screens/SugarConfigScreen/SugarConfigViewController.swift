@@ -37,8 +37,13 @@ class SugarConfigViewController: UIViewController {
 extension SugarConfigViewController: SugarConfigViewDelegate {
     func didPressNext(lowSugar: String?, targetSugar: String?, hightSugar: String?) {
         viewModel.saveUserInfo(lowSugar: lowSugar, targetSugar: targetSugar, hightSugar: hightSugar)
-        self.navigationController?.pushViewController(FoodConfigViewController(
-            viewModel: FoodConfigViewModel()), animated: true)
+        self.navigationController?.pushViewController(
+            WelcomeScreensControllerFabric.shared.makeFoodConfigVC(),
+            animated: true)
+    }
+
+    func didPressBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

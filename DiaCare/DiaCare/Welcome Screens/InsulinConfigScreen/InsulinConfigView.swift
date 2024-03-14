@@ -9,6 +9,7 @@ import UIKit
 
 protocol InsulinConfigViewDelegate: AnyObject {
     func didPressSave(shortInsulin: String?, longInsulin: String?)
+    func didPressBack()
 }
 
 class InsulinConfigView: UIView {
@@ -25,6 +26,7 @@ class InsulinConfigView: UIView {
     lazy var shortPickerView: UIPickerView = UIPickerView()
     lazy var longPickerView: UIPickerView = UIPickerView()
     lazy var saveButton: UIButton = UIButton()
+    lazy var backButton: UIButton = UIButton()
 
     weak var delegate: InsulinConfigViewDelegate?
 
@@ -44,6 +46,7 @@ class InsulinConfigView: UIView {
         setUpShortInsulinTextField()
         setUpLongInsulinTextField()
         setUpNextButton()
+        setUpBackButton()
     }
 
     private func setUpWelcomeImageView() {
@@ -124,5 +127,22 @@ class InsulinConfigView: UIView {
         toolbar.setItems([doneButton], animated: true)
         toolbar.backgroundColor = .gray
         textField.inputAccessoryView = toolbar
+    }
+
+    private func setUpBackButton() {
+        addSubview(backButton)
+        backButton.layer.cornerRadius = 10
+        backButton.setImage(UIImage.leftArrowIcon, for: .normal)
+        let backAction: UIAction = UIAction { [weak self] _ in
+            self?.delegate?.didPressBack()
+        }
+        backButton.addAction(backAction, for: .touchUpInside)
+
+        backButton.snp.makeConstraints { make in
+            make.top.lessThanOrEqualToSuperview().offset(70)
+            make.leading.lessThanOrEqualToSuperview().offset(20)
+            make.height.equalTo(20)
+            make.width.equalTo(20)
+        }
     }
 }

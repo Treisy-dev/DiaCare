@@ -14,16 +14,31 @@ class PreferencesSubView: UIView {
 
     lazy var underlineView: CustomUnderlineView = CustomUnderlineView(frame: CGRect(x: 0, y: 0, width: 300, height: 1))
 
-    init(frame: CGRect, targetSugarText: String, highSugarText: String, lowSugarText: String) {
+    init(frame: CGRect,
+         targetSugarText: String,
+         highSugarText: String,
+         lowSugarText: String,
+         foodText: String,
+         insulinText: String) {
         super.init(frame: frame)
-        setUpProfileVStack(targetSugarText: targetSugarText, highSugarText: highSugarText, lowSugarText: lowSugarText)
+        setUpProfileVStack(
+            targetSugarText: targetSugarText,
+            highSugarText: highSugarText,
+            lowSugarText: lowSugarText,
+            foodText: foodText,
+            insulinText: insulinText)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUpProfileVStack(targetSugarText: String, highSugarText: String, lowSugarText: String) {
+    private func setUpProfileVStack(
+        targetSugarText: String,
+        highSugarText: String,
+        lowSugarText: String,
+        foodText: String,
+        insulinText: String) {
         addSubview(preferencesVStack)
         preferencesVStack.axis = .vertical
         preferencesVStack.spacing = 15
@@ -33,18 +48,29 @@ class PreferencesSubView: UIView {
         preferencesLable.textColor = .black
 
         preferencesVStack.addArrangedSubview(preferencesLable)
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeSugarHStack(
+        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
             withLabel: "Целевой сахар",
             withImage: UIImage.targetIcon,
-            withCountLable: targetSugarText))
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeSugarHStack(
-            withLabel: "Высокий сахар",
+            withCountLable: targetSugarText,
+            coloredText: "ммоль/л"))
+        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
+            withLabel: " Высокий сахар",
             withImage: UIImage.highSugarIcon,
-            withCountLable: highSugarText))
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeSugarHStack(
+            withCountLable: highSugarText,
+            coloredText: "ммоль/л"))
+        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
             withLabel: "Низкий сахар",
             withImage: UIImage.lowSugarIcon,
-            withCountLable: lowSugarText))
+            withCountLable: lowSugarText,
+            coloredText: "ммоль/л"))
+        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeFoodHStack(
+            withLabel: "Углеводов в ХЕ",
+            withCountLable: foodText,
+            coloredText: "единиц"))
+        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeFoodHStack(
+            withLabel: "Инсулин на ХЕ",
+            withCountLable: insulinText,
+            coloredText: "единиц"))
 
         preferencesVStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()

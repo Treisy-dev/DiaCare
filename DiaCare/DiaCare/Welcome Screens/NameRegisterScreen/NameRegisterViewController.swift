@@ -44,7 +44,8 @@ extension NameRegisterViewController: NameRegisterViewDelegate {
 
     func didPressNext(name: String?, email: String?) {
         viewModel.saveUserInfo(name: name, email: email)
-        self.navigationController?.pushViewController(SugarConfigViewController(
-            viewModel: SugarConfigViewModel()), animated: true)
+        self.navigationController?.pushViewController(
+            WelcomeScreensControllerFabric.shared.makeSugarConfigVC(),
+            animated: true)
     }
 }

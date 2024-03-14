@@ -48,7 +48,12 @@ extension FoodConfigViewController: UIPickerViewDelegate {
 extension FoodConfigViewController: FoodConfigViewDelegate {
     func didPressNext(breadCount: String?, insulinCount: String?) {
         viewModel.saveUserInfo(breadCount: breadCount, insulinCount: insulinCount)
-        self.navigationController?.pushViewController(InsulinConfigViewController(
-            viewModel: InsulinConfigViewModel()), animated: true)
+        self.navigationController?.pushViewController(
+            WelcomeScreensControllerFabric.shared.makeInsulinConfigVC(),
+            animated: true)
+    }
+
+    func didPressBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
