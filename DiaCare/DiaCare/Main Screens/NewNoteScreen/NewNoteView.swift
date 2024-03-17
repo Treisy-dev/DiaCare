@@ -108,7 +108,7 @@ class NewNoteView: UIView {
             make.leading.equalToSuperview().offset(33)
             make.trailing.equalToSuperview().inset(33)
             make.top.equalTo(titleLable.snp_bottomMargin).offset(20)
-            make.height.equalTo(120)
+            make.height.equalTo(125)
         }
     }
 

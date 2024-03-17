@@ -15,6 +15,7 @@ class NewNoteSugarSubView: UIView {
     lazy var sugarCountLabel: UILabel = UILabel()
     private lazy var sugarLabel: UILabel = UILabel()
     private lazy var bloodIcon: UIImageView = UIImageView()
+    private lazy var hintLabel: UILabel = UILabel()
 
     init(frame: CGRect, avarageSugar: String) {
         super.init(frame: frame)
@@ -35,6 +36,7 @@ class NewNoteSugarSubView: UIView {
         setUpSugarCountLabel()
         setUpDownArrow()
         setUpUpArrow()
+        setUpHintLabel()
     }
 
     private func setUpSugarLabel() {
@@ -119,6 +121,18 @@ class NewNoteSugarSubView: UIView {
             make.centerY.equalTo(sugarView.snp_centerYWithinMargins)
             make.width.equalTo(16)
             make.height.equalTo(19)
+        }
+    }
+
+    private func setUpHintLabel() {
+        addSubview(hintLabel)
+        hintLabel.text = "тяни для изменений"
+        hintLabel.font = UIFont.systemFont(ofSize: 11)
+        hintLabel.textColor = .lightGray.withAlphaComponent(0.7)
+
+        hintLabel.snp.makeConstraints { make in
+            make.top.equalTo(sugarView.snp.bottom).offset(5)
+            make.centerX.equalToSuperview()
         }
     }
 
