@@ -9,15 +9,16 @@ import UIKit
 
 class UserNameSubView: UIView {
 
-    lazy var profileVStack: UIStackView = UIStackView()
-    lazy var profileLable: UILabel = UILabel()
-    lazy var nameHStack: UIStackView = UIStackView()
-    lazy var nameLable: UILabel = UILabel()
-    lazy var nameIconImageView: UIImageView = UIImageView()
-    lazy var emailHStack: UIStackView = UIStackView()
-    lazy var emailLabel: UILabel = UILabel()
-    lazy var emailIconImageView: UIImageView = UIImageView()
-    lazy var underlineView: CustomUnderlineView = CustomUnderlineView(frame: CGRect(x: 0, y: 0, width: 200, height: 1))
+    private lazy var profileVStack: UIStackView = UIStackView()
+    private lazy var profileLable: UILabel = UILabel()
+    private lazy var nameHStack: UIStackView = UIStackView()
+    private lazy var nameLable: UILabel = UILabel()
+    private lazy var nameIconImageView: UIImageView = UIImageView()
+    private lazy var emailHStack: UIStackView = UIStackView()
+    private lazy var emailLabel: UILabel = UILabel()
+    private lazy var emailIconImageView: UIImageView = UIImageView()
+    private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
+        frame: CGRect(x: 0, y: 0, width: 200, height: 1))
 
     init(frame: CGRect, name: String, email: String) {
         super.init(frame: frame)

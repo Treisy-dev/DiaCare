@@ -9,9 +9,9 @@ import UIKit
 
 class SettingsSubView: UIView {
 
-    lazy var settingsVStack: UIStackView = UIStackView()
+    private lazy var settingsVStack: UIStackView = UIStackView()
 
-    lazy var settingsLable: UILabel = UILabel()
+    private lazy var settingsLable: UILabel = UILabel()
     var customTextField: CustomLanguageTextField
 
     init(frame: CGRect, selectedLanguage: String) {

@@ -17,6 +17,7 @@ class WelcomeScreensControllerFabric {
     func makeMainAppTabBarController() -> UIViewController {
         let tbController: UITabBarController = UITabBarController()
         tbController.tabBar.tintColor = .mainApp
+        tbController.tabBar.backgroundColor = .white
 
         let templateViewController = TemplateViewController()
         let templateTabBarItem = UITabBarItem(
@@ -32,10 +33,10 @@ class WelcomeScreensControllerFabric {
             selectedImage: nil)
         statisticViewController.tabBarItem = statisticTabBarItem
 
-        let newNoteViewController = NewNoteViewController()
+        let newNoteViewController = NewNoteViewController(viewModel: NewNoteViewModel())
         let newNoteTabBarItem = UITabBarItem(
             title: nil,
-            image: UIImage.plusIcon,
+            image: UIImage.circledPlusIcon,
             selectedImage: nil)
         newNoteViewController.tabBarItem = newNoteTabBarItem
 
