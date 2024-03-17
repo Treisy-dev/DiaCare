@@ -89,7 +89,7 @@ class ProfileView: UIView {
         profileContentView.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
             make.top.equalToSuperview().inset(165)
-            make.height.equalTo(400)
+            make.height.equalTo(800)
         }
     }
 
@@ -128,7 +128,7 @@ class ProfileView: UIView {
     private func setUpPreferencesSubView() {
         profileContentView.addSubview(preferencesSubView ?? UIView())
         preferencesSubView?.snp.makeConstraints { make in
-            make.top.lessThanOrEqualTo(userNameSubView!.snp_bottomMargin).offset((42))
+            make.top.equalTo(userNameSubView!.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
         }
@@ -137,7 +137,7 @@ class ProfileView: UIView {
     private func setUpDragSubView() {
         profileContentView.addSubview(dragSubView ?? UIView())
         dragSubView?.snp.makeConstraints { make in
-            make.top.lessThanOrEqualTo(preferencesSubView!.snp_bottomMargin).offset((42))
+            make.top.equalTo(preferencesSubView!.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
         }
@@ -146,7 +146,7 @@ class ProfileView: UIView {
     private func setUpSettingsSubView() {
         profileContentView.addSubview(settingsSubView ?? UIView())
         settingsSubView?.snp.makeConstraints { make in
-            make.top.lessThanOrEqualTo(dragSubView!.snp_bottomMargin).offset(42)
+            make.top.equalTo(dragSubView!.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
         }
@@ -159,7 +159,7 @@ class ProfileView: UIView {
             initialCenterYConstraintConstant = profileContentView.frame.maxY
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
-            if newMaxY <= 565 && newMaxY >= 500 {
+            if newMaxY <= 965 && newMaxY >= 900 {
                 profileContentView.center.y = newMaxY - profileContentView.frame.height/2
             }
         }

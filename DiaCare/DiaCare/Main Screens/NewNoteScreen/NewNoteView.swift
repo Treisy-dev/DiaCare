@@ -22,6 +22,7 @@ class NewNoteView: UIView {
     private lazy var saveButton: UIButton = UIButton()
 
     private var initialCenterYConstraintConstant: CGFloat = 0
+    private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
 
     init(frame: CGRect, averageSugar: String) {
@@ -177,14 +178,14 @@ class NewNoteView: UIView {
 
         if recognizer.state == .began {
             initialCenterYConstraintConstant = newNoteContentView.frame.maxY
+            initialTransform = newNoteContentView.transform
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
 
             if newMaxY <= 1085 && newMaxY >= 870 {
-                newNoteContentView.center.y = newMaxY - newNoteContentView.frame.height/2
+                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
+                newNoteContentView.transform = newTransform
             }
-        } else if recognizer.state == .ended {
-            recognizer.setTranslation(.zero, in: self)
         }
     }
 }
