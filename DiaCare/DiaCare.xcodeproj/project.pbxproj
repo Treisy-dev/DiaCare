@@ -21,6 +21,7 @@
 		C333ABBC2BA37A8A00EA100E /* NewNoteFoodSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABBB2BA37A8A00EA100E /* NewNoteFoodSubView.swift */; };
 		C333ABC12BA37D9000EA100E /* CustomAddFoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABC02BA37D9000EA100E /* CustomAddFoodButton.swift */; };
 		C333ABC42BA636F700EA100E /* NewNoteInjectionSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABC32BA636F700EA100E /* NewNoteInjectionSubView.swift */; };
+		C333ABC72BA7476F00EA100E /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABC62BA7476F00EA100E /* UIImageExtensions.swift */; };
 		C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */; };
 		C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */; };
 		C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */; };
@@ -75,6 +76,7 @@
 		C333ABBB2BA37A8A00EA100E /* NewNoteFoodSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteFoodSubView.swift; sourceTree = "<group>"; };
 		C333ABC02BA37D9000EA100E /* CustomAddFoodButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddFoodButton.swift; sourceTree = "<group>"; };
 		C333ABC32BA636F700EA100E /* NewNoteInjectionSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteInjectionSubView.swift; sourceTree = "<group>"; };
+		C333ABC62BA7476F00EA100E /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		C3DCF9A82B9DF31A007D7FF0 /* DiaCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +209,14 @@
 			path = TextFields;
 			sourceTree = "<group>";
 		};
+		C333ABC52BA7474F00EA100E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C333ABC62BA7476F00EA100E /* UIImageExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C3DCF99F2B9DF31A007D7FF0 = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +236,7 @@
 		C3DCF9AA2B9DF31A007D7FF0 /* DiaCare */ = {
 			isa = PBXGroup;
 			children = (
+				C333ABC52BA7474F00EA100E /* Extensions */,
 				C333ABAC2B9FCA9200EA100E /* UserDefaultsDataManager.swift */,
 				C3DCF9EF2B9E597B007D7FF0 /* Main Screens */,
 				C3DCF9CD2B9DF517007D7FF0 /* Welcome Screens */,
@@ -476,6 +487,7 @@
 				C333ABAD2B9FCA9200EA100E /* UserDefaultsDataManager.swift in Sources */,
 				C3DCF9DD2B9E0B0D007D7FF0 /* CustomConfigTextField.swift in Sources */,
 				C3DCFA022B9E5AC7007D7FF0 /* NewNoteView.swift in Sources */,
+				C333ABC72BA7476F00EA100E /* UIImageExtensions.swift in Sources */,
 				C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */,
 				C333ABA62B9FBBD900EA100E /* PreferencesSubView.swift in Sources */,
 				C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */,
