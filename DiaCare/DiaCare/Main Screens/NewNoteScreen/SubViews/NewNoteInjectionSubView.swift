@@ -12,11 +12,11 @@ class NewNoteInjectionSubView: UIView {
 
     lazy var breadTextField: UITextField = UITextField()
     private lazy var breadLabel: UILabel = UILabel()
-    private lazy var breadSlider: UISlider = UISlider()
+    lazy var breadSlider: UISlider = UISlider()
 
     lazy var insulinTextField: UITextField = UITextField()
     private lazy var insulinLabel: UILabel = UILabel()
-    private lazy var insulinSlider: UISlider = UISlider()
+    lazy var insulinSlider: UISlider = UISlider()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

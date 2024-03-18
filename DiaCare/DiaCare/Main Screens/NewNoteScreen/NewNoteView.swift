@@ -143,6 +143,8 @@ class NewNoteView: UIView {
         let resetAction = UIAction { [weak self] _ in
             self?.injectionSubView.breadTextField.text = "0"
             self?.injectionSubView.insulinTextField.text = "0"
+            self?.injectionSubView.breadSlider.value = 0
+            self?.injectionSubView.insulinSlider.value = 0
             self?.sugarSubView?.sugarCountLabel.text = self?.averageSugar
         }
 
