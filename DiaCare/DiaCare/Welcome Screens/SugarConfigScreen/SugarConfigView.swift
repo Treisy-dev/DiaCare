@@ -12,7 +12,7 @@ protocol SugarConfigViewDelegate: AnyObject {
     func didPressBack()
 }
 
-class SugarConfigView: UIView {
+final class SugarConfigView: UIView {
     lazy var welcomeImageView: UIImageView = UIImageView()
     lazy var configLabel: UILabel = UILabel()
     lazy var lowSugarField: CustomConfigTextField = CustomConfigTextField(

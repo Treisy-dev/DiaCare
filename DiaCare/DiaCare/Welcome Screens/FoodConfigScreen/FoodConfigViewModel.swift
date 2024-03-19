@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FoodConfigViewModel: NSObject, UIPickerViewDataSource {
+final class FoodConfigViewModel: NSObject, UIPickerViewDataSource {
 
     var dataSource: [String] = []
 

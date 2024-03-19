@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class PreferencesSubView: UIView {
+final class PreferencesSubView: UIView {
 
     private lazy var preferencesVStack: UIStackView = UIStackView()
     private lazy var preferencesLable: UILabel = UILabel()

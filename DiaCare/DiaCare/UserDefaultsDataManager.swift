@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserDefaultsDataManager {
+final class UserDefaultsDataManager {
 
     var userInfo: [String: String] = [:]
     let userDefaults = UserDefaults.standard

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SugarConfigViewController: UIViewController {
+final class SugarConfigViewController: UIViewController {
 
     private let contentView: SugarConfigView = .init()
 

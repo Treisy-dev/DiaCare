@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomGradientView: UIView {
+final class CustomGradientView: UIView {
 
     override class var layerClass: AnyClass {
         return CAGradientLayer.self

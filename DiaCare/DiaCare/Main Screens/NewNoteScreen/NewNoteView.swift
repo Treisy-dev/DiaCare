@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class NewNoteView: UIView {
+final class NewNoteView: UIView {
 
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var titleLable: UILabel = UILabel()

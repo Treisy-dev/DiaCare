@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class NewNoteFoodSubView: UIView {
+final class NewNoteFoodSubView: UIView {
 
     private lazy var foodLabel: UILabel = UILabel()
     private lazy var foodVStack: UIStackView = UIStackView()

@@ -12,7 +12,7 @@ protocol FoodConfigViewDelegate: AnyObject {
     func didPressBack()
 }
 
-class FoodConfigView: UIView {
+final class FoodConfigView: UIView {
     lazy var welcomeImageView: UIImageView = UIImageView()
     lazy var configLabel: UILabel = UILabel()
     lazy var breadCountLabel: UILabel = UILabel()

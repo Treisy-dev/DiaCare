@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class CustomLanguageTextField: UITextField {
+final class CustomLanguageTextField: UITextField {
 
     private lazy var iconImageView: UIImageView = UIImageView()
     private lazy var arrowImageView: UIImageView = UIImageView()

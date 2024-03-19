@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class NewNoteSugarSubView: UIView {
+final class NewNoteSugarSubView: UIView {
 
     private lazy var downArrow: UIButton = UIButton()
     private lazy var upArrow: UIButton = UIButton()

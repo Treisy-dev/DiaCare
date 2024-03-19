@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FoodConfigViewController: UIViewController {
+final class FoodConfigViewController: UIViewController {
 
     private let contentView: FoodConfigView = .init()
 

@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class DragSubView: UIView {
+final class DragSubView: UIView {
 
     private lazy var dragVStack: UIStackView = UIStackView()
     private lazy var dragLable: UILabel = UILabel()

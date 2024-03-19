@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class PreferencesHStackFabric {
+final class PreferencesHStackFabric {
     public static let shared = PreferencesHStackFabric()
 
     private init() {

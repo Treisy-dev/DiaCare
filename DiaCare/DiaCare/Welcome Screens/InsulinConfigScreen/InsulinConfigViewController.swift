@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InsulinConfigViewController: UIViewController {
+final class InsulinConfigViewController: UIViewController {
 
     private let contentView: InsulinConfigView = .init()
 

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WelcomeScreensControllerFabric {
+final class WelcomeScreensControllerFabric {
     public static let shared = WelcomeScreensControllerFabric()
 
     private init() {

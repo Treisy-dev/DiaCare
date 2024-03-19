@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
 
     private var userNameSubView: UserNameSubView?
     private var preferencesSubView: PreferencesSubView?

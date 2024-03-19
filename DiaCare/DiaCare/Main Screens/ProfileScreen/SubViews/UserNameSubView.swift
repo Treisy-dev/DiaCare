@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class UserNameSubView: UIView {
+final class UserNameSubView: UIView {
 
     private lazy var profileVStack: UIStackView = UIStackView()
     private lazy var profileLable: UILabel = UILabel()

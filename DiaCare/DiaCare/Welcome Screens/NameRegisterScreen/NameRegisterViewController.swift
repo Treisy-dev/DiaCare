@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NameRegisterViewController: UIViewController {
+final class NameRegisterViewController: UIViewController {
 
     private let contentView: NameRegisterView = .init()
 

@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class CustomUnderlineView: UIView {
+final class CustomUnderlineView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

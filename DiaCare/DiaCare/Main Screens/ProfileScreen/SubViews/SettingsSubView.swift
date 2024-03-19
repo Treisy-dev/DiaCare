@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class SettingsSubView: UIView {
+final class SettingsSubView: UIView {
 
     private lazy var settingsVStack: UIStackView = UIStackView()
 

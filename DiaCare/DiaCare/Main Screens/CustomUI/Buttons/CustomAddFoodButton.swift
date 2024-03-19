@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class CustomAddFoodButton: UIButton {
+final class CustomAddFoodButton: UIButton {
 
     private let buttonView: UIView = UIView()
     private let buttonImageView: UIImageView = UIImageView()

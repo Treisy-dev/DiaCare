@@ -11,7 +11,7 @@ protocol NameRegisterViewDelegate: AnyObject {
     func didPressNext(name: String?, email: String?)
 }
 
-class NameRegisterView: UIView {
+final class NameRegisterView: UIView {
     lazy var welcomeImageView: UIImageView = UIImageView()
     lazy var registerLabel: UILabel = UILabel()
     lazy var nameTextField: UITextField = UITextField()

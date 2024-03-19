@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewNoteViewController: UIViewController, UITextFieldDelegate {
+final class NewNoteViewController: UIViewController {
 
     private let contentView: NewNoteView
 
@@ -29,7 +29,10 @@ class NewNoteViewController: UIViewController, UITextFieldDelegate {
     override func loadView() {
         view = contentView
     }
+}
 
+extension NewNoteViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NameRegisterViewModel {
+final class NameRegisterViewModel {
     func saveUserInfo(name: String?, email: String?) {
         UserDefaultsDataManager.shared.addNameToUserInfo(name: name, email: email)
     }

@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class NewNoteInjectionSubView: UIView {
+final class NewNoteInjectionSubView: UIView {
 
     lazy var breadTextField: UITextField = UITextField()
     private lazy var breadLabel: UILabel = UILabel()
