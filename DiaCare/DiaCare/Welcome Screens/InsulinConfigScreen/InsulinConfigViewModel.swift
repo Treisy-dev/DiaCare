@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class InsulinConfigViewModel: NSObject, UIPickerViewDataSource {
+final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource {
 
     var shortPickerView: UIPickerView?
     var longPickerView: UIPickerView?

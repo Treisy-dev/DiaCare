@@ -7,23 +7,37 @@
 
 import UIKit
 
-class NewNoteViewController: UIViewController {
+final class NewNoteViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private let contentView: NewNoteView
 
-        // Do any additional setup after loading the view.
+    private let viewModel: NewNoteViewModel
+
+    init(viewModel: NewNoteViewModel) {
+        self.viewModel = viewModel
+        contentView = NewNoteView(frame: CGRect(), averageSugar: viewModel.averageSugar)
+        super.init(nibName: nil, bundle: nil)
+        contentView.injectionSubView.breadTextField.delegate = self
+        contentView.injectionSubView.insulinTextField.delegate = self
+        navigationController?.isNavigationBarHidden = true
     }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = contentView
+    }
+}
+
+extension NewNoteViewController: UITextFieldDelegate {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
-    */
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectAll(nil)
+    }
 }

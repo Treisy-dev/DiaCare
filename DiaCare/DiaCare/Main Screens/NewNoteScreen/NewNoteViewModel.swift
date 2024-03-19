@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+final class NewNoteViewModel {
+    let averageSugar = "8.5"
+}

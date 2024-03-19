@@ -7,10 +7,10 @@
 import SnapKit
 import UIKit
 
-class CustomLanguageTextField: UITextField {
+final class CustomLanguageTextField: UITextField {
 
-    lazy var iconImageView: UIImageView = UIImageView()
-    lazy var arrowImageView: UIImageView = UIImageView()
+    private lazy var iconImageView: UIImageView = UIImageView()
+    private lazy var arrowImageView: UIImageView = UIImageView()
     lazy var languagePickerView: UIPickerView = UIPickerView()
 
     init(frame: CGRect, icon: UIImage, placeholder: String) {
@@ -26,14 +26,26 @@ class CustomLanguageTextField: UITextField {
         setupTextField()
     }
 
-    func setupTextField() {
-        self.inputView = languagePickerView
-        self.layer.cornerRadius = 10
-        self.borderStyle = .none
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-        self.textAlignment = .center
+    private func setupTextField() {
+        inputView = languagePickerView
+        layer.cornerRadius = 10
+        borderStyle = .none
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        textAlignment = .center
+        leftView = iconImageView
+        leftViewMode = .always
+        rightView = arrowImageView
+        rightViewMode = .always
+        layoutIfNeeded()
 
+        setUpToolBar()
+        setUpSeparatorView()
+        setUpIconImageView()
+        setUpArrowImageView()
+    }
+
+    private func setUpToolBar() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         let doneAction: UIAction = UIAction { [weak self] _ in
@@ -43,29 +55,27 @@ class CustomLanguageTextField: UITextField {
         toolbar.setItems([doneButton], animated: true)
         toolbar.backgroundColor = .gray
         self.inputAccessoryView = toolbar
+    }
 
-        iconImageView.contentMode = .center
-
-        self.leftView = iconImageView
-        self.leftViewMode = .always
-
+    private func setUpSeparatorView() {
         let separatorView = UIView(frame: CGRect(x: 35, y: 5, width: 1, height: 20))
         separatorView.backgroundColor = UIColor.black
         self.addSubview(separatorView)
+    }
 
-        self.rightView = arrowImageView
-        self.rightViewMode = .always
-        self.layoutIfNeeded()
-
-        arrowImageView.image = UIImage(named: "DownArrowIconBlack")
-        arrowImageView.contentMode = .center
+    private func setUpIconImageView() {
+        iconImageView.contentMode = .center
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(self).offset(8)
             make.width.equalTo(35)
             make.height.equalTo(40)
         }
+    }
 
+    private func setUpArrowImageView() {
+        arrowImageView.image = UIImage(named: "DownArrowIconBlack")
+        arrowImageView.contentMode = .center
         arrowImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(self).offset(-8)

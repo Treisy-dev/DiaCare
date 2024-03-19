@@ -7,12 +7,13 @@
 import SnapKit
 import UIKit
 
-class PreferencesSubView: UIView {
+final class PreferencesSubView: UIView {
 
-    lazy var preferencesVStack: UIStackView = UIStackView()
-    lazy var preferencesLable: UILabel = UILabel()
+    private lazy var preferencesVStack: UIStackView = UIStackView()
+    private lazy var preferencesLable: UILabel = UILabel()
 
-    lazy var underlineView: CustomUnderlineView = CustomUnderlineView(frame: CGRect(x: 0, y: 0, width: 300, height: 1))
+    private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
+        frame: CGRect(x: 0, y: 0, width: 300, height: 1))
 
     init(frame: CGRect,
          targetSugarText: String,

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WelcomeScreensControllerFabric {
+final class WelcomeScreensControllerFabric {
     public static let shared = WelcomeScreensControllerFabric()
 
     private init() {
@@ -17,41 +17,23 @@ class WelcomeScreensControllerFabric {
     func makeMainAppTabBarController() -> UIViewController {
         let tbController: UITabBarController = UITabBarController()
         tbController.tabBar.tintColor = .mainApp
+        tbController.tabBar.backgroundColor = .white
 
-        let templateViewController = TemplateViewController()
-        let templateTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.listIcon,
-            selectedImage: nil)
-        templateViewController.tabBarItem = templateTabBarItem
-
-        let statisticViewController = StatisticViewController()
-        let statisticTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.chartIcon,
-            selectedImage: nil)
-        statisticViewController.tabBarItem = statisticTabBarItem
-
-        let newNoteViewController = NewNoteViewController()
-        let newNoteTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.plusIcon,
-            selectedImage: nil)
-        newNoteViewController.tabBarItem = newNoteTabBarItem
-
-        let notificationViewController = NotificationViewController()
-        let notificationTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.bellIcon,
-            selectedImage: nil)
-        notificationViewController.tabBarItem = notificationTabBarItem
-
-        let profileViewController = ProfileViewController(viewModel: ProfileViewModel())
-        let profileTabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage.profileIcon,
-            selectedImage: nil)
-        profileViewController.tabBarItem = profileTabBarItem
+        let templateViewController = configTabBarItem(
+            viewController: TemplateViewController(),
+            image: UIImage.listIcon)
+        let statisticViewController = configTabBarItem(
+            viewController: StatisticViewController(),
+            image: UIImage.chartIcon)
+        let newNoteViewController = configTabBarItem(
+            viewController: NewNoteViewController(viewModel: NewNoteViewModel()),
+            image: UIImage.circledPlusIcon)
+        let notificationViewController = configTabBarItem(
+            viewController: NotificationViewController(),
+            image: UIImage.bellIcon)
+        let profileViewController = configTabBarItem(
+            viewController: ProfileViewController(viewModel: ProfileViewModel()),
+            image: UIImage.profileIcon)
 
         tbController.viewControllers = [
             UINavigationController(rootViewController: templateViewController),
@@ -78,5 +60,15 @@ class WelcomeScreensControllerFabric {
     func makeSugarConfigVC() -> UIViewController {
         let viewModel = SugarConfigViewModel()
         return SugarConfigViewController(viewModel: viewModel)
+    }
+
+    private func configTabBarItem(viewController: UIViewController, image: UIImage) -> UIViewController {
+        let templateTabBarItem = UITabBarItem(
+            title: nil,
+            image: image.resizeImage(newSize: CGSize(width: 30, height: 30)),
+            selectedImage: nil)
+        viewController.tabBarItem = templateTabBarItem
+
+        return viewController
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewModel: NSObject, UIPickerViewDataSource {
+final class ProfileViewModel: NSObject, UIPickerViewDataSource {
     let userInfoData: [String: String] = UserDefaultsDataManager.shared.getUserInfo()
     let languageDataSource: [String] = ["Русский", "English"]
 

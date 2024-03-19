@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SugarConfigViewModel: NSObject, UIPickerViewDataSource {
+final class SugarConfigViewModel: NSObject, UIPickerViewDataSource {
 
     var dataSource: [String] = []
 

@@ -7,12 +7,13 @@
 import SnapKit
 import UIKit
 
-class DragSubView: UIView {
+final class DragSubView: UIView {
 
-    lazy var dragVStack: UIStackView = UIStackView()
-    lazy var dragLable: UILabel = UILabel()
+    private lazy var dragVStack: UIStackView = UIStackView()
+    private lazy var dragLable: UILabel = UILabel()
 
-    lazy var underlineView: CustomUnderlineView = CustomUnderlineView(frame: CGRect(x: 0, y: 0, width: 300, height: 1))
+    private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
+        frame: CGRect(x: 0, y: 0, width: 300, height: 1))
 
     init(frame: CGRect,
          shortInsulin: String,

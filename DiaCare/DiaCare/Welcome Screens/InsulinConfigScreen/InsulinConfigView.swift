@@ -12,7 +12,7 @@ protocol InsulinConfigViewDelegate: AnyObject {
     func didPressBack()
 }
 
-class InsulinConfigView: UIView {
+final class InsulinConfigView: UIView {
     lazy var welcomeImageView: UIImageView = UIImageView()
     lazy var configLabel: UILabel = UILabel()
     lazy var shortInsulinField: CustomConfigTextField = CustomConfigTextField(

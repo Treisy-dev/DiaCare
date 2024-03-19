@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class CustomConfigTextField: UITextField {
+final class CustomConfigTextField: UITextField {
 
     let iconImageView: UIImageView = UIImageView()
     let arrowImageView: UIImageView = UIImageView()
