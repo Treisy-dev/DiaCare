@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+import NaturalLanguage
 
 final class TranslationNetworkService {
     public static let shared = TranslationNetworkService()
@@ -20,15 +21,24 @@ final class TranslationNetworkService {
     ]
 
     func translateWord(word: String, completion: @escaping (Result<String, Error>) -> Void) {
-        makeTranslationRequest(with: word) { result in
-            switch result {
-            case .success(let word):
-                completion(.success(word))
-            case .failure(let error):
-                completion(.failure(error))
+        guard let language = NLLanguageRecognizer.dominantLanguage(for: word) else { return }
+
+        switch language {
+        case .russian:
+            makeTranslationRequest(with: word) { result in
+                switch result {
+                case .success(let product):
+                    completion(.success(product))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
+        case .undetermined:
+          completion(.failure(NSError(domain: "TranslationError", code: 0, userInfo: ["message": "Language detection failed"])))
+        default:
+          completion(.success(word))
         }
-    }
+      }
 
     private func makeTranslationRequest(with word: String, completion: @escaping (Result<String, Error>) -> Void) {
         translationParameters["q"] = word

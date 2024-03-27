@@ -31,7 +31,7 @@ final class ProductViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
 //        contentView.productTableView.dataSource = viewModel
         contentView.productTableView.delegate = self
-        viewModel.translateWord(word: "Яблоко") { [weak self] result in
+        viewModel.translateWord(word: "Apple") { [weak self] result in
             self?.viewModel.getDefaultSizeProduct(product: result) { product in
                 for item in product.items {
                     print(item)
