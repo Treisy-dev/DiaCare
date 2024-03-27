@@ -11,7 +11,9 @@ final class NewNoteFoodSubView: UIView {
 
     private lazy var foodLabel: UILabel = UILabel()
     private lazy var foodVStack: UIStackView = UIStackView()
-    private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame)
+    private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить продукт")
+
+    var addProductTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,8 +28,8 @@ final class NewNoteFoodSubView: UIView {
 
     private func setUp() {
         setUpFoodLabel()
-        setUpFoodVStack()
         setUpAddFoodButton()
+        setUpFoodVStack()
     }
 
     private func setUpFoodLabel() {
@@ -49,11 +51,22 @@ final class NewNoteFoodSubView: UIView {
 
         foodVStack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
+            make.top.equalTo(addFoodButton.snp.bottom).offset(10)
             make.bottom.equalToSuperview().inset(30)
         }
     }
 
     private func setUpAddFoodButton() {
-        foodVStack.addArrangedSubview(addFoodButton)
+        addSubview(addFoodButton)
+        let addProductAction: UIAction = UIAction { [weak self] _ in
+            self?.addProductTapped?()
+        }
+        addFoodButton.addAction(addProductAction, for: .touchUpInside)
+        addFoodButton.snp.makeConstraints { make in
+            make.top.equalTo(foodLabel.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().inset(40)
+            make.height.equalTo(40)
+        }
     }
 }

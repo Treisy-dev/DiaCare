@@ -13,7 +13,8 @@ final class CustomAddFoodButton: UIButton {
     private let buttonImageView: UIImageView = UIImageView()
     private let buttonLabel: UILabel = UILabel()
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, title: String) {
+        buttonLabel.text = title
         super.init(frame: frame)
         setupButton()
     }
@@ -26,6 +27,7 @@ final class CustomAddFoodButton: UIButton {
     private func setupButton() {
         addSubview(buttonView)
         buttonView.layer.cornerRadius = 10
+        buttonView.isUserInteractionEnabled = false
         buttonView.layer.borderWidth = 1
         buttonView.layer.borderColor = UIColor.lightGray.cgColor
         buttonView.snp.makeConstraints { make in
@@ -43,7 +45,6 @@ final class CustomAddFoodButton: UIButton {
         }
 
         buttonView.addSubview(buttonLabel)
-        buttonLabel.text = "Добавить продукт"
         buttonLabel.textColor = .lightGray
         buttonLabel.textAlignment = .center
 

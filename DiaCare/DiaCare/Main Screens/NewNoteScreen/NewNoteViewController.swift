@@ -29,10 +29,18 @@ final class NewNoteViewController: UIViewController {
     override func loadView() {
         view = contentView
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        contentView.foodSubView.addProductTapped = { [weak self] in
+            self?.navigationController?.pushViewController(ProductViewController(viewModel: ProductViewModel()), animated: true)
+        }
+    }
 }
 
 extension NewNoteViewController: UITextFieldDelegate {
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }

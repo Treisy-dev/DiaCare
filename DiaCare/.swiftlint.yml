@@ -4,6 +4,7 @@ disabled_rules:
   - cyclomatic_complexity
 
 excluded:
+  - DiaCare/Data
   - Carthage
   - Pods
 
