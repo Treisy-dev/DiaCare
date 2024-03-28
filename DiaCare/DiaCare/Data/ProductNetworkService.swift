@@ -8,11 +8,11 @@
 import Foundation
 import Alamofire
 
-final class ProductNetworkService {
-    public static let shared = ProductNetworkService()
+protocol ProductNetworkServiceProtocol {
+    func getDefaultSizeProduct(with product: String, completion: @escaping (Result<ProductsResponse, Error>) -> Void)
+}
 
-    private init() {
-    }
+final class ProductNetworkService: ProductNetworkServiceProtocol {
 
     var productHeaders: HTTPHeaders = [
         "X-Api-Key": "YnrJ0bBHVqD1sWJ3UrV7bA==fCVcjgy3StGgYjG1"

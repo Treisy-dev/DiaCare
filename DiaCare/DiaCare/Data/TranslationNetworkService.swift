@@ -2,11 +2,11 @@ import Foundation
 import Alamofire
 import NaturalLanguage
 
-final class TranslationNetworkService {
-    public static let shared = TranslationNetworkService()
+protocol TranslationNetworkServiceProtocol {
+    func translateWord(word: String, completion: @escaping (Result<String, Error>) -> Void)
+}
 
-    private init() {
-    }
+final class TranslationNetworkService: TranslationNetworkServiceProtocol {
 
     let translationHeaders: HTTPHeaders = [
         "content-type": "application/json",

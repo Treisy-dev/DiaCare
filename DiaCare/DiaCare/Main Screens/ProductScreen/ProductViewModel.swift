@@ -8,8 +8,17 @@
 import UIKit
 
 final class ProductViewModel: NSObject {
+
+    let translationNS: TranslationNetworkServiceProtocol
+    let productNS: ProductNetworkServiceProtocol
+
+    init(translationService: TranslationNetworkServiceProtocol, productService: ProductNetworkServiceProtocol) {
+        translationNS = translationService
+        productNS = productService
+    }
+
     func translateWord(word: String, completion: @escaping (String) -> Void) {
-        TranslationNetworkService.shared.translateWord(word: word) {result in
+        translationNS.translateWord(word: word) {result in
             switch result {
             case .success(let word):
                 completion(word)
@@ -20,7 +29,7 @@ final class ProductViewModel: NSObject {
     }
 
     func getDefaultSizeProduct(product: String, completion: @escaping (ProductsResponse) -> Void) {
-        ProductNetworkService.shared.getDefaultSizeProduct(with: product) { result in
+        productNS.getDefaultSizeProduct(with: product) { result in
             switch result {
             case .success(let product):
                 completion(product)

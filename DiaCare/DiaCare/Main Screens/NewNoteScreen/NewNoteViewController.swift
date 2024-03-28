@@ -34,7 +34,8 @@ final class NewNoteViewController: UIViewController {
         super.viewDidLoad()
 
         contentView.foodSubView.addProductTapped = { [weak self] in
-            self?.navigationController?.pushViewController(ProductViewController(viewModel: ProductViewModel()), animated: true)
+            let viewModel = ProductViewModel(translationService: TranslationNetworkService(), productService: ProductNetworkService())
+            self?.navigationController?.pushViewController(ProductViewController(viewModel: viewModel), animated: true)
         }
     }
 }
