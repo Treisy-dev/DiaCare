@@ -22,8 +22,7 @@ final class UserDefaultsDataManager {
     }
 
     func getUserInfo() -> [String: String] {
-        guard let loadedDictionary = userDefaults.dictionary(forKey: "userInfo")
-                as? [String: String] else { return [:] }
+        guard let loadedDictionary = userDefaults.dictionary(forKey: "userInfo") as? [String: String] else { return [:] }
         return loadedDictionary
     }
 
@@ -47,5 +46,10 @@ final class UserDefaultsDataManager {
         userInfo["shortInsulin"] = shortInsulin
         userInfo["longInsulin"] = longInsulin
         saveUserData()
+    }
+
+    func prepareData(with userNameData: [String: String], for key: String) -> String {
+        guard let arg = userNameData[key] else { return ""}
+        return arg
     }
 }

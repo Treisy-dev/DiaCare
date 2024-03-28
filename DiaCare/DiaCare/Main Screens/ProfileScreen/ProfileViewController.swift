@@ -32,15 +32,15 @@ final class ProfileViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        contentView.settingsSubView?.customTextField.languagePickerView.delegate = self
-        contentView.settingsSubView?.customTextField.languagePickerView.dataSource = viewModel
+        contentView.settingsSubView.customTextField.languagePickerView.delegate = self
+        contentView.settingsSubView.customTextField.languagePickerView.dataSource = viewModel
     }
 }
 
 extension ProfileViewController: UIPickerViewDelegate {
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        contentView.settingsSubView?.customTextField.text = viewModel.languageDataSource[row]
+        contentView.settingsSubView.customTextField.text = viewModel.languageDataSource[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

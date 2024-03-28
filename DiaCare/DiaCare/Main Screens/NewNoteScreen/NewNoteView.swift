@@ -14,8 +14,8 @@ final class NewNoteView: UIView {
     private lazy var newNoteContentView: UIView = UIView()
     private lazy var doctorImageView: UIImageView = UIImageView()
     private var averageSugar: String?
-    private var sugarSubView: NewNoteSugarSubView?
-    private var foodSubView: NewNoteFoodSubView = NewNoteFoodSubView(frame: CGRect())
+    private var sugarSubView: NewNoteSugarSubView
+    var foodSubView: NewNoteFoodSubView = NewNoteFoodSubView(frame: CGRect())
     var injectionSubView: NewNoteInjectionSubView = NewNoteInjectionSubView(frame: CGRect())
 
     private lazy var resetButton: UIButton = UIButton()
@@ -26,9 +26,9 @@ final class NewNoteView: UIView {
     private var panGestureRecognizer: UIPanGestureRecognizer?
 
     init(frame: CGRect, averageSugar: String) {
+        sugarSubView = NewNoteSugarSubView(frame: frame, avarageSugar: averageSugar)
         super.init(frame: frame)
         self.averageSugar = averageSugar
-        sugarSubView = NewNoteSugarSubView(frame: frame, avarageSugar: averageSugar)
         backgroundColor = .white
         setUp()
     }
@@ -42,7 +42,8 @@ final class NewNoteView: UIView {
 
         if panGestureRecognizer == nil {
             panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            newNoteContentView.addGestureRecognizer(panGestureRecognizer!)
+            guard let panGestureRecognizer else {return}
+            newNoteContentView.addGestureRecognizer(panGestureRecognizer)
         }
     }
 
@@ -103,8 +104,8 @@ final class NewNoteView: UIView {
     }
 
     private func setUpSugarSubView() {
-        newNoteContentView.addSubview(sugarSubView ?? UIView())
-        sugarSubView?.snp.makeConstraints { make in
+        newNoteContentView.addSubview(sugarSubView)
+        sugarSubView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(33)
             make.trailing.equalToSuperview().inset(33)
             make.top.equalTo(titleLable.snp_bottomMargin).offset(20)
@@ -117,8 +118,8 @@ final class NewNoteView: UIView {
         foodSubView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(33)
             make.trailing.equalToSuperview().inset(33)
-            make.top.equalTo(sugarSubView!.snp_bottomMargin).offset(20)
-            make.height.equalTo(120)
+            make.top.equalTo(sugarSubView.snp_bottomMargin).offset(20)
+            make.height.equalTo(140)
         }
     }
 
@@ -145,7 +146,7 @@ final class NewNoteView: UIView {
             self?.injectionSubView.insulinTextField.text = "0"
             self?.injectionSubView.breadSlider.value = 0
             self?.injectionSubView.insulinSlider.value = 0
-            self?.sugarSubView?.sugarCountLabel.text = self?.averageSugar
+            self?.sugarSubView.sugarCountLabel.text = self?.averageSugar
         }
 
         resetButton.addAction(resetAction, for: .touchUpInside)

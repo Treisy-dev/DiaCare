@@ -9,10 +9,10 @@ import UIKit
 
 final class ProfileView: UIView {
 
-    private var userNameSubView: UserNameSubView?
-    private var preferencesSubView: PreferencesSubView?
-    private var dragSubView: DragSubView?
-    var settingsSubView: SettingsSubView?
+    private var userNameSubView: UserNameSubView
+    private var preferencesSubView: PreferencesSubView
+    private var dragSubView: DragSubView
+    var settingsSubView: SettingsSubView
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var titleLable: UILabel = UILabel()
     private lazy var profileContentView: UIView = UIView()
@@ -22,31 +22,31 @@ final class ProfileView: UIView {
     private var panGestureRecognizer: UIPanGestureRecognizer?
 
     init(frame: CGRect, userNameData: [String: String], selectedLanguage: String) {
-        super.init(frame: frame)
-        userNameSubView = UserNameSubView(
-            frame: frame,
-            name: prepareData(with: userNameData, for: "name"),
-            email: prepareData(with: userNameData, for: "email"))
-        preferencesSubView = PreferencesSubView(
-            frame: frame,
-            targetSugarText: prepareData(with: userNameData, for: "targetSugar"),
-            highSugarText: prepareData(with: userNameData, for: "hightSugar"),
-            lowSugarText: prepareData(with: userNameData, for: "lowSugar"),
-            foodText: prepareData(with: userNameData, for: "breadCount"),
-            insulinText: prepareData(with: userNameData, for: "insulinCount"))
         dragSubView = DragSubView(
             frame: frame,
-            shortInsulin: prepareData(with: userNameData, for: "shortInsulin"),
-            longInsulin: prepareData(with: userNameData, for: "longInsulin"))
+            shortInsulin: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "shortInsulin"),
+            longInsulin: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "longInsulin"))
+        userNameSubView = UserNameSubView(
+            frame: frame,
+            name: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "name"),
+            email: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "email"))
+        preferencesSubView = PreferencesSubView(
+            frame: frame,
+            targetSugarText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "targetSugar"),
+            highSugarText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "hightSugar"),
+            lowSugarText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "lowSugar"),
+            foodText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "breadCount"),
+            insulinText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "insulinCount"))
         settingsSubView = SettingsSubView(frame: frame, selectedLanguage: selectedLanguage)
+        super.init(frame: frame)
         backgroundColor = .white
         setUp()
     }
 
-    private func prepareData(with userNameData: [String: String], for key: String) -> String {
-        guard let arg = userNameData[key] else { return ""}
-        return arg
-    }
+//    private func prepareData(with userNameData: [String: String], for key: String) -> String {
+//        guard let arg = userNameData[key] else { return ""}
+//        return arg
+//    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -57,7 +57,8 @@ final class ProfileView: UIView {
 
         if panGestureRecognizer == nil {
             panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            profileContentView.addGestureRecognizer(panGestureRecognizer!)
+            guard let panGestureRecognizer else {return}
+            profileContentView.addGestureRecognizer(panGestureRecognizer)
         }
     }
 
@@ -117,8 +118,8 @@ final class ProfileView: UIView {
     }
 
     private func setUpUserNameSubView() {
-        profileContentView.addSubview(userNameSubView ?? UIView())
-        userNameSubView?.snp.makeConstraints { make in
+        profileContentView.addSubview(userNameSubView)
+        userNameSubView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(40)
             make.leading.equalToSuperview().offset(50)
             make.width.lessThanOrEqualTo(200)
@@ -126,27 +127,27 @@ final class ProfileView: UIView {
     }
 
     private func setUpPreferencesSubView() {
-        profileContentView.addSubview(preferencesSubView ?? UIView())
-        preferencesSubView?.snp.makeConstraints { make in
-            make.top.equalTo(userNameSubView!.snp.bottom).offset(35)
+        profileContentView.addSubview(preferencesSubView)
+        preferencesSubView.snp.makeConstraints { make in
+            make.top.equalTo(userNameSubView.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
         }
     }
 
     private func setUpDragSubView() {
-        profileContentView.addSubview(dragSubView ?? UIView())
-        dragSubView?.snp.makeConstraints { make in
-            make.top.equalTo(preferencesSubView!.snp.bottom).offset(35)
+        profileContentView.addSubview(dragSubView)
+        dragSubView.snp.makeConstraints { make in
+            make.top.equalTo(preferencesSubView.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
         }
     }
 
     private func setUpSettingsSubView() {
-        profileContentView.addSubview(settingsSubView ?? UIView())
-        settingsSubView?.snp.makeConstraints { make in
-            make.top.equalTo(dragSubView!.snp.bottom).offset(35)
+        profileContentView.addSubview(settingsSubView)
+        settingsSubView.snp.makeConstraints { make in
+            make.top.equalTo(dragSubView.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
         }
