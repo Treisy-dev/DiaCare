@@ -7,7 +7,7 @@
 
 import UIKit
 
-final  class ProductVStackFabric {
+final class ProductVStackFabric {
     public static let shared = ProductVStackFabric()
 
     private init() {

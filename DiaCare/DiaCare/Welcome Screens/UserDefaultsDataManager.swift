@@ -23,7 +23,7 @@ class UserDefaultsDataManager {
 
     func getUserInfo() -> [String: String] {
         guard let loadedDictionary = userDefaults.dictionary(forKey: "userInfo")
-                as? [String: String] else { return [:] }
+            as? [String: String] else { return [:] }
         return loadedDictionary
     }
 

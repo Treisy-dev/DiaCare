@@ -15,9 +15,7 @@ final class DragSubView: UIView {
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))
 
-    init(frame: CGRect,
-         shortInsulin: String,
-         longInsulin: String) {
+    init(frame: CGRect, shortInsulin: String, longInsulin: String) {
         super.init(frame: frame)
         setUpDragVStack(
             shortInsulin: shortInsulin,

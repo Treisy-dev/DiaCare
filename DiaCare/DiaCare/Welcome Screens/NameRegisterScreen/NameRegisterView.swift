@@ -123,8 +123,7 @@ final class NameRegisterView: UIView {
     }
 
     private func checkFields() -> Bool {
-        guard let name = nameTextField.text, !name.isEmpty,
-              let email = emailTextField.text, !email.isEmpty else {
+        guard let name = nameTextField.text, !name.isEmpty, let email = emailTextField.text, !email.isEmpty else {
             return false
         }
 

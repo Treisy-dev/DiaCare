@@ -161,7 +161,7 @@ final class ProfileView: UIView {
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
             if newMaxY <= 965 && newMaxY >= 900 {
-                profileContentView.center.y = newMaxY - profileContentView.frame.height/2
+                profileContentView.center.y = newMaxY - profileContentView.frame.height / 2
             }
         }
     }
