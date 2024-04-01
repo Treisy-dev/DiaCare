@@ -11,7 +11,7 @@ final class DragSubView: UIView {
 
     private lazy var dragVStack: UIStackView = UIStackView()
     private lazy var dragLable: UILabel = UILabel()
-    let preferencesHSFabric: PreferencesHStackFabricProtocol = PreferencesHStackFabric()
+    let preferencesHSFabric: PreferencesHStackFabricProtocol
 
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))
@@ -19,7 +19,9 @@ final class DragSubView: UIView {
     init(
         frame: CGRect,
         shortInsulin: String,
-        longInsulin: String) {
+        longInsulin: String,
+        preferenceHStackFabric: PreferencesHStackFabricProtocol) {
+        preferencesHSFabric = preferenceHStackFabric
         super.init(frame: frame)
         setUpDragVStack(
             shortInsulin: shortInsulin,

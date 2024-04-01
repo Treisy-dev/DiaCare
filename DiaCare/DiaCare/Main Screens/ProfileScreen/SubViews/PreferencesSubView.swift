@@ -11,7 +11,7 @@ final class PreferencesSubView: UIView {
 
     private lazy var preferencesVStack: UIStackView = UIStackView()
     private lazy var preferencesLable: UILabel = UILabel()
-    let preferencesHSFabric: PreferencesHStackFabricProtocol = PreferencesHStackFabric()
+    let preferencesHSFabric: PreferencesHStackFabricProtocol
 
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))
@@ -22,7 +22,9 @@ final class PreferencesSubView: UIView {
         highSugarText: String,
         lowSugarText: String,
         foodText: String,
-        insulinText: String) {
+        insulinText: String,
+        preferenceHStackFabric: PreferencesHStackFabricProtocol) {
+        preferencesHSFabric = preferenceHStackFabric
         super.init(frame: frame)
         setUpProfileVStack(
             targetSugarText: targetSugarText,

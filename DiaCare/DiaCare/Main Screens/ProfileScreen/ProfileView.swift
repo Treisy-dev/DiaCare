@@ -17,6 +17,7 @@ final class ProfileView: UIView {
     private lazy var titleLable: UILabel = UILabel()
     private lazy var profileContentView: UIView = UIView()
     private lazy var doctorImageView: UIImageView = UIImageView()
+    private var preferencesHStackFabric: PreferencesHStackFabricProtocol = PreferencesHStackFabric()
 
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var panGestureRecognizer: UIPanGestureRecognizer?
@@ -27,7 +28,8 @@ final class ProfileView: UIView {
         dragSubView = DragSubView(
             frame: frame,
             shortInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "shortInsulin"),
-            longInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "longInsulin"))
+            longInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "longInsulin"),
+            preferenceHStackFabric: preferencesHStackFabric)
         userNameSubView = UserNameSubView(
             frame: frame,
             name: userDefaultsDataManager.prepareData(with: userNameData, for: "name"),
@@ -38,7 +40,8 @@ final class ProfileView: UIView {
             highSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "hightSugar"),
             lowSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "lowSugar"),
             foodText: userDefaultsDataManager.prepareData(with: userNameData, for: "breadCount"),
-            insulinText: userDefaultsDataManager.prepareData(with: userNameData, for: "insulinCount"))
+            insulinText: userDefaultsDataManager.prepareData(with: userNameData, for: "insulinCount"),
+            preferenceHStackFabric: preferencesHStackFabric)
         settingsSubView = SettingsSubView(frame: frame, selectedLanguage: selectedLanguage)
         super.init(frame: frame)
         backgroundColor = .white
