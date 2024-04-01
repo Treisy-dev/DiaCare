@@ -12,11 +12,11 @@ final class ProductViewController: UIViewController {
 
     private let contentView: ProductView = .init()
 
-    private let viewModel: ProductViewModel
+    private let viewModel: ProductViewModelProtocol
 
     private var subscriptions = Set<AnyCancellable>()
 
-    init(viewModel: ProductViewModel) {
+    init(viewModel: ProductViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

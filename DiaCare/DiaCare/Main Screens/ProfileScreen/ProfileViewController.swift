@@ -11,9 +11,9 @@ final class ProfileViewController: UIViewController {
 
     private let contentView: ProfileView
 
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
 
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         contentView = ProfileView(
             frame: CGRect(),

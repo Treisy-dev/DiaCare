@@ -7,11 +7,18 @@
 
 import Foundation
 
-final class NameRegisterViewModel {
+protocol NameRegisterViewModelProtocol {
+    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
+    func saveUserInfo(name: String?, email: String?)
+}
+
+final class NameRegisterViewModel: NameRegisterViewModelProtocol {
 
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
-    init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol, welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
+        welcomeScreenFabric = welcomeScreenControllerFabric
         userDefaultsDataManager = userDefaultsDM
     }
 

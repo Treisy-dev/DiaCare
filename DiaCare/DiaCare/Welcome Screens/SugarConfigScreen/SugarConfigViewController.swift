@@ -11,9 +11,9 @@ final class SugarConfigViewController: UIViewController {
 
     private let contentView: SugarConfigView = .init()
 
-    private let viewModel: SugarConfigViewModel
+    private let viewModel: SugarConfigViewModelProtocol
 
-    init(viewModel: SugarConfigViewModel) {
+    init(viewModel: SugarConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

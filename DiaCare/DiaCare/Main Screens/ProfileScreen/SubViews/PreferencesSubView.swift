@@ -11,6 +11,7 @@ final class PreferencesSubView: UIView {
 
     private lazy var preferencesVStack: UIStackView = UIStackView()
     private lazy var preferencesLable: UILabel = UILabel()
+    let preferencesHSFabric: PreferencesHStackFabricProtocol = PreferencesHStackFabric()
 
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))
@@ -50,26 +51,26 @@ final class PreferencesSubView: UIView {
         preferencesLable.textColor = .black
 
         preferencesVStack.addArrangedSubview(preferencesLable)
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
+        preferencesVStack.addArrangedSubview(preferencesHSFabric.makeHStackWithIcon(
             withLabel: "Целевой сахар",
             withImage: UIImage.targetIcon,
             withCountLable: targetSugarText,
             coloredText: "ммоль/л"))
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
+        preferencesVStack.addArrangedSubview(preferencesHSFabric.makeHStackWithIcon(
             withLabel: " Высокий сахар",
             withImage: UIImage.highSugarIcon,
             withCountLable: highSugarText,
             coloredText: "ммоль/л"))
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
+        preferencesVStack.addArrangedSubview(preferencesHSFabric.makeHStackWithIcon(
             withLabel: "Низкий сахар",
             withImage: UIImage.lowSugarIcon,
             withCountLable: lowSugarText,
             coloredText: "ммоль/л"))
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeFoodHStack(
+        preferencesVStack.addArrangedSubview(preferencesHSFabric.makeFoodHStack(
             withLabel: "Углеводов в ХЕ",
             withCountLable: foodText,
             coloredText: "единиц"))
-        preferencesVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeFoodHStack(
+        preferencesVStack.addArrangedSubview(preferencesHSFabric.makeFoodHStack(
             withLabel: "Инсулин на ХЕ",
             withCountLable: insulinText,
             coloredText: "единиц"))

@@ -37,7 +37,7 @@ final class WelcomeScreensControllerFabric: WelcomeScreensControllerFabricProtoc
             viewController: StatisticViewController(),
             image: UIImage.chartIcon)
         let newNoteViewController = configTabBarItem(
-            viewController: NewNoteViewController(viewModel: NewNoteViewModel()),
+            viewController: NewNoteViewController(viewModel: NewNoteViewModel(coreDM: coreDataManager)),
             image: UIImage.circledPlusIcon)
         let notificationViewController = configTabBarItem(
             viewController: NotificationViewController(),

@@ -8,7 +8,16 @@
 import Foundation
 import UIKit
 
-final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource {
+protocol InsulinConfigViewModelProtocol: UIPickerViewDataSource {
+    var coreDataManager: CoreDataManagerProtocol { get }
+    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
+    var shortDataSource: [String] { get set }
+    var longDataSource: [String] { get set }
+
+    func saveUserInfo(shortInsulin: String?, longInsulin: String?)
+}
+
+final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinConfigViewModelProtocol {
 
     var shortPickerView: UIPickerView?
     var longPickerView: UIPickerView?

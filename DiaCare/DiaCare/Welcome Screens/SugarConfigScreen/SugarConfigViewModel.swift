@@ -8,7 +8,13 @@
 import Foundation
 import UIKit
 
-final class SugarConfigViewModel: NSObject, UIPickerViewDataSource {
+protocol SugarConfigViewModelProtocol: UIPickerViewDataSource {
+    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
+    var dataSource: [String] { get set }
+    func saveUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?)
+}
+
+final class SugarConfigViewModel: NSObject, UIPickerViewDataSource, SugarConfigViewModelProtocol {
 
     var dataSource: [String] = []
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol

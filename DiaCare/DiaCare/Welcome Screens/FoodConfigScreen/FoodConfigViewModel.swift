@@ -8,7 +8,13 @@
 import Foundation
 import UIKit
 
-final class FoodConfigViewModel: NSObject, UIPickerViewDataSource {
+protocol FoodConfigViewModelProtocol: UIPickerViewDataSource {
+    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
+    var dataSource: [String] { get set }
+    func saveUserInfo(breadCount: String?, insulinCount: String?)
+}
+
+final class FoodConfigViewModel: NSObject, UIPickerViewDataSource, FoodConfigViewModelProtocol {
 
     var dataSource: [String] = []
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol

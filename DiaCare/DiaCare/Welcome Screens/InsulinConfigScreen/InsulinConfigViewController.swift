@@ -11,9 +11,9 @@ final class InsulinConfigViewController: UIViewController {
 
     private let contentView: InsulinConfigView = .init()
 
-    private let viewModel: InsulinConfigViewModel
+    private let viewModel: InsulinConfigViewModelProtocol
 
-    init(viewModel: InsulinConfigViewModel) {
+    init(viewModel: InsulinConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

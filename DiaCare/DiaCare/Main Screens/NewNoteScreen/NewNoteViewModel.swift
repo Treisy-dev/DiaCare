@@ -7,6 +7,16 @@
 
 import Foundation
 
-final class NewNoteViewModel {
-    let averageSugar = "8.5"
+protocol NewNoteViewModelProtocol {
+    var averageSugar: String { get }
+    var coreDataManager: CoreDataManagerProtocol { get }
+}
+
+final class NewNoteViewModel: NewNoteViewModelProtocol {
+    var averageSugar = "8.5"
+    var coreDataManager: CoreDataManagerProtocol
+
+    init(coreDM: CoreDataManagerProtocol) {
+        coreDataManager = coreDM
+    }
 }

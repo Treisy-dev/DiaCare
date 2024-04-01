@@ -8,18 +8,28 @@
 import UIKit
 import Combine
 
-final class ProductViewModel: NSObject {
+protocol ProductViewModelProtocol: UITableViewDataSource {
+    func searchProducts(for queryText: String, completion: @escaping () -> Void)
+    var translationNS: TranslationNetworkServiceProtocol { get }
+    var productNS: ProductNetworkServiceProtocol { get }
+    var coreDataManager: CoreDataManagerProtocol { get }
+}
 
-    let translationNS: TranslationNetworkServiceProtocol
-    let productNS: ProductNetworkServiceProtocol
-    let coreDataManager: CoreDataManagerProtocol
+final class ProductViewModel: NSObject, ProductViewModelProtocol {
+
+    var translationNS: TranslationNetworkServiceProtocol
+    var productNS: ProductNetworkServiceProtocol
+    var coreDataManager: CoreDataManagerProtocol
 
     var productItem: [Product] = []
 
-    init(translationService: TranslationNetworkServiceProtocol, productService: ProductNetworkServiceProtocol) {
+    init(
+        translationService: TranslationNetworkServiceProtocol,
+        productService: ProductNetworkServiceProtocol,
+        coreDM: CoreDataManagerProtocol) {
         translationNS = translationService
         productNS = productService
-        coreDataManager = CoreDataManager()
+        coreDataManager = coreDM
     }
 
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {

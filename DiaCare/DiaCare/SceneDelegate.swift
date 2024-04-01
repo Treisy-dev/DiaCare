@@ -22,13 +22,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             coreDataManager = CoreDataManager()
             userDefaultsDataManager = UserDefaultsDataManager()
             guard let userDefaultsDataManager, let coreDataManager else { return }
+
             welcomeControllerFabrics = WelcomeScreensControllerFabric(userDefaultsDM: userDefaultsDataManager, coreDM: coreDataManager)
             guard let welcomeControllerFabrics else { return }
 
             guard let windowScene = (scene as? UIWindowScene) else { return }
             self.window = UIWindow(windowScene: windowScene)
-
             if UserDefaults.standard.bool(forKey: "isUserLogged") {
+                
                 let insulinViewModel = InsulinConfigViewModel(
                     coreDM: CoreDataManager(),
                     userDefaultsDM: UserDefaultsDataManager(),
@@ -37,11 +38,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let insulinViewController = InsulinConfigViewController(viewModel: insulinViewModel)
                 insulinViewController.showMainScreen()
             } else {
-                let nameRegisterViewModel = NameRegisterViewModel(userDefaultsDM: userDefaultsDataManager)
+                let nameRegisterViewModel = NameRegisterViewModel(
+                    userDefaultsDM: userDefaultsDataManager,
+                    welcomeScreenControllerFabric: welcomeControllerFabrics)
 
                 let nameRegisterViewController = NameRegisterViewController(
-                    viewModel: nameRegisterViewModel,
-                    welcomeScreenControllerFablic: welcomeControllerFabrics)
+                    viewModel: nameRegisterViewModel)
 
                 let navigationController = UINavigationController(rootViewController: nameRegisterViewController)
                 navigationController.isNavigationBarHidden = true

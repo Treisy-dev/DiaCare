@@ -11,9 +11,9 @@ final class FoodConfigViewController: UIViewController {
 
     private let contentView: FoodConfigView = .init()
 
-    private let viewModel: FoodConfigViewModel
+    private let viewModel: FoodConfigViewModelProtocol
 
-    init(viewModel: FoodConfigViewModel) {
+    init(viewModel: FoodConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

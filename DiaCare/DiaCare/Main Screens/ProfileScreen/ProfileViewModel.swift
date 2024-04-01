@@ -8,10 +8,17 @@
 import Foundation
 import UIKit
 
-final class ProfileViewModel: NSObject, UIPickerViewDataSource {
+protocol ProfileViewModelProtocol: UIPickerViewDataSource {
+    var userInfoData: [String: String] { get }
+    var languageDataSource: [String] { get }
+    var userDefaultsDataManager: UserDefaultsDataManagerProtocol {get}
+    func getSelectedLanguage() -> String
+}
+
+final class ProfileViewModel: NSObject, UIPickerViewDataSource, ProfileViewModelProtocol {
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
-    let userInfoData: [String: String]
-    let languageDataSource: [String] = ["Русский", "English"]
+    var userInfoData: [String: String]
+    var languageDataSource: [String] = ["Русский", "English"]
 
     init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM
