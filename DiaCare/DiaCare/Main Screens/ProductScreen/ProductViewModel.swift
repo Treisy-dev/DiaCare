@@ -12,12 +12,14 @@ final class ProductViewModel: NSObject {
 
     let translationNS: TranslationNetworkServiceProtocol
     let productNS: ProductNetworkServiceProtocol
+    let coreDataManager: CoreDataManagerProtocol
 
     var productItem: [Product] = []
 
     init(translationService: TranslationNetworkServiceProtocol, productService: ProductNetworkServiceProtocol) {
         translationNS = translationService
         productNS = productService
+        coreDataManager = CoreDataManager()
     }
 
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {
@@ -59,7 +61,7 @@ extension ProductViewModel: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let productCategory = CoreDataManager.shared.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
+        let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
         let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
         let category = cell.getCategoryFromString(productCategory ?? "")
         cell.config(

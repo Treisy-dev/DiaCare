@@ -8,7 +8,14 @@
 import Foundation
 
 final class NameRegisterViewModel {
+
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
+        userDefaultsDataManager = userDefaultsDM
+    }
+
     func saveUserInfo(name: String?, email: String?) {
-        UserDefaultsDataManager.shared.addNameToUserInfo(name: name, email: email)
+        userDefaultsDataManager.addNameToUserInfo(name: name, email: email)
     }
 }

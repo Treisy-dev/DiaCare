@@ -18,7 +18,7 @@ final class ProfileViewController: UIViewController {
         contentView = ProfileView(
             frame: CGRect(),
             userNameData: viewModel.userInfoData,
-            selectedLanguage: viewModel.getSelectedLanguage())
+            selectedLanguage: viewModel.getSelectedLanguage(), userDefaultsDM: viewModel.userDefaultsDataManager)
         super.init(nibName: nil, bundle: nil)
         navigationController?.isNavigationBarHidden = true
     }

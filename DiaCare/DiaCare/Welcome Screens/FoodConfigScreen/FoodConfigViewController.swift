@@ -49,7 +49,7 @@ extension FoodConfigViewController: FoodConfigViewDelegate {
     func didPressNext(breadCount: String?, insulinCount: String?) {
         viewModel.saveUserInfo(breadCount: breadCount, insulinCount: insulinCount)
         self.navigationController?.pushViewController(
-            WelcomeScreensControllerFabric.shared.makeInsulinConfigVC(),
+            viewModel.welcomeScreenFabric.makeInsulinConfigVC(),
             animated: true)
     }
 

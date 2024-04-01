@@ -20,33 +20,30 @@ final class ProfileView: UIView {
 
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var panGestureRecognizer: UIPanGestureRecognizer?
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
-    init(frame: CGRect, userNameData: [String: String], selectedLanguage: String) {
+    init(frame: CGRect, userNameData: [String: String], selectedLanguage: String, userDefaultsDM: UserDefaultsDataManagerProtocol) {
+        userDefaultsDataManager = userDefaultsDM
         dragSubView = DragSubView(
             frame: frame,
-            shortInsulin: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "shortInsulin"),
-            longInsulin: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "longInsulin"))
+            shortInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "shortInsulin"),
+            longInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "longInsulin"))
         userNameSubView = UserNameSubView(
             frame: frame,
-            name: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "name"),
-            email: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "email"))
+            name: userDefaultsDataManager.prepareData(with: userNameData, for: "name"),
+            email: userDefaultsDataManager.prepareData(with: userNameData, for: "email"))
         preferencesSubView = PreferencesSubView(
             frame: frame,
-            targetSugarText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "targetSugar"),
-            highSugarText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "hightSugar"),
-            lowSugarText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "lowSugar"),
-            foodText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "breadCount"),
-            insulinText: UserDefaultsDataManager.shared.prepareData(with: userNameData, for: "insulinCount"))
+            targetSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "targetSugar"),
+            highSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "hightSugar"),
+            lowSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "lowSugar"),
+            foodText: userDefaultsDataManager.prepareData(with: userNameData, for: "breadCount"),
+            insulinText: userDefaultsDataManager.prepareData(with: userNameData, for: "insulinCount"))
         settingsSubView = SettingsSubView(frame: frame, selectedLanguage: selectedLanguage)
         super.init(frame: frame)
         backgroundColor = .white
         setUp()
     }
-
-//    private func prepareData(with userNameData: [String: String], for key: String) -> String {
-//        guard let arg = userNameData[key] else { return ""}
-//        return arg
-//    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

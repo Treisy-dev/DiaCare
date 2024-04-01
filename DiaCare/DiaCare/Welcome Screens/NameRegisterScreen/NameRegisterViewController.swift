@@ -12,8 +12,10 @@ final class NameRegisterViewController: UIViewController {
     private let contentView: NameRegisterView = .init()
 
     private let viewModel: NameRegisterViewModel
+    let welcomeControllerFabric: WelcomeScreensControllerFabricProtocol
 
-    init(viewModel: NameRegisterViewModel) {
+    init(viewModel: NameRegisterViewModel, welcomeScreenControllerFablic: WelcomeScreensControllerFabricProtocol) {
+        welcomeControllerFabric = welcomeScreenControllerFablic
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -45,7 +47,7 @@ extension NameRegisterViewController: NameRegisterViewDelegate {
     func didPressNext(name: String?, email: String?) {
         viewModel.saveUserInfo(name: name, email: email)
         self.navigationController?.pushViewController(
-            WelcomeScreensControllerFabric.shared.makeSugarConfigVC(),
+            welcomeControllerFabric.makeSugarConfigVC(),
             animated: true)
     }
 }

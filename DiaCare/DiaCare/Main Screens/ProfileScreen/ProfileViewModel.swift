@@ -9,8 +9,14 @@ import Foundation
 import UIKit
 
 final class ProfileViewModel: NSObject, UIPickerViewDataSource {
-    let userInfoData: [String: String] = UserDefaultsDataManager.shared.getUserInfo()
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    let userInfoData: [String: String]
     let languageDataSource: [String] = ["Русский", "English"]
+
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
+        userDefaultsDataManager = userDefaultsDM
+        userInfoData = userDefaultsDataManager.getUserInfo()
+    }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

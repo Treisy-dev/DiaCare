@@ -8,16 +8,18 @@
 import Foundation
 import CoreData
 
-final class CoreDataManager {
+protocol CoreDataManagerProtocol {
+    func saveContext ()
+    func setUpDefaultProductTypes()
+    func obtainAllTypes()
+    func deleteAllTypes()
+    func obtainCategoryFromProduct(for word: String) -> String?
+}
 
-    static let shared = CoreDataManager()
+final class CoreDataManager: CoreDataManagerProtocol {
 
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
-    }
-
-    private init() {
-
     }
 
     // MARK: - Core Data stack

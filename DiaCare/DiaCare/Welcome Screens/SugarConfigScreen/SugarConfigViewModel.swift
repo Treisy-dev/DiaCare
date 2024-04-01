@@ -11,14 +11,18 @@ import UIKit
 final class SugarConfigViewModel: NSObject, UIPickerViewDataSource {
 
     var dataSource: [String] = []
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
-    override init() {
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol, welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
+        welcomeScreenFabric = welcomeScreenControllerFabric
+        userDefaultsDataManager = userDefaultsDM
         super.init()
         generateDataArray()
     }
 
     func saveUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?) {
-        UserDefaultsDataManager.shared.addSugarConfigToUserInfo(
+        userDefaultsDataManager.addSugarConfigToUserInfo(
             lowSugar: lowSugar,
             targetSugar: targetSugar,
             hightSugar: hightSugar)

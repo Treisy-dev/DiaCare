@@ -12,16 +12,24 @@ final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource {
 
     var shortPickerView: UIPickerView?
     var longPickerView: UIPickerView?
+    let coreDataManager: CoreDataManagerProtocol
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
     var shortDataSource: [String] = ["Хумалог", "НовоРапид", "Апидра"]
     var longDataSource: [String] = ["Лантус", "Туджео", "Левемир"]
 
-    override init() {
-        super.init()
+    init(
+        coreDM: CoreDataManagerProtocol,
+        userDefaultsDM: UserDefaultsDataManagerProtocol,
+        welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
+        welcomeScreenFabric = welcomeScreenControllerFabric
+        coreDataManager = coreDM
+        userDefaultsDataManager = userDefaultsDM
     }
 
     func saveUserInfo(shortInsulin: String?, longInsulin: String?) {
-        UserDefaultsDataManager.shared.addInsulinToUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
+        userDefaultsDataManager.addInsulinToUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

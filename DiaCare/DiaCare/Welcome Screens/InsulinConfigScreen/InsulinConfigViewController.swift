@@ -36,7 +36,7 @@ final class InsulinConfigViewController: UIViewController {
     }
 
     func showMainScreen() {
-        let tbController = WelcomeScreensControllerFabric.shared.makeMainAppTabBarController()
+        let tbController = viewModel.welcomeScreenFabric.makeMainAppTabBarController()
 
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             sceneDelegate.window?.rootViewController = tbController
@@ -67,7 +67,7 @@ extension InsulinConfigViewController: UIPickerViewDelegate {
 extension InsulinConfigViewController: InsulinConfigViewDelegate {
     func didPressSave(shortInsulin: String?, longInsulin: String?) {
         viewModel.saveUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
-        CoreDataManager.shared.setUpDefaultProductTypes()
+        viewModel.coreDataManager.setUpDefaultProductTypes()
         showMainScreen()
     }
 
