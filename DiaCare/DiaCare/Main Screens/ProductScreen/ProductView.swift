@@ -9,12 +9,14 @@ import UIKit
 
 final class ProductView: UIView {
 
-    private lazy var productSearchBar: UISearchBar = UISearchBar()
+    lazy var productSearchBar: UISearchBar = UISearchBar()
     private lazy var typesSegmentControl: UISegmentedControl = UISegmentedControl(items: ["Все", "Шаблоны", "Мои"])
     private lazy var addProductButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить свой продукт")
     lazy var productTableView: UITableView = UITableView()
+    lazy var hintLabel: UILabel = UILabel()
     private lazy var addButton: UIButton = UIButtonFabric.shared.makeAddButton()
     private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
+    lazy var loadAnimationView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +33,8 @@ final class ProductView: UIView {
         setUpTypesSegmentControl()
         setUpAddProductButton()
         setUpProductTableView()
+        setUpHintLabel()
+        setUpLoadAnimationView()
         setUpAddButton()
         setUpCloseButton()
     }
@@ -81,11 +85,40 @@ final class ProductView: UIView {
 
     private func setUpProductTableView() {
         addSubview(productTableView)
+        productTableView.separatorColor = .clear
         productTableView.snp.makeConstraints { make in
             make.top.equalTo(addProductButton.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(30)
             make.trailing.equalToSuperview().inset(30)
             make.bottom.equalToSuperview().inset(150)
+        }
+    }
+
+    private func setUpHintLabel() {
+        addSubview(hintLabel)
+        hintLabel.text = "Введите наименование продукта в строку поиска"
+        hintLabel.font = UIFont.systemFont(ofSize: 20)
+        hintLabel.numberOfLines = 2
+        hintLabel.textAlignment = .center
+        hintLabel.textColor = .systemGray.withAlphaComponent(0.5)
+
+        hintLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(60)
+            make.trailing.equalToSuperview().inset(60)
+        }
+    }
+
+    private func setUpLoadAnimationView() {
+        addSubview(loadAnimationView)
+        loadAnimationView.color = .mainApp
+        loadAnimationView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        loadAnimationView.hidesWhenStopped = true
+
+        loadAnimationView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
         }
     }
 
