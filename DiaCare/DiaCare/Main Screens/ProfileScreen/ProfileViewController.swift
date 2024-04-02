@@ -11,14 +11,14 @@ final class ProfileViewController: UIViewController {
 
     private let contentView: ProfileView
 
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
 
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         contentView = ProfileView(
             frame: CGRect(),
             userNameData: viewModel.userInfoData,
-            selectedLanguage: viewModel.getSelectedLanguage())
+            selectedLanguage: viewModel.getSelectedLanguage(), userDefaultsDM: viewModel.userDefaultsDataManager)
         super.init(nibName: nil, bundle: nil)
         navigationController?.isNavigationBarHidden = true
     }

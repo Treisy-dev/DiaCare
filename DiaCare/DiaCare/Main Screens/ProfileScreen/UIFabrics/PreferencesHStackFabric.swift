@@ -8,11 +8,20 @@
 import SnapKit
 import UIKit
 
-final class PreferencesHStackFabric {
-    public static let shared = PreferencesHStackFabric()
+protocol PreferencesHStackFabricProtocol {
+    func makeHStackWithIcon(
+        withLabel lableText: String,
+        withImage image: UIImage,
+        withCountLable countLableText: String?,
+        coloredText: String) -> UIStackView
 
-    private init() {
-    }
+    func makeFoodHStack(
+        withLabel lableText: String,
+        withCountLable countLableText: String,
+        coloredText: String) -> UIStackView
+}
+
+final class PreferencesHStackFabric: PreferencesHStackFabricProtocol {
 
     func makeHStackWithIcon(
         withLabel lableText: String,

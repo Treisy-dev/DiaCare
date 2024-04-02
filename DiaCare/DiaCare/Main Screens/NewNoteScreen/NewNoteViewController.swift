@@ -11,9 +11,9 @@ final class NewNoteViewController: UIViewController {
 
     private let contentView: NewNoteView
 
-    private let viewModel: NewNoteViewModel
+    private let viewModel: NewNoteViewModelProtocol
 
-    init(viewModel: NewNoteViewModel) {
+    init(viewModel: NewNoteViewModelProtocol) {
         self.viewModel = viewModel
         contentView = NewNoteView(frame: CGRect(), averageSugar: viewModel.averageSugar)
         super.init(nibName: nil, bundle: nil)
@@ -34,7 +34,11 @@ final class NewNoteViewController: UIViewController {
         super.viewDidLoad()
 
         contentView.foodSubView.addProductTapped = { [weak self] in
-            let viewModel = ProductViewModel(translationService: TranslationNetworkService(), productService: ProductNetworkService())
+            guard let coreDataManager = self?.viewModel.coreDataManager else { return }
+            let viewModel = ProductViewModel(
+                translationService: TranslationNetworkService(),
+                productService: ProductNetworkService(),
+                coreDM: coreDataManager)
             self?.navigationController?.pushViewController(ProductViewController(viewModel: viewModel), animated: true)
         }
     }

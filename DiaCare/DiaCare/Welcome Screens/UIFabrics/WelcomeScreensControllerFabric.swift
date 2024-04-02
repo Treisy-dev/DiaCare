@@ -8,10 +8,21 @@
 import Foundation
 import UIKit
 
-final class WelcomeScreensControllerFabric {
-    public static let shared = WelcomeScreensControllerFabric()
+protocol WelcomeScreensControllerFabricProtocol {
+    func makeMainAppTabBarController() -> UIViewController
+    func makeInsulinConfigVC() -> UIViewController
+    func makeFoodConfigVC() -> UIViewController
+    func makeSugarConfigVC() -> UIViewController
+}
 
-    private init() {
+final class WelcomeScreensControllerFabric: WelcomeScreensControllerFabricProtocol {
+
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    let coreDataManager: CoreDataManagerProtocol
+
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol, coreDM: CoreDataManagerProtocol) {
+        userDefaultsDataManager = userDefaultsDM
+        coreDataManager = coreDM
     }
 
     func makeMainAppTabBarController() -> UIViewController {
@@ -26,13 +37,13 @@ final class WelcomeScreensControllerFabric {
             viewController: StatisticViewController(),
             image: UIImage.chartIcon)
         let newNoteViewController = configTabBarItem(
-            viewController: NewNoteViewController(viewModel: NewNoteViewModel()),
+            viewController: NewNoteViewController(viewModel: NewNoteViewModel(coreDM: coreDataManager)),
             image: UIImage.circledPlusIcon)
         let notificationViewController = configTabBarItem(
             viewController: NotificationViewController(),
             image: UIImage.bellIcon)
         let profileViewController = configTabBarItem(
-            viewController: ProfileViewController(viewModel: ProfileViewModel()),
+            viewController: ProfileViewController(viewModel: ProfileViewModel(userDefaultsDM: userDefaultsDataManager)),
             image: UIImage.profileIcon)
 
         tbController.viewControllers = [
@@ -48,17 +59,17 @@ final class WelcomeScreensControllerFabric {
     }
 
     func makeInsulinConfigVC() -> UIViewController {
-        let viewModel = InsulinConfigViewModel()
+        let viewModel = InsulinConfigViewModel(coreDM: coreDataManager, userDefaultsDM: userDefaultsDataManager, welcomeScreenControllerFabric: self)
         return InsulinConfigViewController(viewModel: viewModel)
     }
 
     func makeFoodConfigVC() -> UIViewController {
-        let viewModel = FoodConfigViewModel()
+        let viewModel = FoodConfigViewModel(userDefaultsDM: userDefaultsDataManager, welcomeScreenControllerFabric: self)
         return FoodConfigViewController(viewModel: viewModel)
     }
 
     func makeSugarConfigVC() -> UIViewController {
-        let viewModel = SugarConfigViewModel()
+        let viewModel = SugarConfigViewModel(userDefaultsDM: userDefaultsDataManager, welcomeScreenControllerFabric: self)
         return SugarConfigViewController(viewModel: viewModel)
     }
 

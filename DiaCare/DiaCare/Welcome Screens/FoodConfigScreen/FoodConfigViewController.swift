@@ -11,9 +11,9 @@ final class FoodConfigViewController: UIViewController {
 
     private let contentView: FoodConfigView = .init()
 
-    private let viewModel: FoodConfigViewModel
+    private let viewModel: FoodConfigViewModelProtocol
 
-    init(viewModel: FoodConfigViewModel) {
+    init(viewModel: FoodConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,7 +49,7 @@ extension FoodConfigViewController: FoodConfigViewDelegate {
     func didPressNext(breadCount: String?, insulinCount: String?) {
         viewModel.saveUserInfo(breadCount: breadCount, insulinCount: insulinCount)
         self.navigationController?.pushViewController(
-            WelcomeScreensControllerFabric.shared.makeInsulinConfigVC(),
+            viewModel.welcomeScreenFabric.makeInsulinConfigVC(),
             animated: true)
     }
 

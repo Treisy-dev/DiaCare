@@ -8,9 +8,22 @@
 import Foundation
 import UIKit
 
-final class ProfileViewModel: NSObject, UIPickerViewDataSource {
-    let userInfoData: [String: String] = UserDefaultsDataManager.shared.getUserInfo()
-    let languageDataSource: [String] = ["Русский", "English"]
+protocol ProfileViewModelProtocol: UIPickerViewDataSource {
+    var userInfoData: [String: String] { get }
+    var languageDataSource: [String] { get }
+    var userDefaultsDataManager: UserDefaultsDataManagerProtocol {get}
+    func getSelectedLanguage() -> String
+}
+
+final class ProfileViewModel: NSObject, UIPickerViewDataSource, ProfileViewModelProtocol {
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    var userInfoData: [String: String]
+    var languageDataSource: [String] = ["Русский", "English"]
+
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
+        userDefaultsDataManager = userDefaultsDM
+        userInfoData = userDefaultsDataManager.getUserInfo()
+    }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

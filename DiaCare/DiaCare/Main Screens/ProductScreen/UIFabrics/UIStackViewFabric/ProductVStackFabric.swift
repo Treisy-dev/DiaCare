@@ -22,7 +22,7 @@ final class ProductVStackFabric {
         vStack.alignment = .center
         label.text = titleLabel
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = titleLabelColor
+        label.textColor = titleLabelColor.withAlphaComponent(0.5)
 
         countLabel.text = count
         countLabel.font = UIFont.systemFont(ofSize: 14)

@@ -32,6 +32,21 @@
 		C364B53C2BB4CD7200AC1CB3 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B53B2BB4CD7200AC1CB3 /* ProductTableViewCell.swift */; };
 		C364B53F2BB4D2BA00AC1CB3 /* ProductVStackFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B53E2BB4D2BA00AC1CB3 /* ProductVStackFabric.swift */; };
 		C364B5412BB4D65A00AC1CB3 /* ProductNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5402BB4D65A00AC1CB3 /* ProductNetworkService.swift */; };
+		C364B54F2BB9967300AC1CB3 /* PushNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5432BB9967300AC1CB3 /* PushNotification+CoreDataClass.swift */; };
+		C364B5502BB9967300AC1CB3 /* PushNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5442BB9967300AC1CB3 /* PushNotification+CoreDataProperties.swift */; };
+		C364B5512BB9967300AC1CB3 /* Templates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5452BB9967300AC1CB3 /* Templates+CoreDataClass.swift */; };
+		C364B5522BB9967300AC1CB3 /* Templates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5462BB9967300AC1CB3 /* Templates+CoreDataProperties.swift */; };
+		C364B5532BB9967300AC1CB3 /* UserProducts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5472BB9967300AC1CB3 /* UserProducts+CoreDataClass.swift */; };
+		C364B5542BB9967300AC1CB3 /* UserProducts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5482BB9967300AC1CB3 /* UserProducts+CoreDataProperties.swift */; };
+		C364B5552BB9967300AC1CB3 /* ProductTypes+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5492BB9967300AC1CB3 /* ProductTypes+CoreDataClass.swift */; };
+		C364B5562BB9967300AC1CB3 /* ProductTypes+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B54A2BB9967300AC1CB3 /* ProductTypes+CoreDataProperties.swift */; };
+		C364B5572BB9967300AC1CB3 /* NotesHistory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B54B2BB9967300AC1CB3 /* NotesHistory+CoreDataClass.swift */; };
+		C364B5582BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B54C2BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift */; };
+		C364B5592BB9967300AC1CB3 /* TemplateProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B54D2BB9967300AC1CB3 /* TemplateProduct+CoreDataClass.swift */; };
+		C364B55A2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B54E2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift */; };
+		C364B55D2BB999E600AC1CB3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B55C2BB999E600AC1CB3 /* CoreDataManager.swift */; };
+		C364B55F2BB9F43700AC1CB3 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B55E2BB9F43700AC1CB3 /* UITableViewExtensions.swift */; };
+		C364B5612BBA140800AC1CB3 /* UITextFieldExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5602BBA140800AC1CB3 /* UITextFieldExtentions.swift */; };
 		C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */; };
 		C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */; };
 		C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */; };
@@ -97,6 +112,21 @@
 		C364B53B2BB4CD7200AC1CB3 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		C364B53E2BB4D2BA00AC1CB3 /* ProductVStackFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductVStackFabric.swift; sourceTree = "<group>"; };
 		C364B5402BB4D65A00AC1CB3 /* ProductNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductNetworkService.swift; sourceTree = "<group>"; };
+		C364B5432BB9967300AC1CB3 /* PushNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PushNotification+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C364B5442BB9967300AC1CB3 /* PushNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PushNotification+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C364B5452BB9967300AC1CB3 /* Templates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Templates+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C364B5462BB9967300AC1CB3 /* Templates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Templates+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C364B5472BB9967300AC1CB3 /* UserProducts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProducts+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C364B5482BB9967300AC1CB3 /* UserProducts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProducts+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C364B5492BB9967300AC1CB3 /* ProductTypes+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductTypes+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C364B54A2BB9967300AC1CB3 /* ProductTypes+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductTypes+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C364B54B2BB9967300AC1CB3 /* NotesHistory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesHistory+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C364B54C2BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesHistory+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C364B54D2BB9967300AC1CB3 /* TemplateProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplateProduct+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		C364B54E2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplateProduct+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		C364B55C2BB999E600AC1CB3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		C364B55E2BB9F43700AC1CB3 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
+		C364B5602BBA140800AC1CB3 /* UITextFieldExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtentions.swift; sourceTree = "<group>"; };
 		C3DCF9A82B9DF31A007D7FF0 /* DiaCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,6 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				C333ABC62BA7476F00EA100E /* UIImageExtensions.swift */,
+				C364B55E2BB9F43700AC1CB3 /* UITableViewExtensions.swift */,
+				C364B5602BBA140800AC1CB3 /* UITextFieldExtentions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -285,6 +317,34 @@
 			path = UIStackViewFabric;
 			sourceTree = "<group>";
 		};
+		C364B5422BB995A200AC1CB3 /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				C364B5432BB9967300AC1CB3 /* PushNotification+CoreDataClass.swift */,
+				C364B5442BB9967300AC1CB3 /* PushNotification+CoreDataProperties.swift */,
+				C364B5452BB9967300AC1CB3 /* Templates+CoreDataClass.swift */,
+				C364B5462BB9967300AC1CB3 /* Templates+CoreDataProperties.swift */,
+				C364B5472BB9967300AC1CB3 /* UserProducts+CoreDataClass.swift */,
+				C364B5482BB9967300AC1CB3 /* UserProducts+CoreDataProperties.swift */,
+				C364B5492BB9967300AC1CB3 /* ProductTypes+CoreDataClass.swift */,
+				C364B54A2BB9967300AC1CB3 /* ProductTypes+CoreDataProperties.swift */,
+				C364B54B2BB9967300AC1CB3 /* NotesHistory+CoreDataClass.swift */,
+				C364B54C2BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift */,
+				C364B54D2BB9967300AC1CB3 /* TemplateProduct+CoreDataClass.swift */,
+				C364B54E2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift */,
+			);
+			path = CoreDataModels;
+			sourceTree = "<group>";
+		};
+		C364B55B2BB999D600AC1CB3 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				C333ABAC2B9FCA9200EA100E /* UserDefaultsDataManager.swift */,
+				C364B55C2BB999E600AC1CB3 /* CoreDataManager.swift */,
+			);
+			path = DataManagers;
+			sourceTree = "<group>";
+		};
 		C3DCF99F2B9DF31A007D7FF0 = {
 			isa = PBXGroup;
 			children = (
@@ -304,9 +364,10 @@
 		C3DCF9AA2B9DF31A007D7FF0 /* DiaCare */ = {
 			isa = PBXGroup;
 			children = (
+				C364B55B2BB999D600AC1CB3 /* DataManagers */,
+				C364B5422BB995A200AC1CB3 /* CoreDataModels */,
 				C364B5312BB4A81000AC1CB3 /* Data */,
 				C333ABC52BA7474F00EA100E /* Extensions */,
-				C333ABAC2B9FCA9200EA100E /* UserDefaultsDataManager.swift */,
 				C3DCF9EF2B9E597B007D7FF0 /* Main Screens */,
 				C3DCF9CD2B9DF517007D7FF0 /* Welcome Screens */,
 				C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */,
@@ -556,22 +617,27 @@
 				C3DCF9D02B9DF588007D7FF0 /* NameRegisterViewController.swift in Sources */,
 				C333ABB62BA2549400EA100E /* CustomLanguageTextField.swift in Sources */,
 				C364B5282BB48CFC00AC1CB3 /* ProductView.swift in Sources */,
+				C364B5572BB9967300AC1CB3 /* NotesHistory+CoreDataClass.swift in Sources */,
 				C333ABAD2B9FCA9200EA100E /* UserDefaultsDataManager.swift in Sources */,
 				C364B5382BB4B97300AC1CB3 /* TranslationAPIModel.swift in Sources */,
+				C364B5502BB9967300AC1CB3 /* PushNotification+CoreDataProperties.swift in Sources */,
 				C364B52A2BB48D0600AC1CB3 /* ProductViewController.swift in Sources */,
 				C364B52C2BB48D1500AC1CB3 /* ProductViewModel.swift in Sources */,
 				C3DCF9DD2B9E0B0D007D7FF0 /* CustomConfigTextField.swift in Sources */,
 				C3DCFA022B9E5AC7007D7FF0 /* NewNoteView.swift in Sources */,
+				C364B5582BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift in Sources */,
 				C333ABC72BA7476F00EA100E /* UIImageExtensions.swift in Sources */,
 				C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */,
 				C333ABA62B9FBBD900EA100E /* PreferencesSubView.swift in Sources */,
 				C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */,
 				C3DCF9D22B9DF5A4007D7FF0 /* NameRegisterView.swift in Sources */,
 				C3DCFA002B9E5ABA007D7FF0 /* NewNoteViewController.swift in Sources */,
+				C364B5522BB9967300AC1CB3 /* Templates+CoreDataProperties.swift in Sources */,
 				C3DCF9EA2B9E338D007D7FF0 /* InsulinConfigViewController.swift in Sources */,
 				C3DCF9FD2B9E5A67007D7FF0 /* NotificationViewController.swift in Sources */,
 				C3DCF9D72B9E039E007D7FF0 /* SugarConfigView.swift in Sources */,
 				C333ABB22BA2417600EA100E /* DragSubView.swift in Sources */,
+				C364B5592BB9967300AC1CB3 /* TemplateProduct+CoreDataClass.swift in Sources */,
 				C333ABBC2BA37A8A00EA100E /* NewNoteFoodSubView.swift in Sources */,
 				C3DCF9F22B9E599B007D7FF0 /* ProfileViewController.swift in Sources */,
 				C364B5332BB4A82200AC1CB3 /* TranslationNetworkService.swift in Sources */,
@@ -580,30 +646,40 @@
 				C333ABC12BA37D9000EA100E /* CustomAddFoodButton.swift in Sources */,
 				C3DCF9D92B9E03AB007D7FF0 /* SugarConfigViewController.swift in Sources */,
 				C3DCF9E82B9E337F007D7FF0 /* InsulinConfigView.swift in Sources */,
+				C364B55F2BB9F43700AC1CB3 /* UITableViewExtensions.swift in Sources */,
 				C333ABC42BA636F700EA100E /* NewNoteInjectionSubView.swift in Sources */,
 				C3DCFA092B9E5B1A007D7FF0 /* StatisticViewController.swift in Sources */,
 				C3DCF9E12B9E19A2007D7FF0 /* FoodConfigViewController.swift in Sources */,
 				C333ABB42BA2534A00EA100E /* SettingsSubView.swift in Sources */,
+				C364B55A2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift in Sources */,
 				C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */,
 				C364B5302BB49BC700AC1CB3 /* UIButtonFabric.swift in Sources */,
 				C333ABA02B9F09BF00EA100E /* CustomGradientView.swift in Sources */,
 				C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */,
 				C3DCF9EC2B9E339B007D7FF0 /* InsulinConfigViewModel.swift in Sources */,
+				C364B5552BB9967300AC1CB3 /* ProductTypes+CoreDataClass.swift in Sources */,
 				C333ABA82B9FC5AB00EA100E /* UserNameSubView.swift in Sources */,
 				C3DCF9F62B9E59B4007D7FF0 /* ProfileViewModel.swift in Sources */,
 				C3DCF9E52B9E19BE007D7FF0 /* FoodConfigView.swift in Sources */,
+				C364B5542BB9967300AC1CB3 /* UserProducts+CoreDataProperties.swift in Sources */,
 				C333ABBA2BA326D000EA100E /* NewNoteSugarSubView.swift in Sources */,
 				C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */,
 				C3DCF9F92B9E5A44007D7FF0 /* NotificationViewModel.swift in Sources */,
+				C364B5562BB9967300AC1CB3 /* ProductTypes+CoreDataProperties.swift in Sources */,
+				C364B55D2BB999E600AC1CB3 /* CoreDataManager.swift in Sources */,
 				C364B53F2BB4D2BA00AC1CB3 /* ProductVStackFabric.swift in Sources */,
 				C364B53A2BB4C40600AC1CB3 /* ProductAPIModel.swift in Sources */,
 				C3DCFA122B9E5C2C007D7FF0 /* TemplateViewModel.swift in Sources */,
 				C3DCF9F42B9E59A8007D7FF0 /* ProfileView.swift in Sources */,
+				C364B5512BB9967300AC1CB3 /* Templates+CoreDataClass.swift in Sources */,
 				C364B53C2BB4CD7200AC1CB3 /* ProductTableViewCell.swift in Sources */,
 				C333ABAA2B9FC79300EA100E /* PreferencesHStackFabric.swift in Sources */,
+				C364B54F2BB9967300AC1CB3 /* PushNotification+CoreDataClass.swift in Sources */,
 				C3DCFA0E2B9E5C15007D7FF0 /* TemplateViewController.swift in Sources */,
 				C3DCF9E32B9E19AD007D7FF0 /* FoodConfigViewModel.swift in Sources */,
+				C364B5532BB9967300AC1CB3 /* UserProducts+CoreDataClass.swift in Sources */,
 				C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */,
+				C364B5612BBA140800AC1CB3 /* UITextFieldExtentions.swift in Sources */,
 				C3DCFA042B9E5AD2007D7FF0 /* NewNoteViewModel.swift in Sources */,
 				C333ABB02BA0F4DD00EA100E /* WelcomeScreensControllerFabric.swift in Sources */,
 			);

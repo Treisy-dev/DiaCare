@@ -10,21 +10,41 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var coreDataManager: CoreDataManagerProtocol?
+    var userDefaultsDataManager: UserDefaultsDataManagerProtocol?
+    var welcomeControllerFabrics: WelcomeScreensControllerFabricProtocol?
 
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions) {
 
+            coreDataManager = CoreDataManager()
+            userDefaultsDataManager = UserDefaultsDataManager()
+            guard let userDefaultsDataManager, let coreDataManager else { return }
+
+            welcomeControllerFabrics = WelcomeScreensControllerFabric(userDefaultsDM: userDefaultsDataManager, coreDM: coreDataManager)
+            guard let welcomeControllerFabrics else { return }
+
             guard let windowScene = (scene as? UIWindowScene) else { return }
             self.window = UIWindow(windowScene: windowScene)
-
             if UserDefaults.standard.bool(forKey: "isUserLogged") {
-                let insulinViewController = InsulinConfigViewController(viewModel: InsulinConfigViewModel())
+
+                let insulinViewModel = InsulinConfigViewModel(
+                    coreDM: CoreDataManager(),
+                    userDefaultsDM: UserDefaultsDataManager(),
+                    welcomeScreenControllerFabric: welcomeControllerFabrics)
+
+                let insulinViewController = InsulinConfigViewController(viewModel: insulinViewModel)
                 insulinViewController.showMainScreen()
             } else {
-                let nameRegisterViewModel = NameRegisterViewModel()
-                let nameRegisterViewController = NameRegisterViewController(viewModel: nameRegisterViewModel)
+                let nameRegisterViewModel = NameRegisterViewModel(
+                    userDefaultsDM: userDefaultsDataManager,
+                    welcomeScreenControllerFabric: welcomeControllerFabrics)
+
+                let nameRegisterViewController = NameRegisterViewController(
+                    viewModel: nameRegisterViewModel)
+
                 let navigationController = UINavigationController(rootViewController: nameRegisterViewController)
                 navigationController.isNavigationBarHidden = true
                 self.window?.rootViewController = navigationController
@@ -62,6 +82,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        coreDataManager?.saveContext()
     }
 }

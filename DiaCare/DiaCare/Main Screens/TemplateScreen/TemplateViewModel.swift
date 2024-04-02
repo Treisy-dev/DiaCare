@@ -7,6 +7,6 @@
 
 import Foundation
 
-class TemplateViewModel {
-    
+final class TemplateViewModel {
+
 }

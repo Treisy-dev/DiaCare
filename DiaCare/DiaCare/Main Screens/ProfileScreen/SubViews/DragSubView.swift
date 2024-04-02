@@ -11,11 +11,17 @@ final class DragSubView: UIView {
 
     private lazy var dragVStack: UIStackView = UIStackView()
     private lazy var dragLable: UILabel = UILabel()
+    let preferencesHSFabric: PreferencesHStackFabricProtocol
 
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))
 
-    init(frame: CGRect, shortInsulin: String, longInsulin: String) {
+    init(
+        frame: CGRect,
+        shortInsulin: String,
+        longInsulin: String,
+        preferenceHStackFabric: PreferencesHStackFabricProtocol) {
+        preferencesHSFabric = preferenceHStackFabric
         super.init(frame: frame)
         setUpDragVStack(
             shortInsulin: shortInsulin,
@@ -38,12 +44,12 @@ final class DragSubView: UIView {
             dragLable.textColor = .black
 
             dragVStack.addArrangedSubview(dragLable)
-            dragVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
+            dragVStack.addArrangedSubview(preferencesHSFabric.makeHStackWithIcon(
             withLabel: " Короткий инсулин",
             withImage: UIImage.shortInsulinIcon,
             withCountLable: nil,
             coloredText: shortInsulin))
-            dragVStack.addArrangedSubview(PreferencesHStackFabric.shared.makeHStackWithIcon(
+            dragVStack.addArrangedSubview(preferencesHSFabric.makeHStackWithIcon(
             withLabel: "Длинный инсулин",
             withImage: UIImage.longInsulinIcon,
             withCountLable: nil,

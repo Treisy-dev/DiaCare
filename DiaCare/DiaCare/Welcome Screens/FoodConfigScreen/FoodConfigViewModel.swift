@@ -8,17 +8,27 @@
 import Foundation
 import UIKit
 
-final class FoodConfigViewModel: NSObject, UIPickerViewDataSource {
+protocol FoodConfigViewModelProtocol: UIPickerViewDataSource {
+    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
+    var dataSource: [String] { get set }
+    func saveUserInfo(breadCount: String?, insulinCount: String?)
+}
+
+final class FoodConfigViewModel: NSObject, UIPickerViewDataSource, FoodConfigViewModelProtocol {
 
     var dataSource: [String] = []
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
-    override init() {
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol, welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
+        userDefaultsDataManager = userDefaultsDM
+        welcomeScreenFabric = welcomeScreenControllerFabric
         super.init()
         generateDataArray()
     }
 
     func saveUserInfo(breadCount: String?, insulinCount: String?) {
-        UserDefaultsDataManager.shared.addFoodConfigToUserInfo(breadCount: breadCount, insulinCount: insulinCount)
+        userDefaultsDataManager.addFoodConfigToUserInfo(breadCount: breadCount, insulinCount: insulinCount)
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

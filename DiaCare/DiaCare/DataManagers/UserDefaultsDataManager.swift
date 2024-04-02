@@ -7,14 +7,24 @@
 
 import Foundation
 
-class UserDefaultsDataManager {
+protocol UserDefaultsDataManagerProtocol {
+    func getUserInfo() -> [String: String]
+
+    func addNameToUserInfo(name: String?, email: String?)
+
+    func addSugarConfigToUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?)
+
+    func addFoodConfigToUserInfo(breadCount: String?, insulinCount: String?)
+
+    func addInsulinToUserInfo(shortInsulin: String?, longInsulin: String?)
+
+    func prepareData(with userNameData: [String: String], for key: String) -> String
+}
+
+final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
 
     var userInfo: [String: String] = [:]
     let userDefaults = UserDefaults.standard
-    public static let shared = UserDefaultsDataManager()
-
-    private init() {
-    }
 
     private func saveUserData() {
         userDefaults.setValue(true, forKey: "isUserLogged")
@@ -22,8 +32,7 @@ class UserDefaultsDataManager {
     }
 
     func getUserInfo() -> [String: String] {
-        guard let loadedDictionary = userDefaults.dictionary(forKey: "userInfo")
-            as? [String: String] else { return [:] }
+        guard let loadedDictionary = userDefaults.dictionary(forKey: "userInfo") as? [String: String] else { return [:] }
         return loadedDictionary
     }
 
@@ -47,5 +56,10 @@ class UserDefaultsDataManager {
         userInfo["shortInsulin"] = shortInsulin
         userInfo["longInsulin"] = longInsulin
         saveUserData()
+    }
+
+    func prepareData(with userNameData: [String: String], for key: String) -> String {
+        guard let arg = userNameData[key] else { return ""}
+        return arg
     }
 }
