@@ -7,6 +7,6 @@
 
 import Foundation
 
-class StatisticViewModel {
+final class StatisticViewModel {
 
 }

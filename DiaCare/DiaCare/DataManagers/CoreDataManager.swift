@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol CoreDataManagerProtocol {
-    func saveContext ()
+    func saveContext()
     func setUpDefaultProductTypes()
     func obtainAllTypes()
     func deleteAllTypes()
@@ -36,7 +36,7 @@ final class CoreDataManager: CoreDataManagerProtocol {
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

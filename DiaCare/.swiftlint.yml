@@ -34,6 +34,16 @@ custom_rules:
     capture_group: 1
     message: "Неверная аннотация инициализации массива/словаря"
     severity: error
+  space_in_method_name:
+    name: "Space In Method Name"
+    regex: "func\\s+[a-zA-Z0-9_]+\\s+\\(.*\\)\\s*\\{"
+    message: "Method name should not contain spaces"
+    severity: warning
+  space_between_class_keywords:
+    name: "Space Between Class Keywords"
+    regex: "^(final|class|struct|enum)\\s{1}[a-zA-Z0-9_]\\s{1}\\{"
+    message: "There should be exactly one space between class keywords"
+    severity: warning
 
 force_unwrapping:
   severity: error

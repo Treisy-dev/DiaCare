@@ -7,6 +7,6 @@
 
 import Foundation
 
-class NotificationViewModel {
+final class NotificationViewModel {
 
 }
