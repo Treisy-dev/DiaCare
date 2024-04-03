@@ -10,9 +10,6 @@ import Combine
 
 protocol ProductViewModelProtocol: UITableViewDataSource {
     func searchProducts(for queryText: String, completion: @escaping () -> Void)
-    var translationNS: TranslationNetworkServiceProtocol { get }
-    var productNS: ProductNetworkServiceProtocol { get }
-    var coreDataManager: CoreDataManagerProtocol { get }
 }
 
 final class ProductViewModel: NSObject, ProductViewModelProtocol {

@@ -9,7 +9,6 @@ import Foundation
 
 protocol NewNoteViewModelProtocol {
     var averageSugar: String { get }
-    var coreDataManager: CoreDataManagerProtocol { get }
 }
 
 final class NewNoteViewModel: NewNoteViewModelProtocol {

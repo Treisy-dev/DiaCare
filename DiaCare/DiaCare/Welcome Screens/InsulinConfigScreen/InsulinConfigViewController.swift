@@ -61,7 +61,7 @@ extension InsulinConfigViewController: UIPickerViewDelegate {
 extension InsulinConfigViewController: InsulinConfigViewDelegate {
     func didPressSave(shortInsulin: String?, longInsulin: String?) {
         viewModel.saveUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
-        viewModel.coreDataManager.setUpDefaultProductTypes()
+        viewModel.setUpDefaultsProductTypes()
         onFinish?()
     }
 

@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 protocol InsulinConfigViewModelProtocol: UIPickerViewDataSource {
-    var coreDataManager: CoreDataManagerProtocol { get }
     var shortDataSource: [String] { get set }
     var longDataSource: [String] { get set }
 
     func saveUserInfo(shortInsulin: String?, longInsulin: String?)
+    func setUpDefaultsProductTypes()
 }
 
 final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinConfigViewModelProtocol {
@@ -35,6 +35,10 @@ final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinCon
 
     func saveUserInfo(shortInsulin: String?, longInsulin: String?) {
         userDefaultsDataManager.addInsulinToUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
+    }
+
+    func setUpDefaultsProductTypes() {
+        coreDataManager.setUpDefaultProductTypes()
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
