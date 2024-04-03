@@ -10,7 +10,6 @@ import UIKit
 
 protocol InsulinConfigViewModelProtocol: UIPickerViewDataSource {
     var coreDataManager: CoreDataManagerProtocol { get }
-    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
     var shortDataSource: [String] { get set }
     var longDataSource: [String] { get set }
 
@@ -23,16 +22,13 @@ final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinCon
     var longPickerView: UIPickerView?
     let coreDataManager: CoreDataManagerProtocol
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
-    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
     var shortDataSource: [String] = ["Хумалог", "НовоРапид", "Апидра"]
     var longDataSource: [String] = ["Лантус", "Туджео", "Левемир"]
 
     init(
         coreDM: CoreDataManagerProtocol,
-        userDefaultsDM: UserDefaultsDataManagerProtocol,
-        welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
-        welcomeScreenFabric = welcomeScreenControllerFabric
+        userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
     }

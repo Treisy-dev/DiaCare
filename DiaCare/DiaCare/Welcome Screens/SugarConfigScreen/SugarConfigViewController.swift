@@ -13,6 +13,9 @@ final class SugarConfigViewController: UIViewController {
 
     private let viewModel: SugarConfigViewModelProtocol
 
+    var onFinish: (() -> Void)?
+    var onBack: (() -> Void)?
+
     init(viewModel: SugarConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -37,13 +40,11 @@ final class SugarConfigViewController: UIViewController {
 extension SugarConfigViewController: SugarConfigViewDelegate {
     func didPressNext(lowSugar: String?, targetSugar: String?, hightSugar: String?) {
         viewModel.saveUserInfo(lowSugar: lowSugar, targetSugar: targetSugar, hightSugar: hightSugar)
-        self.navigationController?.pushViewController(
-            viewModel.welcomeScreenFabric.makeFoodConfigVC(),
-            animated: true)
+        onFinish?()
     }
 
     func didPressBack() {
-        self.navigationController?.popViewController(animated: true)
+        onBack?()
     }
 }
 

@@ -13,6 +13,9 @@ final class FoodConfigViewController: UIViewController {
 
     private let viewModel: FoodConfigViewModelProtocol
 
+    var onFinish: (() -> Void)?
+    var onBack: (() -> Void)?
+
     init(viewModel: FoodConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -48,12 +51,10 @@ extension FoodConfigViewController: UIPickerViewDelegate {
 extension FoodConfigViewController: FoodConfigViewDelegate {
     func didPressNext(breadCount: String?, insulinCount: String?) {
         viewModel.saveUserInfo(breadCount: breadCount, insulinCount: insulinCount)
-        self.navigationController?.pushViewController(
-            viewModel.welcomeScreenFabric.makeInsulinConfigVC(),
-            animated: true)
+        onFinish?()
     }
 
     func didPressBack() {
-        self.navigationController?.popViewController(animated: true)
+        onBack?()
     }
 }

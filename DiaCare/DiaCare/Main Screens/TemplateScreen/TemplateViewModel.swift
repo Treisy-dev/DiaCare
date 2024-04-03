@@ -7,6 +7,14 @@
 
 import Foundation
 
-final class TemplateViewModel {
+protocol TemplateViewModelProtocol {
+    var coreDataManager: CoreDataManagerProtocol { get }
+}
 
+final class TemplateViewModel: TemplateViewModelProtocol {
+    var coreDataManager: CoreDataManagerProtocol
+
+    init(coreDM: CoreDataManagerProtocol) {
+        coreDataManager = coreDM
+    }
 }
