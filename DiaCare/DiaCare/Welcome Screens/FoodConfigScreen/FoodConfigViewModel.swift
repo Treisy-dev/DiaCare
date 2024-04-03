@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol FoodConfigViewModelProtocol: UIPickerViewDataSource {
-    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
     var dataSource: [String] { get set }
     func saveUserInfo(breadCount: String?, insulinCount: String?)
 }
@@ -18,11 +17,9 @@ final class FoodConfigViewModel: NSObject, UIPickerViewDataSource, FoodConfigVie
 
     var dataSource: [String] = []
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
-    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
-    init(userDefaultsDM: UserDefaultsDataManagerProtocol, welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM
-        welcomeScreenFabric = welcomeScreenControllerFabric
         super.init()
         generateDataArray()
     }

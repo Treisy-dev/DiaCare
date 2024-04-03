@@ -9,12 +9,11 @@ import Foundation
 import UIKit
 
 protocol InsulinConfigViewModelProtocol: UIPickerViewDataSource {
-    var coreDataManager: CoreDataManagerProtocol { get }
-    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
     var shortDataSource: [String] { get set }
     var longDataSource: [String] { get set }
 
     func saveUserInfo(shortInsulin: String?, longInsulin: String?)
+    func setUpDefaultsProductTypes()
 }
 
 final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinConfigViewModelProtocol {
@@ -23,22 +22,23 @@ final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinCon
     var longPickerView: UIPickerView?
     let coreDataManager: CoreDataManagerProtocol
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
-    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
     var shortDataSource: [String] = ["Хумалог", "НовоРапид", "Апидра"]
     var longDataSource: [String] = ["Лантус", "Туджео", "Левемир"]
 
     init(
         coreDM: CoreDataManagerProtocol,
-        userDefaultsDM: UserDefaultsDataManagerProtocol,
-        welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
-        welcomeScreenFabric = welcomeScreenControllerFabric
+        userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
     }
 
     func saveUserInfo(shortInsulin: String?, longInsulin: String?) {
         userDefaultsDataManager.addInsulinToUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
+    }
+
+    func setUpDefaultsProductTypes() {
+        coreDataManager.setUpDefaultProductTypes()
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

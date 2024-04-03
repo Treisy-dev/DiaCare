@@ -13,6 +13,9 @@ final class InsulinConfigViewController: UIViewController {
 
     private let viewModel: InsulinConfigViewModelProtocol
 
+    var onFinish: (() -> Void)?
+    var onBack: (() -> Void)?
+
     init(viewModel: InsulinConfigViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -33,15 +36,6 @@ final class InsulinConfigViewController: UIViewController {
         contentView.shortPickerView.dataSource = viewModel
         contentView.longPickerView.delegate = self
         contentView.longPickerView.dataSource = viewModel
-    }
-
-    func showMainScreen() {
-        let tbController = viewModel.welcomeScreenFabric.makeMainAppTabBarController()
-
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.window?.rootViewController = tbController
-            sceneDelegate.window?.makeKeyAndVisible()
-        }
     }
 }
 
@@ -67,11 +61,11 @@ extension InsulinConfigViewController: UIPickerViewDelegate {
 extension InsulinConfigViewController: InsulinConfigViewDelegate {
     func didPressSave(shortInsulin: String?, longInsulin: String?) {
         viewModel.saveUserInfo(shortInsulin: shortInsulin, longInsulin: longInsulin)
-        viewModel.coreDataManager.setUpDefaultProductTypes()
-        showMainScreen()
+        viewModel.setUpDefaultsProductTypes()
+        onFinish?()
     }
 
     func didPressBack() {
-        self.navigationController?.popViewController(animated: true)
+        onBack?()
     }
 }

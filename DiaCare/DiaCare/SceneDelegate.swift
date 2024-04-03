@@ -6,46 +6,35 @@
 //
 
 import UIKit
+import Swinject
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var coreDataManager: CoreDataManagerProtocol?
-    var userDefaultsDataManager: UserDefaultsDataManagerProtocol?
-    var welcomeControllerFabrics: WelcomeScreensControllerFabricProtocol?
+    let container = Container()
 
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions) {
 
-            coreDataManager = CoreDataManager()
-            userDefaultsDataManager = UserDefaultsDataManager()
-            guard let userDefaultsDataManager, let coreDataManager else { return }
+            let mainAppAssembly = MainAppAssembly()
+            mainAppAssembly.assemble(container: container)
 
-            welcomeControllerFabrics = WelcomeScreensControllerFabric(userDefaultsDM: userDefaultsDataManager, coreDM: coreDataManager)
-            guard let welcomeControllerFabrics else { return }
+            guard let mainAppTabBarFabric = container.resolve(MainAppTabBarFabricProtocol.self) else { return }
 
             guard let windowScene = (scene as? UIWindowScene) else { return }
             self.window = UIWindow(windowScene: windowScene)
             if UserDefaults.standard.bool(forKey: "isUserLogged") {
-
-                let insulinViewModel = InsulinConfigViewModel(
-                    coreDM: CoreDataManager(),
-                    userDefaultsDM: UserDefaultsDataManager(),
-                    welcomeScreenControllerFabric: welcomeControllerFabrics)
-
-                let insulinViewController = InsulinConfigViewController(viewModel: insulinViewModel)
-                insulinViewController.showMainScreen()
+                let tbController = mainAppTabBarFabric.makeMainAppTabBarController()
+                self.window?.rootViewController = tbController
+                self.window?.makeKeyAndVisible()
             } else {
-                let nameRegisterViewModel = NameRegisterViewModel(
-                    userDefaultsDM: userDefaultsDataManager,
-                    welcomeScreenControllerFabric: welcomeControllerFabrics)
 
-                let nameRegisterViewController = NameRegisterViewController(
-                    viewModel: nameRegisterViewModel)
+                let welcomeFlowCoordinator = WelcomeFlowCoordinator(container: container, navigationController: UINavigationController())
+                welcomeFlowCoordinator.start()
 
-                let navigationController = UINavigationController(rootViewController: nameRegisterViewController)
+                let navigationController = welcomeFlowCoordinator.navigationController
                 navigationController.isNavigationBarHidden = true
                 self.window?.rootViewController = navigationController
                 self.window?.makeKeyAndVisible()
@@ -82,6 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        coreDataManager?.saveContext()
+        guard let coreDataManager = container.resolve(CoreDataManagerProtocol.self) else { return }
+        coreDataManager.saveContext()
     }
 }

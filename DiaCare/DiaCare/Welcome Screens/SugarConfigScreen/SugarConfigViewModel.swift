@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol SugarConfigViewModelProtocol: UIPickerViewDataSource {
-    var welcomeScreenFabric: WelcomeScreensControllerFabricProtocol { get }
     var dataSource: [String] { get set }
     func saveUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?)
 }
@@ -18,10 +17,8 @@ final class SugarConfigViewModel: NSObject, UIPickerViewDataSource, SugarConfigV
 
     var dataSource: [String] = []
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
-    let welcomeScreenFabric: WelcomeScreensControllerFabricProtocol
 
-    init(userDefaultsDM: UserDefaultsDataManagerProtocol, welcomeScreenControllerFabric: WelcomeScreensControllerFabricProtocol) {
-        welcomeScreenFabric = welcomeScreenControllerFabric
+    init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM
         super.init()
         generateDataArray()
