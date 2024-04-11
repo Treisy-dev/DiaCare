@@ -59,6 +59,7 @@ final class NewNoteFoodSubView: UIView {
     private func setUpAddFoodButton() {
         addSubview(addFoodButton)
         let addProductAction: UIAction = UIAction { [weak self] _ in
+            self?.addFoodButton.addAlphaAnimation()
             self?.addProductTapped?()
         }
         addFoodButton.addAction(addProductAction, for: .touchUpInside)

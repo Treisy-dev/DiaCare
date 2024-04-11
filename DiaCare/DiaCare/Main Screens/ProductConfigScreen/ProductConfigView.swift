@@ -278,6 +278,7 @@ final class ProductConfigView: UIView {
         productConfigContentView.addSubview(addButton)
         let addAction: UIAction = UIAction { [weak self] _ in
             guard let userProduct = self?.getCofigedProductInfo() else { return }
+            self?.addButton.addAlphaAnimation()
             self?.addAction?(userProduct)
         }
         addButton.addAction(addAction, for: .touchUpInside)
@@ -292,6 +293,7 @@ final class ProductConfigView: UIView {
     private func setUpCloseButton() {
         productConfigContentView.addSubview(closeButton)
         let closeAction: UIAction = UIAction { [weak self] _ in
+            self?.closeButton.addAlphaAnimation()
             self?.closeAction?()
         }
         closeButton.addAction(closeAction, for: .touchUpInside)

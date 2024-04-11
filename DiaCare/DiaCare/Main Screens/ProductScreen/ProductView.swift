@@ -128,6 +128,7 @@ final class ProductView: UIView {
     private func setUpAddButton() {
         addSubview(addButton)
         let addAction: UIAction = UIAction { [weak self] _ in
+            self?.addButton.addAlphaAnimation()
             self?.addAction?()
         }
         addButton.addAction(addAction, for: .touchUpInside)
@@ -142,6 +143,7 @@ final class ProductView: UIView {
     private func setUpCloseButton() {
         addSubview(closeButton)
         let closeAction: UIAction = UIAction { [weak self] _ in
+            self?.closeButton.addAlphaAnimation()
             self?.closeAction?()
         }
         closeButton.addAction(closeAction, for: .touchUpInside)
