@@ -76,5 +76,9 @@ final class MainAppAssembly: Assembly {
         container.register(TemplateViewModelProtocol.self) { _ in
             TemplateViewModel(coreDM: coreDM)
         }
+
+        container.register(ProductConfigViewModelProtocol.self) { _ in
+            ProductConfigViewModel(userDefaultsDM: userDefaultsDM)
+        }
     }
 }

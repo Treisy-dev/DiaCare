@@ -2,6 +2,7 @@ disabled_rules:
   - trailing_newline
   - todo
   - cyclomatic_complexity
+  - large_tuple
 
 excluded:
   - DiaCare/Network

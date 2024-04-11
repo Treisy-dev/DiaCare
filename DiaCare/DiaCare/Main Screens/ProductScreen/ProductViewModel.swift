@@ -10,6 +10,8 @@ import Combine
 
 protocol ProductViewModelProtocol: UITableViewDataSource {
     func searchProducts(for queryText: String, completion: @escaping () -> Void)
+    var productItem: [Product] {get}
+    var usersProduct: [UserProductModel] {get set}
 }
 
 final class ProductViewModel: NSObject, ProductViewModelProtocol {
@@ -18,6 +20,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     var productNS: ProductNetworkServiceProtocol
     var coreDataManager: CoreDataManagerProtocol
 
+    var usersProduct: [UserProductModel] = []
     var productItem: [Product] = []
 
     init(
@@ -70,6 +73,7 @@ extension ProductViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
         let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.selectionStyle = .none
         let category = cell.getCategoryFromString(productCategory ?? "")
         cell.config(
             productName: productItem[indexPath.row].name,

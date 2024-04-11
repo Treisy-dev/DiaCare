@@ -11,12 +11,14 @@ final class NewNoteView: UIView {
 
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var titleLable: UILabel = UILabel()
-    private lazy var newNoteContentView: UIView = UIView()
+    lazy var newNoteContentView: UIView = UIView()
     private lazy var doctorImageView: UIImageView = UIImageView()
     private var averageSugar: String?
     private var sugarSubView: NewNoteSugarSubView
     var foodSubView: NewNoteFoodSubView = NewNoteFoodSubView(frame: CGRect())
     var injectionSubView: NewNoteInjectionSubView = NewNoteInjectionSubView(frame: CGRect())
+
+    var scrollAddition: CGFloat = 0
 
     private lazy var resetButton: UIButton = UIButton()
     private lazy var saveButton: UIButton = UIButton()
@@ -75,8 +77,8 @@ final class NewNoteView: UIView {
         newNoteContentView.backgroundColor = .white
         newNoteContentView.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
-            make.top.equalToSuperview().inset(285)
-            make.height.equalTo(800)
+            make.top.equalTo(doctorImageView.snp.bottom).inset(20)
+            make.height.equalTo(700)
         }
     }
 
@@ -98,7 +100,7 @@ final class NewNoteView: UIView {
         doctorImageView.snp.makeConstraints { make in
             make.trailing.equalTo(safeAreaLayoutGuide).inset(15)
             make.leading.equalTo(safeAreaLayoutGuide).offset(15)
-            make.top.equalTo(self.snp_topMargin).inset(-45)
+            make.top.equalToSuperview().offset(50)
             make.height.equalTo(244)
         }
     }
@@ -185,7 +187,7 @@ final class NewNoteView: UIView {
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
 
-            if newMaxY <= 1085 && newMaxY >= 870 {
+            if newMaxY <= 950 + scrollAddition && newMaxY >= 770 - scrollAddition / 6 {
                 let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
                 newNoteContentView.transform = newTransform
             }

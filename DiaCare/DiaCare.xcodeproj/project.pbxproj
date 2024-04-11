@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C31D16722BC753E6004A133F /* ProductConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D16712BC753E6004A133F /* ProductConfigView.swift */; };
+		C31D16742BC753FF004A133F /* ProfuctConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D16732BC753FF004A133F /* ProfuctConfigViewController.swift */; };
+		C31D16762BC7540E004A133F /* ProductConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D16752BC7540E004A133F /* ProductConfigViewModel.swift */; };
+		C31D16782BC75AFE004A133F /* CustomCircledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D16772BC75AFE004A133F /* CustomCircledView.swift */; };
+		C31D167A2BC77999004A133F /* UserProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D16792BC77999004A133F /* UserProductModel.swift */; };
+		C31D167C2BC783C3004A133F /* UserProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D167B2BC783C3004A133F /* UserProductTableViewCell.swift */; };
 		C333ABA02B9F09BF00EA100E /* CustomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333AB9F2B9F09BF00EA100E /* CustomGradientView.swift */; };
 		C333ABA22B9F820700EA100E /* CustomUnderlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABA12B9F820700EA100E /* CustomUnderlineView.swift */; };
 		C333ABA62B9FBBD900EA100E /* PreferencesSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333ABA52B9FBBD900EA100E /* PreferencesSubView.swift */; };
@@ -93,6 +99,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C31D16712BC753E6004A133F /* ProductConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigView.swift; sourceTree = "<group>"; };
+		C31D16732BC753FF004A133F /* ProfuctConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfuctConfigViewController.swift; sourceTree = "<group>"; };
+		C31D16752BC7540E004A133F /* ProductConfigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigViewModel.swift; sourceTree = "<group>"; };
+		C31D16772BC75AFE004A133F /* CustomCircledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCircledView.swift; sourceTree = "<group>"; };
+		C31D16792BC77999004A133F /* UserProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductModel.swift; sourceTree = "<group>"; };
+		C31D167B2BC783C3004A133F /* UserProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProductTableViewCell.swift; sourceTree = "<group>"; };
 		C333AB9F2B9F09BF00EA100E /* CustomGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientView.swift; sourceTree = "<group>"; };
 		C333ABA12B9F820700EA100E /* CustomUnderlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnderlineView.swift; sourceTree = "<group>"; };
 		C333ABA52B9FBBD900EA100E /* PreferencesSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesSubView.swift; sourceTree = "<group>"; };
@@ -191,6 +203,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C31D16702BC753D3004A133F /* ProductConfigScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C31D16712BC753E6004A133F /* ProductConfigView.swift */,
+				C31D16732BC753FF004A133F /* ProfuctConfigViewController.swift */,
+				C31D16752BC7540E004A133F /* ProductConfigViewModel.swift */,
+			);
+			path = ProductConfigScreen;
+			sourceTree = "<group>";
+		};
 		C333AB9E2B9F09A600EA100E /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +265,7 @@
 			children = (
 				C333AB9F2B9F09BF00EA100E /* CustomGradientView.swift */,
 				C333ABA12B9F820700EA100E /* CustomUnderlineView.swift */,
+				C31D16772BC75AFE004A133F /* CustomCircledView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +312,7 @@
 				C364B5292BB48D0600AC1CB3 /* ProductViewController.swift */,
 				C364B52B2BB48D1500AC1CB3 /* ProductViewModel.swift */,
 				C364B53B2BB4CD7200AC1CB3 /* ProductTableViewCell.swift */,
+				C31D16792BC77999004A133F /* UserProductModel.swift */,
 			);
 			path = ProductScreen;
 			sourceTree = "<group>";
@@ -476,6 +500,7 @@
 		C3DCF9EF2B9E597B007D7FF0 /* Main Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C31D16702BC753D3004A133F /* ProductConfigScreen */,
 				C333ABAE2BA0F4BA00EA100E /* UIFabrics */,
 				C364B5262BB48CE200AC1CB3 /* ProductScreen */,
 				C333AB9E2B9F09A600EA100E /* CustomUI */,
@@ -517,6 +542,7 @@
 				C3DCF9FF2B9E5ABA007D7FF0 /* NewNoteViewController.swift */,
 				C3DCFA012B9E5AC7007D7FF0 /* NewNoteView.swift */,
 				C3DCFA032B9E5AD2007D7FF0 /* NewNoteViewModel.swift */,
+				C31D167B2BC783C3004A133F /* UserProductTableViewCell.swift */,
 			);
 			path = NewNoteScreen;
 			sourceTree = "<group>";
@@ -650,6 +676,7 @@
 				C3DCF9DB2B9E03CD007D7FF0 /* SugarConfigViewModel.swift in Sources */,
 				C364B5412BB4D65A00AC1CB3 /* ProductNetworkService.swift in Sources */,
 				C3DCF9D02B9DF588007D7FF0 /* NameRegisterViewController.swift in Sources */,
+				C31D16722BC753E6004A133F /* ProductConfigView.swift in Sources */,
 				C333ABB62BA2549400EA100E /* CustomLanguageTextField.swift in Sources */,
 				C364B5282BB48CFC00AC1CB3 /* ProductView.swift in Sources */,
 				C364B5572BB9967300AC1CB3 /* NotesHistory+CoreDataClass.swift in Sources */,
@@ -659,15 +686,18 @@
 				C364B52A2BB48D0600AC1CB3 /* ProductViewController.swift in Sources */,
 				C364B52C2BB48D1500AC1CB3 /* ProductViewModel.swift in Sources */,
 				C3DCF9DD2B9E0B0D007D7FF0 /* CustomConfigTextField.swift in Sources */,
+				C31D16782BC75AFE004A133F /* CustomCircledView.swift in Sources */,
 				C3DCFA022B9E5AC7007D7FF0 /* NewNoteView.swift in Sources */,
 				C364B5582BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift in Sources */,
 				C333ABC72BA7476F00EA100E /* UIImageExtensions.swift in Sources */,
 				C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */,
 				C333ABA62B9FBBD900EA100E /* PreferencesSubView.swift in Sources */,
+				C31D167A2BC77999004A133F /* UserProductModel.swift in Sources */,
 				C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */,
 				C3DCF9D22B9DF5A4007D7FF0 /* NameRegisterView.swift in Sources */,
 				C3DCFA002B9E5ABA007D7FF0 /* NewNoteViewController.swift in Sources */,
 				C364B5522BB9967300AC1CB3 /* Templates+CoreDataProperties.swift in Sources */,
+				C31D16762BC7540E004A133F /* ProductConfigViewModel.swift in Sources */,
 				C3DCF9EA2B9E338D007D7FF0 /* InsulinConfigViewController.swift in Sources */,
 				C3DCF9FD2B9E5A67007D7FF0 /* NotificationViewController.swift in Sources */,
 				C3DCF9D72B9E039E007D7FF0 /* SugarConfigView.swift in Sources */,
@@ -690,6 +720,7 @@
 				C333ABB42BA2534A00EA100E /* SettingsSubView.swift in Sources */,
 				C364B55A2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift in Sources */,
 				C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */,
+				C31D167C2BC783C3004A133F /* UserProductTableViewCell.swift in Sources */,
 				C364B5302BB49BC700AC1CB3 /* UIButtonFabric.swift in Sources */,
 				C333ABA02B9F09BF00EA100E /* CustomGradientView.swift in Sources */,
 				C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */,
@@ -709,6 +740,7 @@
 				C364B53A2BB4C40600AC1CB3 /* ProductAPIModel.swift in Sources */,
 				C3DCFA122B9E5C2C007D7FF0 /* TemplateViewModel.swift in Sources */,
 				C3DCF9F42B9E59A8007D7FF0 /* ProfileView.swift in Sources */,
+				C31D16742BC753FF004A133F /* ProfuctConfigViewController.swift in Sources */,
 				C364B5512BB9967300AC1CB3 /* Templates+CoreDataClass.swift in Sources */,
 				C364B53C2BB4CD7200AC1CB3 /* ProductTableViewCell.swift in Sources */,
 				C364B5742BBD778D00AC1CB3 /* TemplateScreenFlowCoordinator.swift in Sources */,
