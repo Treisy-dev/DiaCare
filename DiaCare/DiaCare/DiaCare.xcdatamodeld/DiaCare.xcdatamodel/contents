@@ -40,7 +40,6 @@
         <attribute name="carbohydrates" attributeType="String"/>
         <attribute name="category" attributeType="String"/>
         <attribute name="fat" attributeType="String"/>
-        <attribute name="grams" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="protein" attributeType="String"/>
     </entity>

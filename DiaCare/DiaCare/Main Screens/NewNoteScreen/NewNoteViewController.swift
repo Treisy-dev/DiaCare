@@ -38,13 +38,48 @@ final class NewNoteViewController: UIViewController {
         contentView.foodSubView.foodtableView.delegate = self
         contentView.foodSubView.foodtableView.dataSource = viewModel
 
+        contentView.saveTapped = { [weak self] in
+            self?.viewModel.saveNewNote(
+                breadCount: self?.contentView.injectionSubView.breadTextField.text ?? "0.0",
+                sugar: self?.contentView.sugarSubView.sugarCountLabel.text ?? "5.5",
+                shortInsulin: self?.contentView.injectionSubView.insulinTextField.text ?? "0.0")
+
+            self?.resetChanges()
+            self?.updateContentViewLayout()
+            self?.contentView.scrollToUpside()
+
+            let alert = UIAlertController(title: "Запись добавлена!", message: "Вы добавили запись", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        }
+
         contentView.foodSubView.addProductTapped = { [weak self] in
             self?.onFinish?()
+        }
+
+        contentView.resetTapped = { [weak self] in
+            self?.resetChanges()
+            self?.updateContentViewLayout()
+            self?.contentView.scrollToUpside()
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        updateContentViewLayout()
+        changeInjectionStats()
+    }
+
+    private func resetChanges() {
+        viewModel.userProducts = []
+        contentView.injectionSubView.breadTextField.text = "0"
+        contentView.injectionSubView.insulinTextField.text = "0"
+        contentView.injectionSubView.breadSlider.value = 0
+        contentView.injectionSubView.insulinSlider.value = 0
+        contentView.sugarSubView.sugarCountLabel.text = viewModel.getAverageSugar()
+    }
+
+    private func updateContentViewLayout() {
         contentView.foodSubView.snp.updateConstraints { make in
             make.height.equalTo(140 + 70 * CGFloat(Float(viewModel.userProducts.count)))
         }
@@ -54,6 +89,15 @@ final class NewNoteViewController: UIViewController {
         contentView.scrollAddition = 70 * CGFloat(Float(viewModel.userProducts.count))
         contentView.layoutIfNeeded()
         contentView.foodSubView.foodtableView.reloadData()
+    }
+
+    private func changeInjectionStats() {
+        guard let breadCountFloat = Float(viewModel.getBreadCount()),
+            let insulinCountFloat = Float(viewModel.getInsulinCount()) else { return }
+        contentView.injectionSubView.breadTextField.text = viewModel.getBreadCount()
+        contentView.injectionSubView.breadSlider.value = breadCountFloat
+        contentView.injectionSubView.insulinTextField.text = viewModel.getInsulinCount()
+        contentView.injectionSubView.insulinSlider.value = insulinCountFloat
     }
 }
 

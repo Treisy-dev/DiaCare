@@ -10,8 +10,11 @@ import Combine
 
 protocol ProductViewModelProtocol: UITableViewDataSource {
     func searchProducts(for queryText: String, completion: @escaping () -> Void)
+    func getUserSavedProducts()
     var productItem: [Product] {get}
     var usersProduct: [UserProductModel] {get set}
+    var userSavedProducts: [UserProducts] {get}
+    var selectedSegmentControllIndex: Int {get set}
 }
 
 final class ProductViewModel: NSObject, ProductViewModelProtocol {
@@ -19,9 +22,11 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     var translationNS: TranslationNetworkServiceProtocol
     var productNS: ProductNetworkServiceProtocol
     var coreDataManager: CoreDataManagerProtocol
+    var selectedSegmentControllIndex: Int = 0
 
     var usersProduct: [UserProductModel] = []
     var productItem: [Product] = []
+    var userSavedProducts: [UserProducts] = []
 
     init(
         translationService: TranslationNetworkServiceProtocol,
@@ -62,25 +67,50 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
             }
         }
     }
+
+    func getUserSavedProducts() {
+        userSavedProducts = coreDataManager.obtainUsersProduct()
+    }
 }
 
 extension ProductViewModel: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        productItem.count
+        if selectedSegmentControllIndex == 0 {
+            return productItem.count
+        } else if selectedSegmentControllIndex == 1 {
+            return 0
+        } else {
+            return userSavedProducts.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
-        let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
-        cell.selectionStyle = .none
-        let category = cell.getCategoryFromString(productCategory ?? "")
-        cell.config(
-            productName: productItem[indexPath.row].name,
-            productCategory: category,
-            proteinCount: String(productItem[indexPath.row].protein_g),
-            fatCount: String(productItem[indexPath.row].fat_total_g),
-            carbCount: String(productItem[indexPath.row].carbohydrates_total_g))
-        return cell
+        if selectedSegmentControllIndex == 0 {
+            let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
+            let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
+            cell.selectionStyle = .none
+            let category = cell.getCategoryFromString(productCategory ?? "")
+            cell.config(
+                productName: productItem[indexPath.row].name,
+                productCategory: category,
+                proteinCount: String(productItem[indexPath.row].protein_g),
+                fatCount: String(productItem[indexPath.row].fat_total_g),
+                carbCount: String(productItem[indexPath.row].carbohydrates_total_g))
+            return cell
+        } else if selectedSegmentControllIndex == 1 {
+            return UITableViewCell()
+        } else {
+            let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
+            cell.selectionStyle = .none
+            let category = cell.getCategoryFromString(userSavedProducts[indexPath.row].category)
+            cell.config(
+                productName: userSavedProducts[indexPath.row].name,
+                productCategory: category,
+                proteinCount: String(userSavedProducts[indexPath.row].protein),
+                fatCount: String(userSavedProducts[indexPath.row].fat),
+                carbCount: String(userSavedProducts[indexPath.row].carbohydrates))
+            return cell
+        }
     }
 }

@@ -54,7 +54,7 @@ final class MainAppAssembly: Assembly {
         }
 
         container.register(NewNoteViewModelProtocol.self) { _ in
-            NewNoteViewModel(coreDM: coreDM)
+            NewNoteViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
         }
 
         container.register(ProfileViewModelProtocol.self) { _ in
@@ -79,6 +79,10 @@ final class MainAppAssembly: Assembly {
 
         container.register(ProductConfigViewModelProtocol.self) { _ in
             ProductConfigViewModel(userDefaultsDM: userDefaultsDM)
+        }
+
+        container.register(NewUserProductViewModelProtocol.self) { _ in
+            NewUserProductViewModel(coreDM: coreDM)
         }
     }
 }

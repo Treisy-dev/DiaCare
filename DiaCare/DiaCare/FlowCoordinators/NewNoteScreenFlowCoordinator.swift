@@ -51,6 +51,21 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
             }
         }
 
+        viewController.addUserProductTapped = { [weak self] in
+            self?.showNewUserProductScreen()
+        }
+
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showNewUserProductScreen() {
+        guard let viewModel = container.resolve(NewUserProductViewModelProtocol.self) else { return }
+        let viewController = NewUserProductViewController(viewModel: viewModel)
+
+        viewController.onFinish = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+
         navigationController.pushViewController(viewController, animated: true)
     }
 
