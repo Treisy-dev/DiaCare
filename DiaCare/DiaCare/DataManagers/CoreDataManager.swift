@@ -185,6 +185,11 @@ final class CoreDataManager: CoreDataManagerProtocol {
         userProduct.fat = fat
         userProduct.carbohydrates = carbs
 
+        let productType = ProductTypes(context: viewContext)
+        productType.id = UUID()
+        productType.category = category
+        productType.name = name
+
         saveContext()
     }
 
