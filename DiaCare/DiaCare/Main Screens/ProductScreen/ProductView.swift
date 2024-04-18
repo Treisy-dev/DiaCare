@@ -18,6 +18,9 @@ final class ProductView: UIView {
     private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
     lazy var loadAnimationView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
+    var closeAction: (() -> Void)?
+    var addAction: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -124,6 +127,11 @@ final class ProductView: UIView {
 
     private func setUpAddButton() {
         addSubview(addButton)
+        let addAction: UIAction = UIAction { [weak self] _ in
+            self?.addButton.addAlphaAnimation()
+            self?.addAction?()
+        }
+        addButton.addAction(addAction, for: .touchUpInside)
         addButton.snp.makeConstraints { make in
             make.top.equalTo(productTableView.snp.bottom).offset(10)
             make.trailing.equalToSuperview().inset(30)
@@ -134,6 +142,11 @@ final class ProductView: UIView {
 
     private func setUpCloseButton() {
         addSubview(closeButton)
+        let closeAction: UIAction = UIAction { [weak self] _ in
+            self?.closeButton.addAlphaAnimation()
+            self?.closeAction?()
+        }
+        closeButton.addAction(closeAction, for: .touchUpInside)
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(productTableView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(30)

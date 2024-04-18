@@ -1,21 +1,23 @@
 //
-//  ProductTableViewCell.swift
+//  UserProductTableViewCell.swift
 //  DiaCare
 //
-//  Created by Кирилл Щёлоков on 28.03.2024.
+//  Created by Кирилл Щёлоков on 11.04.2024.
 //
 import SnapKit
 import UIKit
 
-final class ProductTableViewCell: UITableViewCell {
-    lazy var productImageView: UIImageView = UIImageView()
+final class UserProductTableViewCell: UITableViewCell {
+    private lazy var productImageView: UIImageView = UIImageView()
     private lazy var borderView: UIView = UIView()
-    lazy var productLabel: UILabel = UILabel()
-    lazy var productInfoVStack: UIStackView = UIStackView()
-    lazy var productPropsHStack: UIStackView = UIStackView()
-    var proteinVStack: UIStackView?
-    var fatVStack: UIStackView?
-    var carbohydratesVStack: UIStackView?
+    private lazy var productLabel: UILabel = UILabel()
+    private lazy var productInfoVStack: UIStackView = UIStackView()
+    private lazy var productPropsHStack: UIStackView = UIStackView()
+    private var proteinVStack: UIStackView?
+    private var fatVStack: UIStackView?
+    private var carbohydratesVStack: UIStackView?
+    private var grammsVStack: UIStackView?
+    private var breadCountVStack: UIStackView?
 
     enum ProductCategories: String {
         case fruit
@@ -45,6 +47,7 @@ final class ProductTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
         setUp()
     }
 
@@ -65,7 +68,8 @@ final class ProductTableViewCell: UITableViewCell {
         productCategory: ProductCategories,
         proteinCount: String,
         fatCount: String,
-        carbCount: String) {
+        carbCount: String,
+        breadCount: String) {
             productLabel.text = productName
             productImageView.image = productCategory.getImageByType()
             proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
@@ -80,11 +84,16 @@ final class ProductTableViewCell: UITableViewCell {
                 titleLabel: "Углеводы",
                 titleLabelColor: .systemRed,
                 count: carbCount)
-            guard let proteinVStack, let fatVStack, let carbohydratesVStack else { return }
+            breadCountVStack = ProductVStackFabric.shared.makeProductPropVStack(
+                titleLabel: "ХЕ",
+                titleLabelColor: .systemGreen,
+                count: breadCount)
+            guard let proteinVStack, let fatVStack, let carbohydratesVStack, let breadCountVStack else { return }
             productPropsHStack.addArrangedSubview(proteinVStack)
             productPropsHStack.addArrangedSubview(fatVStack)
             productPropsHStack.addArrangedSubview(carbohydratesVStack)
-    }
+            productPropsHStack.addArrangedSubview(breadCountVStack)
+        }
 
     func getCategoryFromString(_ categoryString: String) -> ProductCategories {
         if let category = ProductCategories(rawValue: categoryString) {
@@ -141,6 +150,12 @@ final class ProductTableViewCell: UITableViewCell {
     private func setUpProductPropsHStack() {
         productInfoVStack.addArrangedSubview(productPropsHStack)
         productPropsHStack.axis = .horizontal
-        productPropsHStack.spacing = 10
+        productPropsHStack.alignment = .center
+        productPropsHStack.distribution = .equalSpacing
+
+        productPropsHStack.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
     }
 }

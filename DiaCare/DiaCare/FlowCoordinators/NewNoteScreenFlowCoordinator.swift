@@ -35,6 +35,39 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
         guard let viewModel = container.resolve(ProductViewModelProtocol.self) else { return }
         let viewController = ProductViewController(viewModel: viewModel)
 
+        viewController.productTapped = { [weak self] productName, productProps in
+            self?.showProductConfigScreen(productName: productName, productProps: productProps)
+        }
+
+        viewController.onFinish = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+
+        viewController.onFinishWithProducts = { [weak self] userProducts in
+            self?.navigationController.popViewController(animated: true)
+            guard let previousVC = self?.navigationController.topViewController as? NewNoteViewController else { return }
+            for product in userProducts {
+                previousVC.viewModel.userProducts.append(product)
+            }
+        }
+
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showProductConfigScreen(productName: String, productProps: (String, String, String)) {
+        guard let viewModel = container.resolve(ProductConfigViewModelProtocol.self) else { return }
+        let viewController = ProfuctConfigViewController(viewModel: viewModel, productName: productName, productProps: productProps)
+
+        viewController.onFinish = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+
+        viewController.onFinishWithProduct = { [weak self] userProduct in
+            self?.navigationController.popViewController(animated: true)
+            guard let previousVC = self?.navigationController.topViewController as? ProductViewController else { return }
+            previousVC.viewModel.usersProduct.append(userProduct)
+        }
+
         navigationController.pushViewController(viewController, animated: true)
     }
 }

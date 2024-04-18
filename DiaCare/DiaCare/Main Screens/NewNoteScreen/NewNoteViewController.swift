@@ -11,7 +11,7 @@ final class NewNoteViewController: UIViewController {
 
     private let contentView: NewNoteView
 
-    private let viewModel: NewNoteViewModelProtocol
+    var viewModel: NewNoteViewModelProtocol
 
     var onFinish: (() -> Void)?
 
@@ -35,9 +35,25 @@ final class NewNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        contentView.foodSubView.foodtableView.delegate = self
+        contentView.foodSubView.foodtableView.dataSource = viewModel
+
         contentView.foodSubView.addProductTapped = { [weak self] in
             self?.onFinish?()
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        contentView.foodSubView.snp.updateConstraints { make in
+            make.height.equalTo(140 + 70 * CGFloat(Float(viewModel.userProducts.count)))
+        }
+        contentView.newNoteContentView.snp.updateConstraints { make in
+            make.height.equalTo(700 + 70 * CGFloat(Float(viewModel.userProducts.count)))
+        }
+        contentView.scrollAddition = 70 * CGFloat(Float(viewModel.userProducts.count))
+        contentView.layoutIfNeeded()
+        contentView.foodSubView.foodtableView.reloadData()
     }
 }
 
@@ -49,5 +65,11 @@ extension NewNoteViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.selectAll(nil)
+    }
+}
+
+extension NewNoteViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }

@@ -12,9 +12,13 @@ final class ProductViewController: UIViewController {
 
     private let contentView: ProductView = .init()
 
-    private let viewModel: ProductViewModelProtocol
+    let viewModel: ProductViewModelProtocol
 
     private var subscriptions = Set<AnyCancellable>()
+
+    var productTapped: ((_ productName: String, _ productProps: (fat: String, protein: String, carbs: String)) -> Void)?
+    var onFinishWithProducts: (([UserProductModel]) -> Void)?
+    var onFinish: (() -> Void)?
 
     init(viewModel: ProductViewModelProtocol) {
         self.viewModel = viewModel
@@ -37,6 +41,32 @@ final class ProductViewController: UIViewController {
         contentView.productTableView.delegate = self
         contentView.productSearchBar.delegate = self
         contentView.productTableView.register(ProductTableViewCell.self, forCellReuseIdentifier: ProductTableViewCell.reuseIdentifier)
+
+        contentView.addAction = { [weak self] in
+            guard let usersProducts = self?.viewModel.usersProduct else { return }
+            self?.onFinishWithProducts?(usersProducts)
+        }
+
+        contentView.closeAction = { [weak self] in
+            guard let isEmpty = self?.viewModel.usersProduct.isEmpty else { return }
+            if isEmpty {
+                self?.onFinish?()
+            } else {
+                let alertController = UIAlertController(
+                    title: "Удалить добавленные продукты?",
+                    message: "У вас есть добавленные продукты, вы действительно хотите отменить добавление?",
+                    preferredStyle: .alert)
+                let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
+                    self?.onFinish?()
+                }
+                let noAction = UIAlertAction(title: "Нет", style: .cancel) { _ in
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+                alertController.addAction(yesAction)
+                alertController.addAction(noAction)
+                self?.present(alertController, animated: true, completion: nil)
+            }
+        }
 
         setUpBindings()
     }
@@ -64,6 +94,19 @@ final class ProductViewController: UIViewController {
 extension ProductViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProductTableViewCell else { return }
+        guard let productName = cell.productLabel.text else { return }
+        productTapped?(
+            productName,
+            (
+                fat: String(viewModel.productItem[indexPath.row].fat_total_g),
+                protein: String(viewModel.productItem[indexPath.row].protein_g),
+                carbs: String(viewModel.productItem[indexPath.row].carbohydrates_total_g)
+            )
+        )
     }
 }
 

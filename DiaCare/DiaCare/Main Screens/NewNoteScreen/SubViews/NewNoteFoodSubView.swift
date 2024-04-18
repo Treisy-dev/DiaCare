@@ -10,7 +10,7 @@ import UIKit
 final class NewNoteFoodSubView: UIView {
 
     private lazy var foodLabel: UILabel = UILabel()
-    private lazy var foodVStack: UIStackView = UIStackView()
+    lazy var foodtableView: UITableView = UITableView()
     private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить продукт")
 
     var addProductTapped: (() -> Void)?
@@ -29,7 +29,7 @@ final class NewNoteFoodSubView: UIView {
     private func setUp() {
         setUpFoodLabel()
         setUpAddFoodButton()
-        setUpFoodVStack()
+        setUpFoodTableView()
     }
 
     private func setUpFoodLabel() {
@@ -43,13 +43,13 @@ final class NewNoteFoodSubView: UIView {
         }
     }
 
-    private func setUpFoodVStack() {
-        addSubview(foodVStack)
-        foodVStack.axis = .vertical
-        foodVStack.spacing = 10
-        foodVStack.alignment = .center
+    private func setUpFoodTableView() {
+        addSubview(foodtableView)
+        foodtableView.backgroundColor = .clear
+        foodtableView.isScrollEnabled = false
+        foodtableView.separatorColor = .clear
 
-        foodVStack.snp.makeConstraints { make in
+        foodtableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(addFoodButton.snp.bottom).offset(10)
             make.bottom.equalToSuperview().inset(30)
@@ -59,6 +59,7 @@ final class NewNoteFoodSubView: UIView {
     private func setUpAddFoodButton() {
         addSubview(addFoodButton)
         let addProductAction: UIAction = UIAction { [weak self] _ in
+            self?.addFoodButton.addAlphaAnimation()
             self?.addProductTapped?()
         }
         addFoodButton.addAction(addProductAction, for: .touchUpInside)
