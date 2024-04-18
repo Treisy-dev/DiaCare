@@ -8,16 +8,16 @@ import SnapKit
 import UIKit
 
 final class UserProductTableViewCell: UITableViewCell {
-    lazy var productImageView: UIImageView = UIImageView()
+    private lazy var productImageView: UIImageView = UIImageView()
     private lazy var borderView: UIView = UIView()
-    lazy var productLabel: UILabel = UILabel()
-    lazy var productInfoVStack: UIStackView = UIStackView()
-    lazy var productPropsHStack: UIStackView = UIStackView()
-    var proteinVStack: UIStackView?
-    var fatVStack: UIStackView?
-    var carbohydratesVStack: UIStackView?
-    var grammsVStack: UIStackView?
-    var breadCountVStack: UIStackView?
+    private lazy var productLabel: UILabel = UILabel()
+    private lazy var productInfoVStack: UIStackView = UIStackView()
+    private lazy var productPropsHStack: UIStackView = UIStackView()
+    private var proteinVStack: UIStackView?
+    private var fatVStack: UIStackView?
+    private var carbohydratesVStack: UIStackView?
+    private var grammsVStack: UIStackView?
+    private var breadCountVStack: UIStackView?
 
     enum ProductCategories: String {
         case fruit
