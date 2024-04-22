@@ -14,7 +14,7 @@ final class NewNoteView: UIView {
     lazy var newNoteContentView: UIView = UIView()
     private lazy var doctorImageView: UIImageView = UIImageView()
     private var averageSugar: String?
-    private var sugarSubView: NewNoteSugarSubView
+    var sugarSubView: NewNoteSugarSubView
     var foodSubView: NewNoteFoodSubView = NewNoteFoodSubView(frame: CGRect())
     var injectionSubView: NewNoteInjectionSubView = NewNoteInjectionSubView(frame: CGRect())
 
@@ -26,6 +26,9 @@ final class NewNoteView: UIView {
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
+
+    var saveTapped: (() -> Void)?
+    var resetTapped: (() -> Void)?
 
     init(frame: CGRect, averageSugar: String) {
         sugarSubView = NewNoteSugarSubView(frame: frame, avarageSugar: averageSugar)
@@ -144,11 +147,7 @@ final class NewNoteView: UIView {
         resetButton.setTitle("Сбросить", for: .normal)
         resetButton.setTitleColor(.mainApp, for: .normal)
         let resetAction = UIAction { [weak self] _ in
-            self?.injectionSubView.breadTextField.text = "0"
-            self?.injectionSubView.insulinTextField.text = "0"
-            self?.injectionSubView.breadSlider.value = 0
-            self?.injectionSubView.insulinSlider.value = 0
-            self?.sugarSubView.sugarCountLabel.text = self?.averageSugar
+            self?.resetTapped?()
         }
 
         resetButton.addAction(resetAction, for: .touchUpInside)
@@ -170,11 +169,23 @@ final class NewNoteView: UIView {
         saveButton.setTitle("Добавить", for: .normal)
         saveButton.setTitleColor(.white, for: .normal)
 
+        let saveButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.saveTapped?()
+        }
+
+        saveButton.addAction(saveButtonAction, for: .touchUpInside)
+
         saveButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(33)
             make.leading.equalTo(resetButton.snp.trailing).offset(11)
             make.top.equalTo(injectionSubView.snp_bottomMargin).offset(40)
             make.height.equalTo(40)
+        }
+    }
+
+    func scrollToUpside() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.newNoteContentView.transform = .identity
         }
     }
 

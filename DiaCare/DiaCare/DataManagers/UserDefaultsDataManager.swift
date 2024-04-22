@@ -21,6 +21,8 @@ protocol UserDefaultsDataManagerProtocol {
     func prepareData(with userNameData: [String: String], for key: String) -> String
 
     func getUserBreadCount() -> String
+
+    func getUserInsulinCount() -> String
 }
 
 final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
@@ -68,5 +70,10 @@ final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
     func getUserBreadCount() -> String {
         guard let breadCount = getUserInfo()["breadCount"] else { return "10"}
         return breadCount
+    }
+
+    func getUserInsulinCount() -> String {
+        guard let insulinCount = getUserInfo()["insulinCount"] else { return "1"}
+        return insulinCount
     }
 }

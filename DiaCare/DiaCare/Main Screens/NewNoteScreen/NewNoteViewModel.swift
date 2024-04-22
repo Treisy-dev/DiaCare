@@ -11,15 +11,22 @@ import UIKit
 protocol NewNoteViewModelProtocol: UITableViewDataSource {
     var averageSugar: String { get }
     var userProducts: [UserProductModel] {get set}
+    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String)
+    func getBreadCount() -> String
+    func getInsulinCount() -> String
+    func getAverageSugar() -> String
 }
 
 final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDataSource {
-    var averageSugar = "8.5"
+    var averageSugar: String
     var coreDataManager: CoreDataManagerProtocol
+    var userDefaultsDataManager: UserDefaultsDataManagerProtocol
     var userProducts: [UserProductModel] = []
 
-    init(coreDM: CoreDataManagerProtocol) {
+    init(coreDM: CoreDataManagerProtocol, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
+        userDefaultsDataManager = userDefaultsDM
+        averageSugar = coreDataManager.obtainAverageSugar()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,5 +47,30 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
             breadCount: userProducts[indexPath.row].breadCount
         )
         return cell
+    }
+
+    func getAverageSugar() -> String {
+        averageSugar = coreDataManager.obtainAverageSugar()
+        return averageSugar
+    }
+
+    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String) {
+        coreDataManager.addToHistory(breadCount: breadCount, sugar: sugar, shortInsulin: shortInsulin)
+    }
+
+    func getBreadCount() -> String {
+        var result: Double = 0
+        for product in userProducts {
+            guard let breadCount = Double(product.breadCount) else { return ""}
+            result += breadCount
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getInsulinCount() -> String {
+        guard let breadCount = Double(getBreadCount()) else { return ""}
+        guard let insulinCount = Double(userDefaultsDataManager.getUserInsulinCount()) else { return ""}
+
+        return String(format: "%.1f", breadCount * insulinCount)
     }
 }

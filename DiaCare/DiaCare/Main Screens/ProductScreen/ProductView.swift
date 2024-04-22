@@ -10,7 +10,7 @@ import UIKit
 final class ProductView: UIView {
 
     lazy var productSearchBar: UISearchBar = UISearchBar()
-    private lazy var typesSegmentControl: UISegmentedControl = UISegmentedControl(items: ["Все", "Шаблоны", "Мои"])
+    lazy var typesSegmentControl: UISegmentedControl = UISegmentedControl(items: ["Все", "Шаблоны", "Мои"])
     private lazy var addProductButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить свой продукт")
     lazy var productTableView: UITableView = UITableView()
     lazy var hintLabel: UILabel = UILabel()
@@ -18,6 +18,7 @@ final class ProductView: UIView {
     private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
     lazy var loadAnimationView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
+    var addUserProfuctAction: (() -> Void)?
     var closeAction: (() -> Void)?
     var addAction: (() -> Void)?
 
@@ -78,6 +79,11 @@ final class ProductView: UIView {
 
     private func setUpAddProductButton() {
         addSubview(addProductButton)
+        let addProductButtonAction: UIAction = UIAction { [weak self] _ in
+            self?.addUserProfuctAction?()
+        }
+
+        addProductButton.addAction(addProductButtonAction, for: .touchUpInside)
         addProductButton.snp.makeConstraints { make in
             make.top.equalTo(typesSegmentControl.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(30)

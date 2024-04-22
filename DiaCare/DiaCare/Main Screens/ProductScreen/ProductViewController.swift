@@ -19,6 +19,7 @@ final class ProductViewController: UIViewController {
     var productTapped: ((_ productName: String, _ productProps: (fat: String, protein: String, carbs: String)) -> Void)?
     var onFinishWithProducts: (([UserProductModel]) -> Void)?
     var onFinish: (() -> Void)?
+    var addUserProductTapped: (() -> Void)?
 
     init(viewModel: ProductViewModelProtocol) {
         self.viewModel = viewModel
@@ -68,18 +69,65 @@ final class ProductViewController: UIViewController {
             }
         }
 
+        contentView.addUserProfuctAction = { [weak self] in
+            self?.addUserProductTapped?()
+        }
+
         setUpBindings()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        contentView.typesSegmentControl.selectedSegmentIndex = viewModel.selectedSegmentControllIndex
     }
 
     private func setUpBindings() {
         setUpSearchBinding()
+        setUpCategoryBinding()
+    }
+
+    private func setUpCategoryBinding() {
+
+        contentView.typesSegmentControl
+            .publisher(for: \.selectedSegmentIndex)
+            .sink { [weak self] selectedIndex in
+                self?.checkHintVisibility(selectedIndex: selectedIndex)
+            }
+            .store(in: &subscriptions)
+    }
+
+    private func checkHintVisibility(selectedIndex: Int) {
+        if selectedIndex == 0 {
+            if viewModel.productItem.count == 0 {
+                contentView.hintLabel.isHidden = false
+                contentView.hintLabel.text = "Введите наименование продукта в строку поиска"
+            } else {
+                contentView.hintLabel.isHidden = true
+            }
+            viewModel.selectedSegmentControllIndex = 0
+            contentView.productTableView.reloadData()
+        } else if selectedIndex == 1 {
+
+        } else {
+            viewModel.selectedSegmentControllIndex = 2
+            viewModel.getUserSavedProducts()
+            if viewModel.userSavedProducts.count == 0 {
+                contentView.hintLabel.isHidden = false
+                contentView.hintLabel.text = "У вас пока нет своих добавленных продуктов"
+            } else {
+                contentView.hintLabel.isHidden = true
+            }
+            contentView.productTableView.reloadData()
+        }
     }
 
     private func setUpSearchBinding() {
-        contentView.productSearchBar.searchTextField.textPublisher
+        contentView.productSearchBar.searchTextField
+            .publisher(for: \.text)
             .removeDuplicates()
             .sink { [weak self] queryText in
-                guard !queryText.isEmpty else { return }
+                guard let queryText,
+                    !queryText.isEmpty else { return }
                 self?.contentView.hintLabel.isHidden = true
                 self?.contentView.loadAnimationView.startAnimating()
                 self?.viewModel.searchProducts(for: queryText) {
@@ -99,14 +147,28 @@ extension ProductViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProductTableViewCell else { return }
         guard let productName = cell.productLabel.text else { return }
-        productTapped?(
-            productName,
-            (
-                fat: String(viewModel.productItem[indexPath.row].fat_total_g),
-                protein: String(viewModel.productItem[indexPath.row].protein_g),
-                carbs: String(viewModel.productItem[indexPath.row].carbohydrates_total_g)
+        if viewModel.selectedSegmentControllIndex == 0 {
+            productTapped?(
+                productName,
+                (
+                    fat: String(viewModel.productItem[indexPath.row].fat_total_g),
+                    protein: String(viewModel.productItem[indexPath.row].protein_g),
+                    carbs: String(viewModel.productItem[indexPath.row].carbohydrates_total_g)
+                )
             )
-        )
+        } else if viewModel.selectedSegmentControllIndex == 1 {
+
+        } else {
+            productTapped?(
+                productName,
+                (
+                    fat: String(viewModel.userSavedProducts[indexPath.row].fat),
+                    protein: String(viewModel.userSavedProducts[indexPath.row].protein),
+                    carbs: String(viewModel.userSavedProducts[indexPath.row].carbohydrates)
+                )
+            )
+        }
+
     }
 }
 

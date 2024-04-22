@@ -14,6 +14,11 @@ protocol CoreDataManagerProtocol {
     func obtainAllTypes()
     func deleteAllTypes()
     func obtainCategoryFromProduct(for word: String) -> String?
+    func obtainUsersProduct() -> [UserProducts]
+    func addToHistory(breadCount: String, sugar: String, shortInsulin: String)
+    func obtainAverageSugar() -> String
+    func obtainAllCategories() -> [String]
+    func addUserProduct(category: String, name: String, protein: String, fat: String, carbs: String)
 }
 
 final class CoreDataManager: CoreDataManagerProtocol {
@@ -123,5 +128,88 @@ final class CoreDataManager: CoreDataManagerProtocol {
         }
 
         return nil
+    }
+
+    func obtainAllCategories() -> [String] {
+        var categories: Set<String> = Set<String>()
+        let categoryFetchRequest = ProductTypes.fetchRequest()
+        categoryFetchRequest.returnsDistinctResults = true
+        categoryFetchRequest.propertiesToFetch = ["category"]
+
+        do {
+            let result = try viewContext.fetch(categoryFetchRequest)
+            for product in result {
+                categories.insert(product.category)
+            }
+            return Array(categories)
+        } catch {
+            print("Error fetching unique categories: \(error)")
+        }
+
+        return Array(categories)
+    }
+
+    func obtainUsersProduct() -> [UserProducts] {
+        let userProductsFetchRequest = UserProducts.fetchRequest()
+
+        do {
+            let result = try viewContext.fetch(userProductsFetchRequest)
+            return result
+        } catch {
+            print("Ошибка при получении продуктов пользователя: \(error)")
+        }
+
+        return []
+    }
+
+    func addToHistory(breadCount: String, sugar: String, shortInsulin: String) {
+        guard let breadCount = Double(breadCount),
+            let sugar = Double(sugar),
+            let shortInsulin = Double(shortInsulin) else { return }
+        let newNote = NotesHistory(context: viewContext)
+        newNote.id = UUID()
+        newNote.date = Date()
+        newNote.breadCount = breadCount
+        newNote.sugar = sugar
+        newNote.shortInsulin = shortInsulin
+        newNote.longInsulin = 0
+
+        saveContext()
+    }
+
+    func addUserProduct(category: String, name: String, protein: String, fat: String, carbs: String) {
+        let userProduct = UserProducts(context: viewContext)
+        userProduct.category = category
+        userProduct.name = name
+        userProduct.protein = protein
+        userProduct.fat = fat
+        userProduct.carbohydrates = carbs
+
+        let productType = ProductTypes(context: viewContext)
+        productType.id = UUID()
+        productType.category = category
+        productType.name = name
+
+        saveContext()
+    }
+
+    func obtainAverageSugar() -> String {
+        let notesHistoryFetchRequest = NotesHistory.fetchRequest()
+        let calendar = Calendar.current
+        let now = Date()
+
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: now) else { return "5.5"}
+
+        notesHistoryFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", oneMonthAgo as CVarArg, Date() as CVarArg)
+
+        do {
+            let results = try viewContext.fetch(notesHistoryFetchRequest)
+            let sugarValues = results.compactMap { $0.sugar }
+            let averageSugar = sugarValues.reduce(0, +) / Double(sugarValues.count)
+            return sugarValues.count != 0 ? String(format: "%.1f", averageSugar) : "5.5"
+        } catch {
+            print("Error fetching data: \(error)")
+            return "5.5"
+        }
     }
 }

@@ -44,7 +44,7 @@ final class CustomConfigTextField: UITextField {
         self.rightViewMode = .always
         self.layoutIfNeeded()
 
-        arrowImageView.image = UIImage(named: "DownArrow")
+        arrowImageView.image = UIImage.downArrow
         arrowImageView.contentMode = .center
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
