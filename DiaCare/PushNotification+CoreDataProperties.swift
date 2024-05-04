@@ -15,11 +15,10 @@ extension PushNotification {
         return NSFetchRequest<PushNotification>(entityName: "PushNotification")
     }
 
-    @NSManaged public var title: String?
-    @NSManaged public var message: String?
-    @NSManaged public var date: Date?
-    @NSManaged public var isRead: Bool
-    @NSManaged public var id: UUID?
+    @NSManaged public var title: String
+    @NSManaged public var message: String
+    @NSManaged public var date: Date
+    @NSManaged public var id: UUID
 
 }
 

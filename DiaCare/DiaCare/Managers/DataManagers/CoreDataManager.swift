@@ -19,6 +19,8 @@ protocol CoreDataManagerProtocol {
     func obtainAverageSugar() -> String
     func obtainAllCategories() -> [String]
     func addUserProduct(category: String, name: String, protein: String, fat: String, carbs: String)
+    func addNewNotification(message: String, title: String, date: Date)
+    func obtainUserNotifications() -> [PushNotification]
 }
 
 final class CoreDataManager: CoreDataManagerProtocol {
@@ -189,6 +191,26 @@ final class CoreDataManager: CoreDataManagerProtocol {
         productType.id = UUID()
         productType.category = category
         productType.name = name
+
+        saveContext()
+    }
+
+    func obtainUserNotifications() -> [PushNotification] {
+        let notificationFetchRequest = PushNotification.fetchRequest()
+        do {
+            return try viewContext.fetch(notificationFetchRequest)
+        } catch {
+            print("Error fetching data: \(error)")
+            return []
+        }
+    }
+
+    func addNewNotification(message: String, title: String, date: Date) {
+        let notification = PushNotification(context: viewContext)
+        notification.id = UUID()
+        notification.date = date
+        notification.title = title
+        notification.message = message
 
         saveContext()
     }

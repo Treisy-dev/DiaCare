@@ -137,8 +137,6 @@ final class NewNoteSugarSubView: UIView {
     }
 
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: sugarView)
-
         let velocity = gesture.velocity(in: sugarView)
 
         if gesture.state == .changed {

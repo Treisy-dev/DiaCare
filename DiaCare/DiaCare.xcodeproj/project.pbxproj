@@ -63,6 +63,11 @@
 		C364B5702BBD696C00AC1CB3 /* NewNoteScreenFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B56F2BBD696C00AC1CB3 /* NewNoteScreenFlowCoordinator.swift */; };
 		C364B5722BBD69B000AC1CB3 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5712BBD69B000AC1CB3 /* CoordinatorProtocol.swift */; };
 		C364B5742BBD778D00AC1CB3 /* TemplateScreenFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5732BBD778D00AC1CB3 /* TemplateScreenFlowCoordinator.swift */; };
+		C3666A682BE57C7500BA9551 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A672BE57C7500BA9551 /* NotificationTableViewCell.swift */; };
+		C3666A6B2BE58D7C00BA9551 /* NotificationConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A6A2BE58D7C00BA9551 /* NotificationConfigViewController.swift */; };
+		C3666A6D2BE58D8B00BA9551 /* NotificationConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A6C2BE58D8B00BA9551 /* NotificationConfigView.swift */; };
+		C3666A6F2BE58D9700BA9551 /* NotificationConfigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A6E2BE58D9700BA9551 /* NotificationConfigViewModel.swift */; };
+		C3666A722BE5A5B000BA9551 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A712BE5A5B000BA9551 /* PushNotificationManager.swift */; };
 		C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */; };
 		C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */; };
 		C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */; };
@@ -158,6 +163,11 @@
 		C364B56F2BBD696C00AC1CB3 /* NewNoteScreenFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteScreenFlowCoordinator.swift; sourceTree = "<group>"; };
 		C364B5712BBD69B000AC1CB3 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C364B5732BBD778D00AC1CB3 /* TemplateScreenFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateScreenFlowCoordinator.swift; sourceTree = "<group>"; };
+		C3666A672BE57C7500BA9551 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		C3666A6A2BE58D7C00BA9551 /* NotificationConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationConfigViewController.swift; sourceTree = "<group>"; };
+		C3666A6C2BE58D8B00BA9551 /* NotificationConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationConfigView.swift; sourceTree = "<group>"; };
+		C3666A6E2BE58D9700BA9551 /* NotificationConfigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationConfigViewModel.swift; sourceTree = "<group>"; };
+		C3666A712BE5A5B000BA9551 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		C3DCF9A82B9DF31A007D7FF0 /* DiaCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +422,25 @@
 			path = FlowCoordinators;
 			sourceTree = "<group>";
 		};
+		C3666A692BE58D5A00BA9551 /* NotificationConfigScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C3666A6A2BE58D7C00BA9551 /* NotificationConfigViewController.swift */,
+				C3666A6C2BE58D8B00BA9551 /* NotificationConfigView.swift */,
+				C3666A6E2BE58D9700BA9551 /* NotificationConfigViewModel.swift */,
+			);
+			path = NotificationConfigScreen;
+			sourceTree = "<group>";
+		};
+		C3666A702BE5A59600BA9551 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C364B55B2BB999D600AC1CB3 /* DataManagers */,
+				C3666A712BE5A5B000BA9551 /* PushNotificationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		C3DCF99F2B9DF31A007D7FF0 = {
 			isa = PBXGroup;
 			children = (
@@ -434,7 +463,7 @@
 				C333ABAE2BA0F4BA00EA100E /* UIFabrics */,
 				C364B56E2BBD693700AC1CB3 /* FlowCoordinators */,
 				C364B5652BBC958300AC1CB3 /* Asseblies */,
-				C364B55B2BB999D600AC1CB3 /* DataManagers */,
+				C3666A702BE5A59600BA9551 /* Managers */,
 				C364B5422BB995A200AC1CB3 /* CoreDataModels */,
 				C364B5312BB4A81000AC1CB3 /* Network */,
 				C333ABC52BA7474F00EA100E /* Extensions */,
@@ -521,6 +550,7 @@
 				C3DCFA052B9E5AE9007D7FF0 /* StatisticScreen */,
 				C3DCF9FE2B9E5A73007D7FF0 /* NewNoteScreen */,
 				C3DCF9F72B9E5A33007D7FF0 /* NotificationScreen */,
+				C3666A692BE58D5A00BA9551 /* NotificationConfigScreen */,
 				C3DCF9F02B9E598C007D7FF0 /* ProfileScreen */,
 			);
 			path = "Main Screens";
@@ -543,6 +573,7 @@
 				C3DCF9F82B9E5A44007D7FF0 /* NotificationViewModel.swift */,
 				C3DCF9FA2B9E5A5A007D7FF0 /* NotificationView.swift */,
 				C3DCF9FC2B9E5A67007D7FF0 /* NotificationViewController.swift */,
+				C3666A672BE57C7500BA9551 /* NotificationTableViewCell.swift */,
 			);
 			path = NotificationScreen;
 			sourceTree = "<group>";
@@ -705,12 +736,14 @@
 				C364B5582BB9967300AC1CB3 /* NotesHistory+CoreDataProperties.swift in Sources */,
 				C333ABC72BA7476F00EA100E /* UIImageExtensions.swift in Sources */,
 				C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */,
+				C3666A6D2BE58D8B00BA9551 /* NotificationConfigView.swift in Sources */,
 				C333ABA62B9FBBD900EA100E /* PreferencesSubView.swift in Sources */,
 				C31D167A2BC77999004A133F /* UserProductModel.swift in Sources */,
 				C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */,
 				C3DCF9D22B9DF5A4007D7FF0 /* NameRegisterView.swift in Sources */,
 				C3DCFA002B9E5ABA007D7FF0 /* NewNoteViewController.swift in Sources */,
 				C364B5522BB9967300AC1CB3 /* Templates+CoreDataProperties.swift in Sources */,
+				C3666A722BE5A5B000BA9551 /* PushNotificationManager.swift in Sources */,
 				C31D16762BC7540E004A133F /* ProductConfigViewModel.swift in Sources */,
 				C3DCF9EA2B9E338D007D7FF0 /* InsulinConfigViewController.swift in Sources */,
 				C3DCF9FD2B9E5A67007D7FF0 /* NotificationViewController.swift in Sources */,
@@ -729,12 +762,14 @@
 				C364B55F2BB9F43700AC1CB3 /* UITableViewExtensions.swift in Sources */,
 				C364B5702BBD696C00AC1CB3 /* NewNoteScreenFlowCoordinator.swift in Sources */,
 				C364B5672BBC959A00AC1CB3 /* MainAppAssembly.swift in Sources */,
+				C3666A6B2BE58D7C00BA9551 /* NotificationConfigViewController.swift in Sources */,
 				C333ABC42BA636F700EA100E /* NewNoteInjectionSubView.swift in Sources */,
 				C3DCFA092B9E5B1A007D7FF0 /* StatisticViewController.swift in Sources */,
 				C3DCF9E12B9E19A2007D7FF0 /* FoodConfigViewController.swift in Sources */,
 				C333ABB42BA2534A00EA100E /* SettingsSubView.swift in Sources */,
 				C364B55A2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift in Sources */,
 				C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */,
+				C3666A682BE57C7500BA9551 /* NotificationTableViewCell.swift in Sources */,
 				C31D167C2BC783C3004A133F /* UserProductTableViewCell.swift in Sources */,
 				C364B5302BB49BC700AC1CB3 /* UIButtonFabric.swift in Sources */,
 				C333ABA02B9F09BF00EA100E /* CustomGradientView.swift in Sources */,
@@ -766,6 +801,7 @@
 				C364B54F2BB9967300AC1CB3 /* PushNotification+CoreDataClass.swift in Sources */,
 				C3DCFA0E2B9E5C15007D7FF0 /* TemplateViewController.swift in Sources */,
 				C3DCF9E32B9E19AD007D7FF0 /* FoodConfigViewModel.swift in Sources */,
+				C3666A6F2BE58D9700BA9551 /* NotificationConfigViewModel.swift in Sources */,
 				C364B5532BB9967300AC1CB3 /* UserProducts+CoreDataClass.swift in Sources */,
 				C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */,
 				C3DCFA042B9E5AD2007D7FF0 /* NewNoteViewModel.swift in Sources */,
