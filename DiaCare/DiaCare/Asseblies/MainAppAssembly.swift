@@ -84,5 +84,9 @@ final class MainAppAssembly: Assembly {
         container.register(NewUserProductViewModelProtocol.self) { _ in
             NewUserProductViewModel(coreDM: coreDM)
         }
+
+        container.register(NotificationViewModelProtocol.self) { _ in
+            NotificationViewModel(coreDM: coreDM)
+        }
     }
 }

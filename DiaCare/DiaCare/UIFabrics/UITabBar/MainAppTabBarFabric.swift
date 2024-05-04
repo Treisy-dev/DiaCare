@@ -35,8 +35,9 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
         let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(container: container, navigationController: UINavigationController())
         newNoteFlowCoordinator.start()
 
+        guard let notificationViewModel = container.resolve(NotificationViewModelProtocol.self) else { return tbController}
         let notificationViewController = configTabBarItem(
-            viewController: NotificationViewController(),
+            viewController: NotificationViewController(viewModel: notificationViewModel),
             image: UIImage.bellIcon)
 
         guard let profileVM = container.resolve(ProfileViewModelProtocol.self) else { return tbController}
