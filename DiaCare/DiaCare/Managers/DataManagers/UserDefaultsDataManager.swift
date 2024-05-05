@@ -23,6 +23,12 @@ protocol UserDefaultsDataManagerProtocol {
     func getUserBreadCount() -> String
 
     func getUserInsulinCount() -> String
+
+    func getLowTarget() -> String
+
+    func getAverageTarget() -> String
+
+    func getHighTarget() -> String
 }
 
 final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
@@ -75,5 +81,20 @@ final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
     func getUserInsulinCount() -> String {
         guard let insulinCount = getUserInfo()["insulinCount"] else { return "1"}
         return insulinCount
+    }
+
+    func getLowTarget() -> String {
+        guard let lowSugar = getUserInfo()["lowSugar"] else { return "4.0"}
+        return lowSugar
+    }
+
+    func getAverageTarget() -> String {
+        guard let averageSugar = getUserInfo()["targetSugar"] else { return "7.0"}
+        return averageSugar
+    }
+
+    func getHighTarget() -> String {
+        guard let highSugar = getUserInfo()["hightSugar"] else { return "10.0"}
+        return highSugar
     }
 }

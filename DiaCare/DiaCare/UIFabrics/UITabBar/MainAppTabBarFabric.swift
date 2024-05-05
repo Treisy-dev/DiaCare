@@ -28,8 +28,9 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
         let templateFlowCoordinator = TemplateScreenFlowCoordinator(container: container, navigationController: UINavigationController())
         templateFlowCoordinator.start()
 
+        guard let statisticViewModel = container.resolve(StatisticViewModelProtocol.self) else { return tbController}
         let statisticViewController = configTabBarItem(
-            viewController: StatisticViewController(),
+            viewController: StatisticViewController(viewModel: statisticViewModel),
             image: UIImage.chartIcon)
 
         let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(container: container, navigationController: UINavigationController())
