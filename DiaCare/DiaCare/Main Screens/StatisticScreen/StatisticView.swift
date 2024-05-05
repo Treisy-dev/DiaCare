@@ -70,12 +70,12 @@ final class StatisticView: UIView {
                 countLabel: String(format: "%.1f", longInsulinCount),
                 titleLabel: "Длинный инсулин")
             super.init(frame: frame)
+            backgroundColor = .white.withAlphaComponent(0.96)
+            setUp()
             if chartData.count == 0 {
                 self.chart.isHidden = true
                 self.hintLabel.isHidden = false
             }
-            backgroundColor = .white.withAlphaComponent(0.96)
-            setUp()
     }
 
     override func layoutSubviews() {
@@ -317,7 +317,7 @@ final class StatisticView: UIView {
         hintLabel.isHidden = true
 
         hintLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 

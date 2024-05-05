@@ -77,6 +77,9 @@ final class StatisticViewModel: StatisticViewModelProtocol {
 
     func getAverageSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState) {
         let sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
+        if sugarData.count == 0 {
+            return (0, .normal)
+        }
         let averageSugarValue = Double(sugarData.reduce(0, { $0 + $1.0 })) / Double(sugarData.count)
         guard let target = Double(userDefaultsDataManager.getAverageTarget()) else { return (0, .normal) }
 

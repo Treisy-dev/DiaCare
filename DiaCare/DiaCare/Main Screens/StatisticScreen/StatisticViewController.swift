@@ -63,58 +63,32 @@ final class StatisticViewController: UIViewController {
             .sink(receiveValue: { [weak self] index in
                 switch index {
                 case 0:
-                    var startComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    startComponents.hour = 0
-                    startComponents.minute = 0
-                    startComponents.second = 0
-                    let startDate = Calendar.current.date(from: startComponents)
-                    var endComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    endComponents.hour = 23
-                    endComponents.minute = 59
-                    endComponents.second = 59
-                    let endDate = Calendar.current.date(from: endComponents)
-                    guard let endDate,
-                        let startDate,
+                    guard let startComponent = self?.getTodayComponents(), let endComponents = self?.getEndOfDayComponents(),
+                        let endDate = Calendar.current.date(from: endComponents),
+                        let startDate = Calendar.current.date(from: startComponent),
                         let data = self?.viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate) else { return }
+
                     self?.contentView?.chartData = data.sorted {$0.x < $1.x}
                     self?.contentView?.chart.xAxis.labelCount = 12
                     self?.contentView?.chart.xAxis.axisMinimum = 0.0
                     self?.contentView?.chart.xAxis.axisMaximum = 22.0
                 case 1:
-                    var startComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    startComponents.day = (startComponents.day ?? 7) - 6
-                    startComponents.hour = 0
-                    startComponents.minute = 0
-                    startComponents.second = 0
-                    let startDate = Calendar.current.date(from: startComponents)
-                    var endComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    endComponents.hour = 23
-                    endComponents.minute = 59
-                    endComponents.second = 59
-                    let endDate = Calendar.current.date(from: endComponents)
-                    guard let endDate,
-                        let startDate,
-                        let data = self?.viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate) else { return }
+                    guard let startComponent = self?.getWeekStartComponents(), let endComponents = self?.getEndOfDayComponents(),
+                        let endDate = Calendar.current.date(from: endComponents),
+                        let startDate = Calendar.current.date(from: startComponent),
+                        let data = self?.viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate),
+                        let startOfChart = data.first?.x else { return }
+
                     self?.contentView?.chartData = data.sorted {$0.x < $1.x}
-                    self?.contentView?.chart.xAxis.labelCount = 7
-                    self?.contentView?.chart.xAxis.axisMinimum = 0.0
-                    self?.contentView?.chart.xAxis.axisMaximum = 7.0
+                    self?.contentView?.chart.xAxis.labelCount = 6
+                    self?.contentView?.chart.xAxis.axisMinimum = startOfChart
+                    self?.contentView?.chart.xAxis.axisMaximum = startOfChart + 6
                 case 2:
-                    var startComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    startComponents.day = 1
-                    startComponents.hour = 0
-                    startComponents.minute = 0
-                    startComponents.second = 0
-                    let startDate = Calendar.current.date(from: startComponents)
-                    var endComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    endComponents.day = 30
-                    endComponents.hour = 23
-                    endComponents.minute = 59
-                    endComponents.second = 59
-                    let endDate = Calendar.current.date(from: endComponents)
-                    guard let endDate,
-                        let startDate,
+                    guard let startComponent = self?.getMonthStartComponents(), let endComponents = self?.getMonthEndComponents(),
+                        let endDate = Calendar.current.date(from: endComponents),
+                        let startDate = Calendar.current.date(from: startComponent),
                         let data = self?.viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate) else { return }
+
                     self?.contentView?.chartData = data.sorted {$0.x < $1.x}
                     self?.contentView?.chart.xAxis.labelCount = 15
                     self?.contentView?.chart.xAxis.axisMinimum = 0.0
@@ -125,4 +99,48 @@ final class StatisticViewController: UIViewController {
             })
             .store(in: &subscriptions)
     }
+
+    private func getTodayComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return components
+    }
+
+    private func getWeekStartComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.day = (components.day ?? 7) - 6
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return components
+    }
+
+    private func getMonthStartComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month], from: Date())
+        components.day = 1
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return components
+    }
+
+    private func getEndOfDayComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        return components
+    }
+
+    private func getMonthEndComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month], from: Date())
+        components.day = 30
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        return components
+    }
+
 }
