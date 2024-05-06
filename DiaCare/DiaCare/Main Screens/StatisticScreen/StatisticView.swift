@@ -26,6 +26,8 @@ final class StatisticView: UIView {
     private var breadCountStatView: CustomFoodStatisticView
     private var longInsulinStatView: CustomFoodStatisticView
     private lazy var hintLabel: UILabel = UILabel()
+    private lazy var historyLabel: UILabel = UILabel()
+    lazy var historyTable: UITableView = UITableView()
 
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
@@ -103,20 +105,29 @@ final class StatisticView: UIView {
         setUpAverageFoodStatsLabel()
         setUpFoodStatsHStack()
         showHintLabel()
+        setUpHistoryLabel()
+        setUpHistoryTable()
     }
 
     func updateUI(
         chartData: [ChartDataEntry],
         sugarStats: (lowSugar: (Double, SugarState), averageSugar: (Double, SugarState), highSugar: (Double, SugarState)),
         foodStats: (shortInsulin: Double, breadCount: Double, longInsulin: Double)) {
-        self.chartData = chartData
-        lowSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.lowSugar.0), sugarState: sugarStats.lowSugar.1)
-        averageSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.averageSugar.0), sugarState: sugarStats.averageSugar.1)
-        highSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.highSugar.0), sugarState: sugarStats.highSugar.1)
-        shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
-        breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
-        longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
-        updateDataForChart()
+            self.chartData = chartData
+            lowSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.lowSugar.0), sugarState: sugarStats.lowSugar.1)
+            averageSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.averageSugar.0), sugarState: sugarStats.averageSugar.1)
+            highSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.highSugar.0), sugarState: sugarStats.highSugar.1)
+            shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
+            breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
+            longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
+            updateDataForChart()
+            if chartData.count == 0 {
+                chart.isHidden = true
+                hintLabel.isHidden = false
+            } else {
+                chart.isHidden = false
+                hintLabel.isHidden = true
+            }
     }
 
     private func setUpContentView() {
@@ -125,7 +136,7 @@ final class StatisticView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(800)
+            make.height.equalTo(1279)
         }
     }
 
@@ -302,6 +313,32 @@ final class StatisticView: UIView {
         }
     }
 
+    private func setUpHistoryLabel() {
+        contentView.addSubview(historyLabel)
+        historyLabel.text = "История"
+        historyLabel.textColor = .black
+        historyLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        historyLabel.textAlignment = .center
+
+        historyLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(foodStatsHStack.snp.bottom).offset(20)
+        }
+    }
+
+    private func setUpHistoryTable() {
+        contentView.addSubview(historyTable)
+        historyTable.showsVerticalScrollIndicator = false
+        historyTable.separatorColor = .clear
+        historyTable.backgroundColor = .clear
+        historyTable.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().inset(40)
+            make.top.equalTo(historyLabel.snp.bottom).offset(15)
+            make.bottom.equalToSuperview()
+        }
+    }
+
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
         updateDataForChart()
     }
@@ -344,7 +381,7 @@ final class StatisticView: UIView {
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
 
-            if newMaxY <= 800 && newMaxY >= 400 {
+            if newMaxY <= 1270 && newMaxY >= 730 {
                 let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
                 contentView.transform = newTransform
             }

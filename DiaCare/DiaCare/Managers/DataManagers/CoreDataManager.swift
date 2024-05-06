@@ -25,6 +25,7 @@ protocol CoreDataManagerProtocol {
     func obtainBreadCountBy(from startDate: Date, to endDate: Date) -> Double
     func obtainShortInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
     func obtainLongInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
+    func obtainHistoryBy(from startDate: Date, to endDate: Date) -> [NotesHistory]
 }
 
 final class CoreDataManager: CoreDataManagerProtocol {
@@ -231,6 +232,20 @@ final class CoreDataManager: CoreDataManagerProtocol {
                 sugarArray.append((note.sugar, note.date))
             }
             return sugarArray
+        } catch {
+            print("Error fetching data: \(error)")
+            return []
+        }
+    }
+
+    func obtainHistoryBy(from startDate: Date, to endDate: Date) -> [NotesHistory] {
+        let historyFetchRequest = NotesHistory.fetchRequest()
+
+        historyFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+        do {
+            let result = try viewContext.fetch(historyFetchRequest)
+            return result.sorted { $0.date > $1.date }
         } catch {
             print("Error fetching data: \(error)")
             return []

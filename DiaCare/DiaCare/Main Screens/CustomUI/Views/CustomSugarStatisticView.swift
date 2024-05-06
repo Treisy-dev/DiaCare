@@ -30,13 +30,13 @@ final class CustomSugarStatisticView: UIView {
         sugarCountLabel.text = sugarCount
         switch sugarState {
         case .good:
-            coloredView.backgroundColor = .green
+            coloredView.backgroundColor = .systemGreen
             stateLabel.text = "отлично"
         case .normal:
-            coloredView.backgroundColor = .yellow
+            coloredView.backgroundColor = .systemYellow
             stateLabel.text = "хорошо"
         case .bad:
-            coloredView.backgroundColor = .red
+            coloredView.backgroundColor = .systemRed
             stateLabel.text = "плохо"
         }
         setUp()

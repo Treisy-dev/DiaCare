@@ -67,9 +67,7 @@ final class UserProductTableViewCell: UITableViewCell {
         productName: String,
         productCategory: ProductCategories,
         proteinCount: String,
-        fatCount: String,
-        carbCount: String,
-        breadCount: String) {
+        productStats: (fat: String, carb: String, breadCount: String)) {
             productLabel.text = productName
             productImageView.image = productCategory.getImageByType()
             proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
@@ -79,15 +77,15 @@ final class UserProductTableViewCell: UITableViewCell {
             fatVStack = ProductVStackFabric.shared.makeProductPropVStack(
                 titleLabel: "Жиры",
                 titleLabelColor: .systemBlue,
-                count: fatCount)
+                count: productStats.fat)
             carbohydratesVStack = ProductVStackFabric.shared.makeProductPropVStack(
                 titleLabel: "Углеводы",
                 titleLabelColor: .systemRed,
-                count: carbCount)
+                count: productStats.carb)
             breadCountVStack = ProductVStackFabric.shared.makeProductPropVStack(
                 titleLabel: "ХЕ",
                 titleLabelColor: .systemGreen,
-                count: breadCount)
+                count: productStats.breadCount)
             guard let proteinVStack, let fatVStack, let carbohydratesVStack, let breadCountVStack else { return }
             productPropsHStack.addArrangedSubview(proteinVStack)
             productPropsHStack.addArrangedSubview(fatVStack)

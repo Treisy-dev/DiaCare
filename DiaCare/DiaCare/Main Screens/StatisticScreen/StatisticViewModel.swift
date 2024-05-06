@@ -9,7 +9,7 @@ import UIKit
 import DGCharts
 import Combine
 
-protocol StatisticViewModelProtocol {
+protocol StatisticViewModelProtocol: UITableViewDataSource {
     func getSugarHistoryDay(startDate: Date, endDate: Date) -> [ChartDataEntry]
     func getSugarHistoryWeek(startDate: Date, endDate: Date) -> [ChartDataEntry]
     func getMinimalSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState)
@@ -18,19 +18,22 @@ protocol StatisticViewModelProtocol {
     func getBreadCountBy(startDate: Date, endDate: Date) -> Double
     func getShortInsulinBy(startDate: Date, endDate: Date) -> Double
     func getLongInsulinBy(startDate: Date, endDate: Date) -> Double
+    func updateTableDataSource(startDate: Date, endDate: Date)
 }
 
-final class StatisticViewModel: StatisticViewModelProtocol {
+final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
     var coreDataManager: CoreDataManagerProtocol
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    var dataSource: [NotesHistory] = []
 
     init(coreDM: CoreDataManagerProtocol, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
+
     }
 
     func getSugarHistoryDay(startDate: Date, endDate: Date) -> [ChartDataEntry] {
-        var sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
+        let sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
 
         var chartDataEntryArray: [ChartDataEntry] = []
         for (sugarValue, date) in sugarData {
@@ -46,7 +49,7 @@ final class StatisticViewModel: StatisticViewModelProtocol {
     }
 
     func getSugarHistoryWeek(startDate: Date, endDate: Date) -> [ChartDataEntry] {
-        var sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
+        let sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
 
         var sugarValuesPerDay: [Int: [Double]] = [:]
 
@@ -107,6 +110,10 @@ final class StatisticViewModel: StatisticViewModelProtocol {
         return coreDataManager.obtainLongInsulinCountBy(from: startDate, to: endDate)
     }
 
+    func updateTableDataSource(startDate: Date, endDate: Date) {
+        dataSource = coreDataManager.obtainHistoryBy(from: startDate, to: endDate)
+    }
+
     private func getSugarState(target: Double, value: Double, multiplyer: Double) -> SugarState {
         if abs(value - target) <= 0.5 * multiplyer {
             return .good
@@ -117,5 +124,30 @@ final class StatisticViewModel: StatisticViewModelProtocol {
         } else {
             return .normal
         }
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSource.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = HistoryTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.selectionStyle = .none
+
+        let date = dataSource[indexPath.row].date
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let formattedTime = timeFormatter.string(from: date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM"
+        let formattedDate = dateFormatter.string(from: date)
+
+        cell.config(
+            date: (formattedDate, formattedTime),
+            bloodCount: String(dataSource[indexPath.row].sugar),
+            breadCount: String(dataSource[indexPath.row].breadCount),
+            insulinCount: String(dataSource[indexPath.row].shortInsulin),
+            longInsulinCount: String(dataSource[indexPath.row].longInsulin))
+        return cell
     }
 }

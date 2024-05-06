@@ -42,9 +42,7 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
             productName: userProducts[indexPath.row].name,
             productCategory: category,
             proteinCount: userProducts[indexPath.row].protein,
-            fatCount: userProducts[indexPath.row].fat,
-            carbCount: userProducts[indexPath.row].carbs,
-            breadCount: userProducts[indexPath.row].breadCount
+            productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
         )
         return cell
     }
