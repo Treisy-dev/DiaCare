@@ -37,6 +37,10 @@ class CustomFoodStatisticView: UIView {
         setUpTitleLabel()
     }
 
+    func updateUI(countLabel: String) {
+        self.countLabel.text = countLabel
+    }
+
     private func setUpGradientView() {
         addSubview(gradientView)
         gradientView.layer.cornerRadius = 37.5

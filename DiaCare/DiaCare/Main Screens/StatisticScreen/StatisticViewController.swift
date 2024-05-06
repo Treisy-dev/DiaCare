@@ -13,6 +13,7 @@ final class StatisticViewController: UIViewController {
     private var contentView: StatisticView?
     private let viewModel: StatisticViewModelProtocol
     private var subscriptions = Set<AnyCancellable>()
+    private var wasOpened: Bool = false
 
     init(viewModel: StatisticViewModelProtocol) {
         self.viewModel = viewModel
@@ -55,6 +56,23 @@ final class StatisticViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         contentView?.layoutSubviews()
+        guard let startDate = Calendar.current.date(from: getTodayComponents()),
+            let endDate = Calendar.current.date(from: getEndOfDayComponents()) else { return }
+        contentView?.timeSegmentControll.selectedSegmentIndex = 0
+        if wasOpened {
+            contentView?.updateUI(
+                chartData: viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate),
+                sugarStats: (
+                    lowSugar: viewModel.getMinimalSugarBy(startDate: startDate, endDate: endDate),
+                    averageSugar: viewModel.getAverageSugarBy(startDate: startDate, endDate: endDate),
+                    highSugar: viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate)),
+                foodStats: (
+                    shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
+                    breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
+                    longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate)))
+        } else {
+            wasOpened.toggle()
+        }
     }
 
     private func setUpBinding() {

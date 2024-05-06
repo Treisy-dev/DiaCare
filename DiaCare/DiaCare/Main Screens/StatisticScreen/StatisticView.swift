@@ -105,6 +105,20 @@ final class StatisticView: UIView {
         showHintLabel()
     }
 
+    func updateUI(
+        chartData: [ChartDataEntry],
+        sugarStats: (lowSugar: (Double, SugarState), averageSugar: (Double, SugarState), highSugar: (Double, SugarState)),
+        foodStats: (shortInsulin: Double, breadCount: Double, longInsulin: Double)) {
+        self.chartData = chartData
+        lowSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.lowSugar.0), sugarState: sugarStats.lowSugar.1)
+        averageSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.averageSugar.0), sugarState: sugarStats.averageSugar.1)
+        highSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.highSugar.0), sugarState: sugarStats.highSugar.1)
+        shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
+        breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
+        longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
+        updateDataForChart()
+    }
+
     private func setUpContentView() {
         addSubview(contentView)
         contentView.snp.makeConstraints { make in

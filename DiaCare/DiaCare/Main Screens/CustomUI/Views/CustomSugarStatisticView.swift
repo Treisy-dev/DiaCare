@@ -16,7 +16,7 @@ enum SugarState {
 final class CustomSugarStatisticView: UIView {
 
     private lazy var levelLabel: UILabel = UILabel()
-    lazy var sugarCountLabel: UILabel = UILabel()
+    private lazy var sugarCountLabel: UILabel = UILabel()
     private lazy var sugarDimensionLabel: UILabel = UILabel()
     private lazy var stateHStack: UIStackView = UIStackView()
     private lazy var coloredView: UIView = UIView()
@@ -54,6 +54,21 @@ final class CustomSugarStatisticView: UIView {
         setUpSugarCountLabel()
         setUpSugarDimensionLabel()
         setUpStateHStack()
+    }
+
+    func updateUI(countLabel: String, sugarState: SugarState) {
+        sugarCountLabel.text = countLabel
+        switch sugarState {
+        case .good:
+            coloredView.backgroundColor = .green
+            stateLabel.text = "отлично"
+        case .normal:
+            coloredView.backgroundColor = .yellow
+            stateLabel.text = "хорошо"
+        case .bad:
+            coloredView.backgroundColor = .red
+            stateLabel.text = "плохо"
+        }
     }
 
     private func setUpLevelLabel() {

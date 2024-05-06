@@ -23,7 +23,7 @@ protocol CoreDataManagerProtocol {
     func obtainUserNotifications() -> [PushNotification]
     func obtainAllSugarWithDateHistory(from startDate: Date, to endDate: Date) -> [(Double, Date)]
     func obtainBreadCountBy(from startDate: Date, to endDate: Date) -> Double
-    func obtainShortInsulinCountBy(from startDate: Date, to endDate: Date) -> Double 
+    func obtainShortInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
     func obtainLongInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
 }
 
