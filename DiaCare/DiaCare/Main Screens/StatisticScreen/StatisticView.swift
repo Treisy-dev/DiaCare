@@ -9,12 +9,13 @@ import UIKit
 import DGCharts
 
 final class StatisticView: UIView {
-
     private lazy var contentView: UIView = UIView()
     private lazy var statisticLabel: UILabel = UILabel()
     private lazy var chartView: UIView = UIView()
     lazy var timeSegmentControll: UISegmentedControl = UISegmentedControl(items: ["День", "Неделя", "Месяц"])
     lazy var chart: LineChartView = LineChartView()
+    private lazy var labelsSwitcher: UISwitch = UISwitch()
+    private lazy var switcherHint: UILabel = UILabel()
     private lazy var sugarLabel: UILabel = UILabel()
     private lazy var sugarStatsHStack: UIStackView = UIStackView()
     private var lowSugarView: CustomSugarStatisticView
@@ -100,6 +101,8 @@ final class StatisticView: UIView {
         setUpTimeSegmentControll()
         setUpChartView()
         setUpChart()
+        setUpLabelsSwitcher()
+        setUpSwitcherHint()
         setUpSugarLabel()
         setUpSugarStatsHStack()
         setUpAverageFoodStatsLabel()
@@ -162,7 +165,6 @@ final class StatisticView: UIView {
         timeSegmentControll.selectedSegmentTintColor = .mainApp
         timeSegmentControll.setTitleTextAttributes([.foregroundColor: UIColor.mainApp, .font: font], for: .normal)
         timeSegmentControll.setTitleTextAttributes([.foregroundColor: UIColor.white, .font: font], for: .selected)
-
         timeSegmentControll.addTarget(self, action: #selector(segmentValueChanged), for: .valueChanged)
 
         timeSegmentControll.snp.makeConstraints { make in
@@ -180,7 +182,7 @@ final class StatisticView: UIView {
             make.top.equalTo(timeSegmentControll.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(30)
             make.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(220)
+            make.height.equalTo(270)
         }
     }
 
@@ -198,10 +200,34 @@ final class StatisticView: UIView {
             make.top.equalToSuperview().offset(10)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(10)
+            make.height.equalTo(210)
         }
 
         updateDataForChart()
+    }
+
+    private func setUpLabelsSwitcher() {
+        chartView.addSubview(labelsSwitcher)
+        labelsSwitcher.onTintColor = .mainApp
+        let changeAction: UIAction = UIAction { [weak self] _ in
+            self?.updateDataForChart()
+        }
+        labelsSwitcher.addAction(changeAction, for: .valueChanged)
+        labelsSwitcher.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(10)
+            make.top.equalTo(chart.snp.bottom).offset(10)
+        }
+    }
+
+    private func setUpSwitcherHint() {
+        chartView.addSubview(switcherHint)
+        switcherHint.textColor = .lightGray
+        switcherHint.font = UIFont.systemFont(ofSize: 16)
+        switcherHint.text = "Включить подписи значений"
+        switcherHint.snp.makeConstraints { make in
+            make.leading.equalTo(labelsSwitcher.snp.trailing).offset(10)
+            make.centerY.equalTo(labelsSwitcher.snp.centerY)
+        }
     }
 
     private func setUpSugarLabel() {
@@ -209,7 +235,6 @@ final class StatisticView: UIView {
         sugarLabel.text = "Сахар"
         sugarLabel.textColor = .black
         sugarLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        sugarLabel.textAlignment = .center
 
         sugarLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -244,7 +269,6 @@ final class StatisticView: UIView {
 
     private func setUpAverageSugarView() {
         sugarStatsHStack.addArrangedSubview(averageSugarView)
-        averageSugarView.contentMode = .scaleAspectFill
         averageSugarView.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.top.bottom.equalToSuperview()
@@ -264,7 +288,6 @@ final class StatisticView: UIView {
         averageFoodStatsLabel.text = "Средние показатели"
         averageFoodStatsLabel.textColor = .black
         averageFoodStatsLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        averageFoodStatsLabel.textAlignment = .center
 
         averageFoodStatsLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -318,7 +341,6 @@ final class StatisticView: UIView {
         historyLabel.text = "История"
         historyLabel.textColor = .black
         historyLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        historyLabel.textAlignment = .center
 
         historyLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -348,6 +370,13 @@ final class StatisticView: UIView {
 
         dataSet.mode = .linear
         dataSet.valueFont = UIFont.systemFont(ofSize: 10)
+        if labelsSwitcher.isOn {
+            dataSet.valueFont = UIFont.systemFont(ofSize: 10)
+            switcherHint.text = "Выключить подписи значений"
+        } else {
+            dataSet.valueFont = UIFont.systemFont(ofSize: 0)
+            switcherHint.text = "Включить подписи значений"
+        }
         dataSet.lineWidth = 2.0
         dataSet.circleRadius = 4.0
         dataSet.circleColors = [UIColor.mainApp]
