@@ -105,9 +105,9 @@ final class StatisticViewController: UIViewController {
         let data = viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate)
 
         contentView?.chartData = data.sorted {$0.x < $1.x}
-        contentView?.chart.xAxis.labelCount = 12
+        contentView?.chart.xAxis.labelCount = 13
         contentView?.chart.xAxis.axisMinimum = 0.0
-        contentView?.chart.xAxis.axisMaximum = 22.0
+        contentView?.chart.xAxis.axisMaximum = 23.0
         viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
         contentView?.historyTable.reloadData()
     }
