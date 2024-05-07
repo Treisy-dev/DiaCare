@@ -96,6 +96,11 @@ final class StatisticViewController: UIViewController {
                 breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
                 longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate)))
         viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        if viewModel.dataSource.count == 0 {
+            contentView?.scrollAddition = 345
+        } else {
+            contentView?.scrollAddition = viewModel.dataSource.count >= 7 ? 0 : CGFloat(345 - 48 * viewModel.dataSource.count)
+        }
     }
 
     private func setUpBinding() {

@@ -19,6 +19,7 @@ protocol StatisticViewModelProtocol: UITableViewDataSource {
     func getShortInsulinBy(startDate: Date, endDate: Date) -> Double
     func getLongInsulinBy(startDate: Date, endDate: Date) -> Double
     func updateTableDataSource(startDate: Date, endDate: Date)
+    var dataSource: [NotesHistory] { get }
 }
 
 final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
