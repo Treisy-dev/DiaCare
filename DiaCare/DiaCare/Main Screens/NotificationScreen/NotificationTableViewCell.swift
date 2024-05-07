@@ -7,7 +7,7 @@
 import SnapKit
 import UIKit
 
-class NotificationTableViewCell: UITableViewCell {
+final class NotificationTableViewCell: UITableViewCell {
 
     private lazy var cellView: UIView = UIView()
     private lazy var notificationIcon: UIImageView = UIImageView()

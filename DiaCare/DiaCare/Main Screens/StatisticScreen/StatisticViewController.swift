@@ -6,23 +6,185 @@
 //
 
 import UIKit
+import Combine
 
-class StatisticViewController: UIViewController {
+final class StatisticViewController: UIViewController {
+
+    private var contentView: StatisticView?
+    private let viewModel: StatisticViewModelProtocol
+    private var subscriptions = Set<AnyCancellable>()
+    private var wasOpened: Bool = false
+
+    init(viewModel: StatisticViewModelProtocol) {
+        self.viewModel = viewModel
+        var startComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        startComponents.hour = 0
+        startComponents.minute = 0
+        startComponents.second = 0
+        let startDate = Calendar.current.date(from: startComponents)
+        var endComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        endComponents.hour = 23
+        endComponents.minute = 59
+        endComponents.second = 59
+        let endDate = Calendar.current.date(from: endComponents)
+        viewModel.updateTableDataSource(startDate: startDate ?? Date(), endDate: endDate ?? Date())
+        self.contentView = StatisticView(
+            frame: .zero,
+            chartData: viewModel.getSugarHistoryDay(
+                startDate: startDate ?? Date(),
+                endDate: endDate ?? Date()),
+            lowSugar: viewModel.getMinimalSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
+            averageSugar: viewModel.getAverageSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
+            highSugar: viewModel.getMaximalSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
+            shortInsulinCount: viewModel.getShortInsulinBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
+            breadCount: viewModel.getBreadCountBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
+            longInsulinCount: viewModel.getLongInsulinBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()))
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = contentView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setUpBinding()
+        contentView?.historyTable.delegate = self
+        contentView?.historyTable.dataSource = viewModel
+        contentView?.historyTable.register(HistoryTableViewCell.self, forCellReuseIdentifier: HistoryTableViewCell.reuseIdentifier)
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        contentView?.layoutSubviews()
+        guard let startDate = Calendar.current.date(from: getTodayComponents()),
+            let endDate = Calendar.current.date(from: getEndOfDayComponents()) else { return }
+        contentView?.timeSegmentControll.selectedSegmentIndex = 0
+        if wasOpened {
+            contentView?.updateUI(
+                chartData: viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate),
+                sugarStats: (
+                    lowSugar: viewModel.getMinimalSugarBy(startDate: startDate, endDate: endDate),
+                    averageSugar: viewModel.getAverageSugarBy(startDate: startDate, endDate: endDate),
+                    highSugar: viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate)),
+                foodStats: (
+                    shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
+                    breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
+                    longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate)))
+            viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+            contentView?.historyTable.reloadData()
+        } else {
+            wasOpened.toggle()
+        }
     }
-    */
 
+    private func setUpBinding() {
+        contentView?.timeSegmentControll
+            .publisher(for: \.selectedSegmentIndex)
+            .sink(receiveValue: { [weak self] index in
+                switch index {
+                case 0:
+                    self?.updateDataForDay()
+                case 1:
+                    self?.updateDataForWeek()
+                case 2:
+                    self?.updateDataForMonth()
+                default:
+                    print("Unexpected segmentControll index")
+                }
+            })
+            .store(in: &subscriptions)
+    }
+
+    private func updateDataForDay() {
+        guard let endDate = Calendar.current.date(from: getEndOfDayComponents()),
+            let startDate = Calendar.current.date(from: getTodayComponents()) else { return }
+        let data = viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate)
+
+        contentView?.chartData = data.sorted {$0.x < $1.x}
+        contentView?.chart.xAxis.labelCount = 13
+        contentView?.chart.xAxis.axisMinimum = 0.0
+        contentView?.chart.xAxis.axisMaximum = 23.0
+        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        contentView?.historyTable.reloadData()
+    }
+
+    private func updateDataForWeek() {
+        guard let endDate = Calendar.current.date(from: getEndOfDayComponents()),
+        let startDate = Calendar.current.date(from: getWeekStartComponents()) else { return }
+        let data = viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate)
+        guard let startOfChart = data.first?.x else { return }
+
+        contentView?.chartData = data.sorted {$0.x < $1.x}
+        contentView?.chart.xAxis.labelCount = 6
+        contentView?.chart.xAxis.axisMinimum = startOfChart
+        contentView?.chart.xAxis.axisMaximum = startOfChart + 6
+        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        contentView?.historyTable.reloadData()
+    }
+
+    private func updateDataForMonth() {
+        guard let endDate = Calendar.current.date(from: getMonthEndComponents()),
+            let startDate = Calendar.current.date(from: getMonthStartComponents()) else { return }
+        let data = viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate)
+
+        contentView?.chartData = data.sorted {$0.x < $1.x}
+        contentView?.chart.xAxis.labelCount = 15
+        contentView?.chart.xAxis.axisMinimum = 0.0
+        contentView?.chart.xAxis.axisMaximum = 30.0
+        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        contentView?.historyTable.reloadData()
+    }
+
+    private func getTodayComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return components
+    }
+
+    private func getWeekStartComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.day = (components.day ?? 7) - 6
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return components
+    }
+
+    private func getMonthStartComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month], from: Date())
+        components.day = 1
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return components
+    }
+
+    private func getEndOfDayComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        return components
+    }
+
+    private func getMonthEndComponents() -> DateComponents {
+        var components = Calendar.current.dateComponents([.year, .month], from: Date())
+        components.day = 30
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        return components
+    }
+}
+
+extension StatisticViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        58
+    }
 }

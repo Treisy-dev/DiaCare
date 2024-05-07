@@ -88,5 +88,9 @@ final class MainAppAssembly: Assembly {
         container.register(NotificationViewModelProtocol.self) { _ in
             NotificationViewModel(coreDM: coreDM)
         }
+
+        container.register(StatisticViewModelProtocol.self) { _ in
+            StatisticViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
+        }
     }
 }

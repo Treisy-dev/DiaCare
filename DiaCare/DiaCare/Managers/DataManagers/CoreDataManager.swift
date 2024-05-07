@@ -21,6 +21,11 @@ protocol CoreDataManagerProtocol {
     func addUserProduct(category: String, name: String, protein: String, fat: String, carbs: String)
     func addNewNotification(message: String, title: String, date: Date)
     func obtainUserNotifications() -> [PushNotification]
+    func obtainAllSugarWithDateHistory(from startDate: Date, to endDate: Date) -> [(Double, Date)]
+    func obtainBreadCountBy(from startDate: Date, to endDate: Date) -> Double
+    func obtainShortInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
+    func obtainLongInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
+    func obtainHistoryBy(from startDate: Date, to endDate: Date) -> [NotesHistory]
 }
 
 final class CoreDataManager: CoreDataManagerProtocol {
@@ -213,6 +218,92 @@ final class CoreDataManager: CoreDataManagerProtocol {
         notification.message = message
 
         saveContext()
+    }
+
+    func obtainAllSugarWithDateHistory(from startDate: Date, to endDate: Date) -> [(Double, Date)] {
+        let historyFetchRequest = NotesHistory.fetchRequest()
+
+        historyFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+        do {
+            let result = try viewContext.fetch(historyFetchRequest)
+            var sugarArray: [(Double, Date)] = []
+            for note in result {
+                sugarArray.append((note.sugar, note.date))
+            }
+            return sugarArray
+        } catch {
+            print("Error fetching data: \(error)")
+            return []
+        }
+    }
+
+    func obtainHistoryBy(from startDate: Date, to endDate: Date) -> [NotesHistory] {
+        let historyFetchRequest = NotesHistory.fetchRequest()
+
+        historyFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+        do {
+            let result = try viewContext.fetch(historyFetchRequest)
+            return result.sorted { $0.date > $1.date }
+        } catch {
+            print("Error fetching data: \(error)")
+            return []
+        }
+    }
+
+    func obtainBreadCountBy(from startDate: Date, to endDate: Date) -> Double {
+        let historyFetchRequest = NotesHistory.fetchRequest()
+
+        historyFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+        do {
+            let result = try viewContext.fetch(historyFetchRequest)
+            var breadCount: Double = 0
+            for note in result {
+                breadCount += note.breadCount
+            }
+            return breadCount
+        } catch {
+            print("Error fetching data: \(error)")
+            return 0
+        }
+    }
+
+    func obtainShortInsulinCountBy(from startDate: Date, to endDate: Date) -> Double {
+        let historyFetchRequest = NotesHistory.fetchRequest()
+
+        historyFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+        do {
+            let result = try viewContext.fetch(historyFetchRequest)
+            var insulinCount: Double = 0
+            for note in result {
+                insulinCount += note.shortInsulin
+            }
+            return insulinCount
+        } catch {
+            print("Error fetching data: \(error)")
+            return 0
+        }
+    }
+
+    func obtainLongInsulinCountBy(from startDate: Date, to endDate: Date) -> Double {
+        let historyFetchRequest = NotesHistory.fetchRequest()
+
+        historyFetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+        do {
+            let result = try viewContext.fetch(historyFetchRequest)
+            var insulinCount: Double = 0
+            for note in result {
+                insulinCount += note.longInsulin
+            }
+            return insulinCount
+        } catch {
+            print("Error fetching data: \(error)")
+            return 0
+        }
     }
 
     func obtainAverageSugar() -> String {

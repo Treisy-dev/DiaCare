@@ -18,7 +18,7 @@ extension NotesHistory {
     @NSManaged public var sugar: Double
     @NSManaged public var breadCount: Double
     @NSManaged public var shortInsulin: Double
-    @NSManaged public var date: Date?
+    @NSManaged public var date: Date
     @NSManaged public var id: UUID?
     @NSManaged public var longInsulin: Double
 
