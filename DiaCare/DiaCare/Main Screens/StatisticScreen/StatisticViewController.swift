@@ -7,6 +7,13 @@
 
 import UIKit
 import Combine
+import DGCharts
+
+enum DateDuration {
+    case day
+    case week
+    case month
+}
 
 final class StatisticViewController: UIViewController {
 
@@ -60,25 +67,32 @@ final class StatisticViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         contentView?.layoutSubviews()
-        guard let startDate = Calendar.current.date(from: getTodayComponents()),
-            let endDate = Calendar.current.date(from: getEndOfDayComponents()) else { return }
-        contentView?.timeSegmentControll.selectedSegmentIndex = 0
         if wasOpened {
-            contentView?.updateUI(
-                chartData: viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate),
-                sugarStats: (
-                    lowSugar: viewModel.getMinimalSugarBy(startDate: startDate, endDate: endDate),
-                    averageSugar: viewModel.getAverageSugarBy(startDate: startDate, endDate: endDate),
-                    highSugar: viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate)),
-                foodStats: (
-                    shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
-                    breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
-                    longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate)))
-            viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
-            contentView?.historyTable.reloadData()
+            contentView?.timeSegmentControll.selectedSegmentIndex = 0
         } else {
             wasOpened.toggle()
         }
+    }
+
+    private func updateData(startDate: Date, endDate: Date, for duration: DateDuration) {
+        var obtainedChartData: [ChartDataEntry]
+        switch duration {
+        case .day:
+            obtainedChartData = viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate)
+        case .week, .month:
+            obtainedChartData = viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate)
+        }
+        contentView?.updateUI(
+            chartData: obtainedChartData.sorted {$0.x < $1.x},
+            sugarStats: (
+                lowSugar: viewModel.getMinimalSugarBy(startDate: startDate, endDate: endDate),
+                averageSugar: viewModel.getAverageSugarBy(startDate: startDate, endDate: endDate),
+                highSugar: viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate)),
+            foodStats: (
+                shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
+                breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
+                longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate)))
+        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
     }
 
     private func setUpBinding() {
@@ -102,13 +116,17 @@ final class StatisticViewController: UIViewController {
     private func updateDataForDay() {
         guard let endDate = Calendar.current.date(from: getEndOfDayComponents()),
             let startDate = Calendar.current.date(from: getTodayComponents()) else { return }
-        let data = viewModel.getSugarHistoryDay(startDate: startDate, endDate: endDate)
-
-        contentView?.chartData = data.sorted {$0.x < $1.x}
-        contentView?.chart.xAxis.labelCount = 13
-        contentView?.chart.xAxis.axisMinimum = 0.0
-        contentView?.chart.xAxis.axisMaximum = 23.0
+        let minimalSugar = viewModel.getMinimalSugarBy(startDate: startDate, endDate: endDate).0 - 1
+        let maximalSugar = viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate).0 + 2
+        contentView?.chartSubView.chart.xAxis.labelCount = 13
+        contentView?.chartSubView.chart.xAxis.axisMinimum = 0.0
+        contentView?.chartSubView.chart.xAxis.axisMaximum = 23.0
+        contentView?.chartSubView.chart.leftAxis.labelCount = Int(maximalSugar - minimalSugar)
+        contentView?.chartSubView.chart.leftAxis.axisMinimum = minimalSugar
+        contentView?.chartSubView.chart.leftAxis.axisMaximum = maximalSugar
+        contentView?.chartSubView.chart.rightAxis.labelFont = UIFont.systemFont(ofSize: 0)
         viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        updateData(startDate: startDate, endDate: endDate, for: .day)
         contentView?.historyTable.reloadData()
     }
 
@@ -116,13 +134,17 @@ final class StatisticViewController: UIViewController {
         guard let endDate = Calendar.current.date(from: getEndOfDayComponents()),
         let startDate = Calendar.current.date(from: getWeekStartComponents()) else { return }
         let data = viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate)
-        guard let startOfChart = data.first?.x else { return }
-
-        contentView?.chartData = data.sorted {$0.x < $1.x}
-        contentView?.chart.xAxis.labelCount = 6
-        contentView?.chart.xAxis.axisMinimum = startOfChart
-        contentView?.chart.xAxis.axisMaximum = startOfChart + 6
+        guard let startOfChart = data.map({ $0.x}).min(),
+            let minimalSugar = data.map({ $0.y}).min(),
+            let maximalSugar = data.map({ $0.y}).max() else { return }
+        contentView?.chartSubView.chart.xAxis.labelCount = 6
+        contentView?.chartSubView.chart.xAxis.axisMinimum = startOfChart
+        contentView?.chartSubView.chart.xAxis.axisMaximum = startOfChart + 6
+        contentView?.chartSubView.chart.leftAxis.labelCount = Int(maximalSugar - minimalSugar)
+        contentView?.chartSubView.chart.leftAxis.axisMinimum = minimalSugar - 1
+        contentView?.chartSubView.chart.leftAxis.axisMaximum = maximalSugar + 2
         viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        updateData(startDate: startDate, endDate: endDate, for: .week)
         contentView?.historyTable.reloadData()
     }
 
@@ -130,12 +152,17 @@ final class StatisticViewController: UIViewController {
         guard let endDate = Calendar.current.date(from: getMonthEndComponents()),
             let startDate = Calendar.current.date(from: getMonthStartComponents()) else { return }
         let data = viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate)
+        guard let minimalSugar = data.map({ $0.y}).min(),
+            let maximalSugar = data.map({ $0.y}).max() else { return }
 
-        contentView?.chartData = data.sorted {$0.x < $1.x}
-        contentView?.chart.xAxis.labelCount = 15
-        contentView?.chart.xAxis.axisMinimum = 0.0
-        contentView?.chart.xAxis.axisMaximum = 30.0
+        contentView?.chartSubView.chart.xAxis.labelCount = 15
+        contentView?.chartSubView.chart.xAxis.axisMinimum = 0.0
+        contentView?.chartSubView.chart.xAxis.axisMaximum = 30.0
+        contentView?.chartSubView.chart.leftAxis.labelCount = Int(maximalSugar - minimalSugar)
+        contentView?.chartSubView.chart.leftAxis.axisMinimum = minimalSugar - 1
+        contentView?.chartSubView.chart.leftAxis.axisMaximum = maximalSugar + 2
         viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        updateData(startDate: startDate, endDate: endDate, for: .month)
         contentView?.historyTable.reloadData()
     }
 

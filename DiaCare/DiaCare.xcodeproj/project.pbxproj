@@ -72,6 +72,9 @@
 		C3666A782BE7F21C00BA9551 /* CustomSugarStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A772BE7F21C00BA9551 /* CustomSugarStatisticView.swift */; };
 		C3666A7A2BE8095000BA9551 /* CustomFoodStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A792BE8095000BA9551 /* CustomFoodStatisticView.swift */; };
 		C3666A7C2BE954C700BA9551 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A7B2BE954C700BA9551 /* HistoryTableViewCell.swift */; };
+		C3666A7F2BEAA5E100BA9551 /* ChartSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A7E2BEAA5E100BA9551 /* ChartSubView.swift */; };
+		C3666A812BEAB5A900BA9551 /* SugarStatsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A802BEAB5A900BA9551 /* SugarStatsSubView.swift */; };
+		C3666A832BEAB82A00BA9551 /* FoodStatsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A822BEAB82A00BA9551 /* FoodStatsSubView.swift */; };
 		C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */; };
 		C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */; };
 		C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */; };
@@ -175,6 +178,9 @@
 		C3666A772BE7F21C00BA9551 /* CustomSugarStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSugarStatisticView.swift; sourceTree = "<group>"; };
 		C3666A792BE8095000BA9551 /* CustomFoodStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoodStatisticView.swift; sourceTree = "<group>"; };
 		C3666A7B2BE954C700BA9551 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C3666A7E2BEAA5E100BA9551 /* ChartSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSubView.swift; sourceTree = "<group>"; };
+		C3666A802BEAB5A900BA9551 /* SugarStatsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarStatsSubView.swift; sourceTree = "<group>"; };
+		C3666A822BEAB82A00BA9551 /* FoodStatsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodStatsSubView.swift; sourceTree = "<group>"; };
 		C3DCF9A82B9DF31A007D7FF0 /* DiaCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -451,6 +457,16 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		C3666A7D2BEAA5B800BA9551 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				C3666A7E2BEAA5E100BA9551 /* ChartSubView.swift */,
+				C3666A802BEAB5A900BA9551 /* SugarStatsSubView.swift */,
+				C3666A822BEAB82A00BA9551 /* FoodStatsSubView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		C3DCF99F2B9DF31A007D7FF0 = {
 			isa = PBXGroup;
 			children = (
@@ -603,6 +619,7 @@
 		C3DCFA052B9E5AE9007D7FF0 /* StatisticScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C3666A7D2BEAA5B800BA9551 /* SubViews */,
 				C3DCFA062B9E5B0C007D7FF0 /* StatisticView.swift */,
 				C3DCFA082B9E5B1A007D7FF0 /* StatisticViewController.swift */,
 				C3DCFA0A2B9E5B26007D7FF0 /* StatisticViewModel.swift */,
@@ -729,6 +746,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C333ABA22B9F820700EA100E /* CustomUnderlineView.swift in Sources */,
+				C3666A832BEAB82A00BA9551 /* FoodStatsSubView.swift in Sources */,
 				C3DCF9DB2B9E03CD007D7FF0 /* SugarConfigViewModel.swift in Sources */,
 				C31D171E2BD0F76C004A133F /* NewUserProductViewController.swift in Sources */,
 				C364B5412BB4D65A00AC1CB3 /* ProductNetworkService.swift in Sources */,
@@ -768,6 +786,7 @@
 				C364B5332BB4A82200AC1CB3 /* TranslationNetworkService.swift in Sources */,
 				C3DCF9D42B9DF5BA007D7FF0 /* NameRegisterViewModel.swift in Sources */,
 				C31D167F2BC7D97A004A133F /* UIButtonExtensions.swift in Sources */,
+				C3666A812BEAB5A900BA9551 /* SugarStatsSubView.swift in Sources */,
 				C3DCFA102B9E5C21007D7FF0 /* TemplateView.swift in Sources */,
 				C333ABC12BA37D9000EA100E /* CustomAddFoodButton.swift in Sources */,
 				C3DCF9D92B9E03AB007D7FF0 /* SugarConfigViewController.swift in Sources */,
@@ -794,6 +813,7 @@
 				C3DCF9F62B9E59B4007D7FF0 /* ProfileViewModel.swift in Sources */,
 				C3666A7A2BE8095000BA9551 /* CustomFoodStatisticView.swift in Sources */,
 				C3DCF9E52B9E19BE007D7FF0 /* FoodConfigView.swift in Sources */,
+				C3666A7F2BEAA5E100BA9551 /* ChartSubView.swift in Sources */,
 				C364B5542BB9967300AC1CB3 /* UserProducts+CoreDataProperties.swift in Sources */,
 				C333ABBA2BA326D000EA100E /* NewNoteSugarSubView.swift in Sources */,
 				C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */,

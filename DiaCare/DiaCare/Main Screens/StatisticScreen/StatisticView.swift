@@ -11,29 +11,18 @@ import DGCharts
 final class StatisticView: UIView {
     private lazy var contentView: UIView = UIView()
     private lazy var statisticLabel: UILabel = UILabel()
-    private lazy var chartView: UIView = UIView()
     lazy var timeSegmentControll: UISegmentedControl = UISegmentedControl(items: ["День", "Неделя", "Месяц"])
-    lazy var chart: LineChartView = LineChartView()
-    private lazy var labelsSwitcher: UISwitch = UISwitch()
-    private lazy var switcherHint: UILabel = UILabel()
+    var chartSubView: ChartSubView
     private lazy var sugarLabel: UILabel = UILabel()
-    private lazy var sugarStatsHStack: UIStackView = UIStackView()
-    private var lowSugarView: CustomSugarStatisticView
-    private var averageSugarView: CustomSugarStatisticView
-    private var highSugarView: CustomSugarStatisticView
+    var sugarStatsSubView: SugarStatsSubView
     private lazy var averageFoodStatsLabel: UILabel = UILabel()
-    private lazy var foodStatsHStack: UIStackView = UIStackView()
-    private var shortInsulinStatView: CustomFoodStatisticView
-    private var breadCountStatView: CustomFoodStatisticView
-    private var longInsulinStatView: CustomFoodStatisticView
-    private lazy var hintLabel: UILabel = UILabel()
+    var foodStatsSubView: FoodStatsSubView
     private lazy var historyLabel: UILabel = UILabel()
     lazy var historyTable: UITableView = UITableView()
 
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
-    var chartData: [ChartDataEntry] = []
 
     init(
         frame: CGRect,
@@ -44,41 +33,16 @@ final class StatisticView: UIView {
         shortInsulinCount: Double,
         breadCount: Double,
         longInsulinCount: Double) {
-            self.chartData = chartData
-            self.lowSugarView = CustomSugarStatisticView(
+            self.chartSubView = ChartSubView(frame: .zero, chartData: chartData)
+            self.sugarStatsSubView = SugarStatsSubView(frame: .zero, lowSugar: lowSugar, averageSugar: averageSugar, highSugar: highSugar)
+            self.foodStatsSubView = FoodStatsSubView(
                 frame: .zero,
-                levelName: "Низкий",
-                sugarCount: String(format: "%.1f", lowSugar.0),
-                sugarState: lowSugar.1)
-            self.averageSugarView = CustomSugarStatisticView(
-                frame: .zero,
-                levelName: "Средний",
-                sugarCount: String(format: "%.1f", averageSugar.0),
-                sugarState: averageSugar.1)
-            self.highSugarView = CustomSugarStatisticView(
-                frame: .zero,
-                levelName: "Высокий",
-                sugarCount: String(format: "%.1f", highSugar.0),
-                sugarState: highSugar.1)
-            self.shortInsulinStatView = CustomFoodStatisticView(
-                frame: .zero,
-                countLabel: String(format: "%.1f", shortInsulinCount),
-                titleLabel: "Короткий инсулин")
-            self.breadCountStatView = CustomFoodStatisticView(
-                frame: .zero,
-                countLabel: String(format: "%.1f", breadCount),
-                titleLabel: "Хлебные единицы")
-            self.longInsulinStatView = CustomFoodStatisticView(
-                frame: .zero,
-                countLabel: String(format: "%.1f", longInsulinCount),
-                titleLabel: "Длинный инсулин")
+                shortInsulinCount: shortInsulinCount,
+                breadCount: breadCount,
+                longInsulinCount: longInsulinCount)
             super.init(frame: frame)
             backgroundColor = .white.withAlphaComponent(0.96)
             setUp()
-            if chartData.count == 0 {
-                self.chart.isHidden = true
-                self.hintLabel.isHidden = false
-            }
     }
 
     override func layoutSubviews() {
@@ -99,15 +63,11 @@ final class StatisticView: UIView {
         setUpContentView()
         setUpStatisticLabel()
         setUpTimeSegmentControll()
-        setUpChartView()
-        setUpChart()
-        setUpLabelsSwitcher()
-        setUpSwitcherHint()
+        setUpChartSubView()
         setUpSugarLabel()
-        setUpSugarStatsHStack()
+        setUpSugarStatsSubView()
         setUpAverageFoodStatsLabel()
-        setUpFoodStatsHStack()
-        showHintLabel()
+        setUpFoodStatsSubView()
         setUpHistoryLabel()
         setUpHistoryTable()
     }
@@ -116,21 +76,19 @@ final class StatisticView: UIView {
         chartData: [ChartDataEntry],
         sugarStats: (lowSugar: (Double, SugarState), averageSugar: (Double, SugarState), highSugar: (Double, SugarState)),
         foodStats: (shortInsulin: Double, breadCount: Double, longInsulin: Double)) {
-            self.chartData = chartData
-            lowSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.lowSugar.0), sugarState: sugarStats.lowSugar.1)
-            averageSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.averageSugar.0), sugarState: sugarStats.averageSugar.1)
-            highSugarView.updateUI(countLabel: String(format: "%.1f", sugarStats.highSugar.0), sugarState: sugarStats.highSugar.1)
-            shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
-            breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
-            longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
-            updateDataForChart()
-            if chartData.count == 0 {
-                chart.isHidden = true
-                hintLabel.isHidden = false
-            } else {
-                chart.isHidden = false
-                hintLabel.isHidden = true
-            }
+            self.chartSubView.updateUI(chartData: chartData)
+            sugarStatsSubView.lowSugarView.updateUI(
+                countLabel: String(format: "%.1f", sugarStats.lowSugar.0),
+                sugarState: sugarStats.lowSugar.1)
+            sugarStatsSubView.averageSugarView.updateUI(
+                countLabel: String(format: "%.1f", sugarStats.averageSugar.0),
+                sugarState: sugarStats.averageSugar.1)
+            sugarStatsSubView.highSugarView.updateUI(
+                countLabel: String(format: "%.1f", sugarStats.highSugar.0),
+                sugarState: sugarStats.highSugar.1)
+            foodStatsSubView.shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
+            foodStatsSubView.breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
+            foodStatsSubView.longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
     }
 
     private func setUpContentView() {
@@ -173,60 +131,13 @@ final class StatisticView: UIView {
         }
     }
 
-    private func setUpChartView() {
-        contentView.addSubview(chartView)
-        chartView.backgroundColor = .white
-        chartView.layer.cornerRadius = 10
-
-        chartView.snp.makeConstraints { make in
+    private func setUpChartSubView() {
+        contentView.addSubview(chartSubView)
+        chartSubView.snp.makeConstraints { make in
             make.top.equalTo(timeSegmentControll.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(30)
             make.trailing.equalToSuperview().inset(30)
             make.height.equalTo(270)
-        }
-    }
-
-    private func setUpChart() {
-        chartView.addSubview(chart)
-
-        chart.xAxis.labelPosition = .bottom
-        chart.leftAxis.labelPosition = .outsideChart
-        chart.legend.enabled = false
-        chart.xAxis.gridColor = .mainApp
-        chart.leftAxis.gridColor = .mainApp
-        chart.isUserInteractionEnabled = false
-
-        chart.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(210)
-        }
-
-        updateDataForChart()
-    }
-
-    private func setUpLabelsSwitcher() {
-        chartView.addSubview(labelsSwitcher)
-        labelsSwitcher.onTintColor = .mainApp
-        let changeAction: UIAction = UIAction { [weak self] _ in
-            self?.updateDataForChart()
-        }
-        labelsSwitcher.addAction(changeAction, for: .valueChanged)
-        labelsSwitcher.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
-            make.top.equalTo(chart.snp.bottom).offset(10)
-        }
-    }
-
-    private func setUpSwitcherHint() {
-        chartView.addSubview(switcherHint)
-        switcherHint.textColor = .lightGray
-        switcherHint.font = UIFont.systemFont(ofSize: 16)
-        switcherHint.text = "Включить подписи значений"
-        switcherHint.snp.makeConstraints { make in
-            make.leading.equalTo(labelsSwitcher.snp.trailing).offset(10)
-            make.centerY.equalTo(labelsSwitcher.snp.centerY)
         }
     }
 
@@ -238,48 +149,17 @@ final class StatisticView: UIView {
 
         sugarLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(chartView.snp.bottom).offset(20)
+            make.top.equalTo(chartSubView.snp.bottom).offset(20)
         }
     }
 
-    private func setUpSugarStatsHStack() {
-        contentView.addSubview(sugarStatsHStack)
-        sugarStatsHStack.axis = .horizontal
-        sugarStatsHStack.distribution = .equalSpacing
-        sugarStatsHStack.backgroundColor = .clear
-
-        sugarStatsHStack.snp.makeConstraints { make in
+    private func setUpSugarStatsSubView() {
+        contentView.addSubview(sugarStatsSubView)
+        sugarStatsSubView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(38)
             make.trailing.equalToSuperview().inset(38)
             make.height.equalTo(115)
             make.top.equalTo(sugarLabel.snp.bottom).offset(15)
-        }
-        setUpLowSugarView()
-        setUpAverageSugarView()
-        setUpHighSugarView()
-    }
-
-    private func setUpLowSugarView() {
-        sugarStatsHStack.addArrangedSubview(lowSugarView)
-        lowSugarView.snp.makeConstraints { make in
-            make.width.equalTo(100)
-            make.top.bottom.equalToSuperview()
-        }
-    }
-
-    private func setUpAverageSugarView() {
-        sugarStatsHStack.addArrangedSubview(averageSugarView)
-        averageSugarView.snp.makeConstraints { make in
-            make.width.equalTo(100)
-            make.top.bottom.equalToSuperview()
-        }
-    }
-
-    private func setUpHighSugarView() {
-        sugarStatsHStack.addArrangedSubview(highSugarView)
-        highSugarView.snp.makeConstraints { make in
-            make.width.equalTo(100)
-            make.top.bottom.equalToSuperview()
         }
     }
 
@@ -291,48 +171,17 @@ final class StatisticView: UIView {
 
         averageFoodStatsLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(sugarStatsHStack.snp.bottom).offset(20)
+            make.top.equalTo(sugarStatsSubView.snp.bottom).offset(20)
         }
     }
 
-    private func setUpFoodStatsHStack() {
-        contentView.addSubview(foodStatsHStack)
-        foodStatsHStack.axis = .horizontal
-        foodStatsHStack.distribution = .equalSpacing
-        foodStatsHStack.backgroundColor = .clear
-
-        foodStatsHStack.snp.makeConstraints { make in
+    private func setUpFoodStatsSubView() {
+        contentView.addSubview(foodStatsSubView)
+        foodStatsSubView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(40)
             make.trailing.equalToSuperview().inset(40)
             make.height.equalTo(145)
             make.top.equalTo(averageFoodStatsLabel.snp.bottom).offset(15)
-        }
-        setUpShortInsulinStatView()
-        setUpBreadCountStatView()
-        setUpLongInsulinStatView()
-    }
-
-    private func setUpShortInsulinStatView() {
-        foodStatsHStack.addArrangedSubview(shortInsulinStatView)
-        shortInsulinStatView.snp.makeConstraints { make in
-            make.width.equalTo(96)
-            make.top.bottom.equalToSuperview()
-        }
-    }
-
-    private func setUpBreadCountStatView() {
-        foodStatsHStack.addArrangedSubview(breadCountStatView)
-        breadCountStatView.snp.makeConstraints { make in
-            make.width.equalTo(96)
-            make.top.bottom.equalToSuperview()
-        }
-    }
-
-    private func setUpLongInsulinStatView() {
-        foodStatsHStack.addArrangedSubview(longInsulinStatView)
-        longInsulinStatView.snp.makeConstraints { make in
-            make.width.equalTo(96)
-            make.top.bottom.equalToSuperview()
         }
     }
 
@@ -344,7 +193,7 @@ final class StatisticView: UIView {
 
         historyLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(foodStatsHStack.snp.bottom).offset(20)
+            make.top.equalTo(foodStatsSubView.snp.bottom).offset(20)
         }
     }
 
@@ -362,43 +211,7 @@ final class StatisticView: UIView {
     }
 
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
-        updateDataForChart()
-    }
-
-    private func updateDataForChart() {
-        let dataSet: LineChartDataSet = LineChartDataSet(entries: chartData)
-
-        dataSet.mode = .linear
-        dataSet.valueFont = UIFont.systemFont(ofSize: 10)
-        if labelsSwitcher.isOn {
-            dataSet.valueFont = UIFont.systemFont(ofSize: 10)
-            switcherHint.text = "Выключить подписи значений"
-        } else {
-            dataSet.valueFont = UIFont.systemFont(ofSize: 0)
-            switcherHint.text = "Включить подписи значений"
-        }
-        dataSet.lineWidth = 2.0
-        dataSet.circleRadius = 4.0
-        dataSet.circleColors = [UIColor.mainApp]
-        dataSet.fillColor = .clear
-        dataSet.colors = [.mainApp]
-
-        chart.data = LineChartData(dataSet: dataSet)
-    }
-
-    private func showHintLabel() {
-        chartView.addSubview(hintLabel)
-        hintLabel.text = "У вас пока нет добавленных записей"
-        hintLabel.textColor = .lightGray
-        hintLabel.numberOfLines = 2
-        hintLabel.lineBreakMode = .byWordWrapping
-        hintLabel.textAlignment = .center
-        hintLabel.font = UIFont.systemFont(ofSize: 24)
-        hintLabel.isHidden = true
-
-        hintLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        chartSubView.updateDataForChart()
     }
 
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
