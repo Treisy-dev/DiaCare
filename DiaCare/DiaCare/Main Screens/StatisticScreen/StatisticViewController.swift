@@ -69,6 +69,9 @@ final class StatisticViewController: UIViewController {
         contentView?.layoutSubviews()
         if wasOpened {
             contentView?.timeSegmentControll.selectedSegmentIndex = 0
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.contentView?.contentView.transform = .identity
+            }
         } else {
             wasOpened.toggle()
         }

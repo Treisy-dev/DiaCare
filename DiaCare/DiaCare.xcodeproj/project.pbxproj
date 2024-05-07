@@ -75,6 +75,7 @@
 		C3666A7F2BEAA5E100BA9551 /* ChartSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A7E2BEAA5E100BA9551 /* ChartSubView.swift */; };
 		C3666A812BEAB5A900BA9551 /* SugarStatsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A802BEAB5A900BA9551 /* SugarStatsSubView.swift */; };
 		C3666A832BEAB82A00BA9551 /* FoodStatsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A822BEAB82A00BA9551 /* FoodStatsSubView.swift */; };
+		C3666A852BEAE04C00BA9551 /* DGChartsCustomFormater.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3666A842BEAE04C00BA9551 /* DGChartsCustomFormater.swift */; };
 		C3DCF9AC2B9DF31A007D7FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */; };
 		C3DCF9AE2B9DF31A007D7FF0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */; };
 		C3DCF9B62B9DF31A007D7FF0 /* DiaCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF9B42B9DF31A007D7FF0 /* DiaCare.xcdatamodeld */; };
@@ -181,6 +182,7 @@
 		C3666A7E2BEAA5E100BA9551 /* ChartSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSubView.swift; sourceTree = "<group>"; };
 		C3666A802BEAB5A900BA9551 /* SugarStatsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarStatsSubView.swift; sourceTree = "<group>"; };
 		C3666A822BEAB82A00BA9551 /* FoodStatsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodStatsSubView.swift; sourceTree = "<group>"; };
+		C3666A842BEAE04C00BA9551 /* DGChartsCustomFormater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGChartsCustomFormater.swift; sourceTree = "<group>"; };
 		C3DCF9A82B9DF31A007D7FF0 /* DiaCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DCF9AB2B9DF31A007D7FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DCF9AD2B9DF31A007D7FF0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				C333ABC62BA7476F00EA100E /* UIImageExtensions.swift */,
 				C364B55E2BB9F43700AC1CB3 /* UITableViewExtensions.swift */,
 				C31D167E2BC7D97A004A133F /* UIButtonExtensions.swift */,
+				C3666A842BEAE04C00BA9551 /* DGChartsCustomFormater.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				C333ABB42BA2534A00EA100E /* SettingsSubView.swift in Sources */,
 				C364B55A2BB9967300AC1CB3 /* TemplateProduct+CoreDataProperties.swift in Sources */,
 				C3DCFA072B9E5B0C007D7FF0 /* StatisticView.swift in Sources */,
+				C3666A852BEAE04C00BA9551 /* DGChartsCustomFormater.swift in Sources */,
 				C3666A682BE57C7500BA9551 /* NotificationTableViewCell.swift in Sources */,
 				C31D167C2BC783C3004A133F /* UserProductTableViewCell.swift in Sources */,
 				C364B5302BB49BC700AC1CB3 /* UIButtonFabric.swift in Sources */,

@@ -115,7 +115,6 @@ final class ChartSubView: UIView {
         let dataSet: LineChartDataSet = LineChartDataSet(entries: chartData)
 
         dataSet.mode = .linear
-        dataSet.valueFont = UIFont.systemFont(ofSize: 10)
         if labelsSwitcher.isOn {
             dataSet.valueFont = UIFont.systemFont(ofSize: 10)
             switcherHint.text = "Выключить подписи значений"
@@ -128,6 +127,7 @@ final class ChartSubView: UIView {
         dataSet.circleColors = [UIColor.mainApp]
         dataSet.fillColor = .clear
         dataSet.colors = [.mainApp]
+        dataSet.valueFormatter = CustomDataFormater()
 
         chart.data = LineChartData(dataSet: dataSet)
     }

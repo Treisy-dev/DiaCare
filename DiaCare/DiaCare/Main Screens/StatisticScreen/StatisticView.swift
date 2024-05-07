@@ -9,7 +9,7 @@ import UIKit
 import DGCharts
 
 final class StatisticView: UIView {
-    private lazy var contentView: UIView = UIView()
+    lazy var contentView: UIView = UIView()
     private lazy var statisticLabel: UILabel = UILabel()
     lazy var timeSegmentControll: UISegmentedControl = UISegmentedControl(items: ["День", "Неделя", "Месяц"])
     var chartSubView: ChartSubView
@@ -19,7 +19,9 @@ final class StatisticView: UIView {
     var foodStatsSubView: FoodStatsSubView
     private lazy var historyLabel: UILabel = UILabel()
     lazy var historyTable: UITableView = UITableView()
+    private lazy var historyHintLabel: UILabel = UILabel()
 
+    private var scrollAddition: CGFloat = 0
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
@@ -43,6 +45,11 @@ final class StatisticView: UIView {
             super.init(frame: frame)
             backgroundColor = .white.withAlphaComponent(0.96)
             setUp()
+            if chartData.count == 0 {
+                scrollAddition = 345
+                historyTable.isHidden = true
+                historyHintLabel.isHidden = false
+            }
     }
 
     override func layoutSubviews() {
@@ -70,6 +77,7 @@ final class StatisticView: UIView {
         setUpFoodStatsSubView()
         setUpHistoryLabel()
         setUpHistoryTable()
+        setUpHistoryHintLabel()
     }
 
     func updateUI(
@@ -89,6 +97,15 @@ final class StatisticView: UIView {
             foodStatsSubView.shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
             foodStatsSubView.breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
             foodStatsSubView.longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
+            if chartData.count == 0 {
+                scrollAddition = 345
+                historyTable.isHidden = true
+                historyHintLabel.isHidden = false
+            } else {
+                scrollAddition = chartData.count >= 8 ? 0 : CGFloat(345 - 44 * chartData.count)
+                historyTable.isHidden = false
+                historyHintLabel.isHidden = true
+            }
     }
 
     private func setUpContentView() {
@@ -97,7 +114,7 @@ final class StatisticView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(1279)
+            make.height.equalTo(1270)
         }
     }
 
@@ -210,6 +227,23 @@ final class StatisticView: UIView {
         }
     }
 
+    private func setUpHistoryHintLabel() {
+        contentView.addSubview(historyHintLabel)
+        historyHintLabel.text = "У вас пока нет добавленных записей"
+        historyHintLabel.textColor = .lightGray
+        historyHintLabel.numberOfLines = 2
+        historyHintLabel.lineBreakMode = .byWordWrapping
+        historyHintLabel.textAlignment = .center
+        historyHintLabel.font = UIFont.systemFont(ofSize: 24)
+        historyHintLabel.isHidden = true
+
+        historyHintLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().inset(40)
+            make.top.equalTo(historyLabel.snp.bottom).offset(15)
+        }
+    }
+
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
         chartSubView.updateDataForChart()
     }
@@ -223,7 +257,7 @@ final class StatisticView: UIView {
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
 
-            if newMaxY <= 1270 && newMaxY >= 730 {
+            if newMaxY <= 1270 && newMaxY >= 750 + scrollAddition {
                 let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
                 contentView.transform = newTransform
             }
