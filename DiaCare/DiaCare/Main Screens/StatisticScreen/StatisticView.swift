@@ -46,7 +46,6 @@ final class StatisticView: UIView {
             backgroundColor = .white.withAlphaComponent(0.96)
             setUp()
             if chartData.count == 0 {
-//                scrollAddition = 345
                 historyTable.isHidden = true
                 historyHintLabel.isHidden = false
             }
@@ -98,11 +97,9 @@ final class StatisticView: UIView {
             foodStatsSubView.breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
             foodStatsSubView.longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
             if chartData.count == 0 {
-//                scrollAddition = 345
                 historyTable.isHidden = true
                 historyHintLabel.isHidden = false
             } else {
-//                scrollAddition = chartData.count >= 8 ? 0 : CGFloat(345 - 44 * (Double(chartData.count) * 1.1))
                 historyTable.isHidden = false
                 historyHintLabel.isHidden = true
             }
@@ -114,7 +111,7 @@ final class StatisticView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(1270)
+            make.height.equalTo(1320)
         }
     }
 
@@ -257,7 +254,7 @@ final class StatisticView: UIView {
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
 
-            if newMaxY <= 1270 && newMaxY >= 750 + scrollAddition {
+            if newMaxY <= 1320 && newMaxY >= 780 + scrollAddition {
                 let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
                 contentView.transform = newTransform
             }

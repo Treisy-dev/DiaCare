@@ -76,7 +76,7 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         guard let minimalSugar = sugarData.first?.0 else { return (0, .normal) }
         guard let target = Double(userDefaultsDataManager.getLowTarget()) else { return (0, .normal) }
 
-        return (minimalSugar, getSugarState(target: target, value: minimalSugar, multiplyer: 1))
+        return (minimalSugar, getMinimalSugarState(target: target, value: minimalSugar))
     }
 
     func getAverageSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState) {
@@ -87,7 +87,7 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         let averageSugarValue = Double(sugarData.reduce(0, { $0 + $1.0 })) / Double(sugarData.count)
         guard let target = Double(userDefaultsDataManager.getAverageTarget()) else { return (0, .normal) }
 
-        return (averageSugarValue, getSugarState(target: target, value: averageSugarValue, multiplyer: 3))
+        return (averageSugarValue, getAverageSugarState(target: target, value: averageSugarValue))
     }
 
     func getMaximalSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState) {
@@ -96,7 +96,7 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         guard let maximalSugar = sugarData.last?.0 else { return (0, .normal) }
         guard let target = Double(userDefaultsDataManager.getHighTarget()) else { return (0, .normal) }
 
-        return (maximalSugar, getSugarState(target: target, value: maximalSugar, multiplyer: 2))
+        return (maximalSugar, getMaximalSugarState(target: target, value: maximalSugar))
     }
 
     func getBreadCountBy(startDate: Date, endDate: Date) -> Double {
@@ -115,15 +115,39 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         dataSource = coreDataManager.obtainHistoryBy(from: startDate, to: endDate)
     }
 
-    private func getSugarState(target: Double, value: Double, multiplyer: Double) -> SugarState {
-        if abs(value - target) <= 0.5 * multiplyer {
+    private func getMinimalSugarState(target: Double, value: Double) -> SugarState {
+        if abs(value - target) <= 0.5 {
             return .good
-        } else if abs(value - target) <= 1 * multiplyer {
+        } else if value - target >= -0.8 && value - target < 0 {
             return .normal
-        } else if abs(value - target) < 1 * multiplyer {
+        } else if value - target < -0.8 {
+            return .bad
+        } else {
+            return .good
+        }
+    }
+
+    private func getAverageSugarState(target: Double, value: Double) -> SugarState {
+        if abs(value - target) <= 2 {
+            return .good
+        } else if abs(value - target) <= 4 {
+            return .normal
+        } else if abs(value - target) > 4 {
             return .bad
         } else {
             return .normal
+        }
+    }
+
+    private func getMaximalSugarState(target: Double, value: Double) -> SugarState {
+        if value - target <= 2 {
+            return .good
+        } else if value - target > 2 && value - target < 3 {
+            return .normal
+        } else if value - target > 3 {
+            return .bad
+        } else {
+            return .good
         }
     }
 

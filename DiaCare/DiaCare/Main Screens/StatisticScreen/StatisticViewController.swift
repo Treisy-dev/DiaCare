@@ -99,7 +99,7 @@ final class StatisticViewController: UIViewController {
         if viewModel.dataSource.count == 0 {
             contentView?.scrollAddition = 345
         } else {
-            contentView?.scrollAddition = viewModel.dataSource.count >= 7 ? 0 : CGFloat(345 - 48 * viewModel.dataSource.count)
+            contentView?.scrollAddition = viewModel.dataSource.count >= 7 ? -30 : CGFloat(385 - 57 * viewModel.dataSource.count)
         }
     }
 
@@ -220,6 +220,6 @@ final class StatisticViewController: UIViewController {
 
 extension StatisticViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        58
+        65
     }
 }
