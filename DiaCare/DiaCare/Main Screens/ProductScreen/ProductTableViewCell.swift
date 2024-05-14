@@ -64,6 +64,32 @@ final class ProductTableViewCell: UITableViewCell {
             productPropsHStack.addArrangedSubview(carbohydratesVStack)
     }
 
+    func configTemplate(
+        productName: String,
+        templateCategory: TemplateCategories,
+        breadCount: String,
+        insulinCount: String,
+        carbCount: String) {
+            productLabel.text = productName
+            productImageView.image = templateCategory.getImageByType()
+            proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
+                titleLabel: "ХЕ",
+                titleLabelColor: .systemBlue,
+                count: breadCount)
+            fatVStack = ProductVStackFabric.shared.makeProductPropVStack(
+                titleLabel: "Инсулин",
+                titleLabelColor: .purple,
+                count: insulinCount)
+            carbohydratesVStack = ProductVStackFabric.shared.makeProductPropVStack(
+                titleLabel: "Углеводы",
+                titleLabelColor: .systemRed,
+                count: carbCount)
+            guard let proteinVStack, let fatVStack, let carbohydratesVStack else { return }
+            productPropsHStack.addArrangedSubview(proteinVStack)
+            productPropsHStack.addArrangedSubview(fatVStack)
+            productPropsHStack.addArrangedSubview(carbohydratesVStack)
+    }
+
     private func setUpBorderView() {
         addSubview(borderView)
         borderView.layer.cornerRadius = 10

@@ -13,4 +13,5 @@ struct UserProductModel {
     let fat: String
     let carbs: String
     let breadCount: String
+    let isTemplate: Bool
 }

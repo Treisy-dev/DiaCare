@@ -28,6 +28,7 @@ protocol CoreDataManagerProtocol {
     func obtainHistoryBy(from startDate: Date, to endDate: Date) -> [NotesHistory]
     func obtainUsersTemplates() -> [Templates]
     func addNewTemplate(breadCount: String, shortInsulin: String, templateName: String, category: String, products: [UserProductModel])
+    func obtainCategoryFromTemplate(for word: String) -> String?
 }
 
 final class CoreDataManager: CoreDataManagerProtocol {
@@ -357,5 +358,21 @@ final class CoreDataManager: CoreDataManagerProtocol {
             newTemplate.addToTemplateProduct(newTemplateProduct)
         }
         saveContext()
+    }
+
+    func obtainCategoryFromTemplate(for word: String) -> String? {
+        let templateFetchRequest = Templates.fetchRequest()
+        templateFetchRequest.predicate = NSPredicate(format: "name == %@", word)
+
+        do {
+            let results = try viewContext.fetch(templateFetchRequest)
+            if let productType = results.first {
+            return productType.category
+            }
+        } catch {
+            print("Ошибка при получении категории: \(error)")
+        }
+
+        return nil
     }
 }

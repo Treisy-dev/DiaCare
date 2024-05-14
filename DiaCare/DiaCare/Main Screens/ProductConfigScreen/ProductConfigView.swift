@@ -353,7 +353,8 @@ final class ProductConfigView: UIView {
                 protein: "",
                 fat: "",
                 carbs: "",
-                breadCount: ""
+                breadCount: "",
+                isTemplate: false
             )
         }
 
@@ -362,7 +363,8 @@ final class ProductConfigView: UIView {
             protein: String(format: "%.1f", protein / 100 * grammsDouble),
             fat: String(format: "%.1f", fat / 100 * grammsDouble),
             carbs: String(format: "%.1f", carbs / 100 * grammsDouble),
-            breadCount: String(format: "%.1f", carbs / 100 * grammsDouble / userBreadCount)
+            breadCount: String(format: "%.1f", carbs / 100 * grammsDouble / userBreadCount),
+            isTemplate: false
         )
     }
 }

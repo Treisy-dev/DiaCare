@@ -34,17 +34,32 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let productCategory = coreDataManager.obtainCategoryFromProduct(for: userProducts[indexPath.row].name)
-        let cell = UserProductTableViewCell(style: .default, reuseIdentifier: nil)
-        cell.selectionStyle = .none
-        let category = getCategoryFromString(productCategory ?? "")
-        cell.config(
-            productName: userProducts[indexPath.row].name,
-            productCategory: category,
-            proteinCount: userProducts[indexPath.row].protein,
-            productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
-        )
-        return cell
+        if !userProducts[indexPath.row].isTemplate {
+            let productCategory = coreDataManager.obtainCategoryFromProduct(for: userProducts[indexPath.row].name)
+            let cell = UserProductTableViewCell(style: .default, reuseIdentifier: nil)
+            cell.selectionStyle = .none
+            let category = getCategoryFromStringProduct(productCategory ?? "")
+            cell.config(
+                productName: userProducts[indexPath.row].name,
+                productCategory: category,
+                proteinCount: userProducts[indexPath.row].protein,
+                productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
+            )
+            return cell
+        } else {
+            let productCategory = coreDataManager.obtainCategoryFromTemplate(for: userProducts[indexPath.row].name)
+            let cell = UserProductTableViewCell(style: .default, reuseIdentifier: nil)
+            cell.selectionStyle = .none
+            let category = getCategoryFromStringTemplate(productCategory ?? "")
+            cell.configTemplate(
+                productName: userProducts[indexPath.row].name,
+                templateCategory: category,
+                proteinCount: userProducts[indexPath.row].protein,
+                productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
+            )
+            return cell
+        }
+
     }
 
     func getAverageSugar() -> String {
@@ -72,8 +87,16 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         return String(format: "%.1f", breadCount * insulinCount)
     }
 
-    private func getCategoryFromString(_ categoryString: String) -> ProductCategories {
+    private func getCategoryFromStringProduct(_ categoryString: String) -> ProductCategories {
         if let category = ProductCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
+        }
+    }
+
+    private func getCategoryFromStringTemplate(_ categoryString: String) -> TemplateCategories {
+        if let category = TemplateCategories(rawValue: categoryString) {
             return category
         } else {
             return .none
