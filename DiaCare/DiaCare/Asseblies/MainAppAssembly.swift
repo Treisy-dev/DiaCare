@@ -92,5 +92,9 @@ final class MainAppAssembly: Assembly {
         container.register(StatisticViewModelProtocol.self) { _ in
             StatisticViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
         }
+
+        container.register(NewTemplateViewModelProtocol.self) { _ in
+            NewTemplateViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
+        }
     }
 }

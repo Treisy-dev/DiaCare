@@ -15,11 +15,12 @@ extension Templates {
         return NSFetchRequest<Templates>(entityName: "Templates")
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var breadCount: String?
-    @NSManaged public var insulin: String?
-    @NSManaged public var id: UUID?
+    @NSManaged public var name: String
+    @NSManaged public var breadCount: String
+    @NSManaged public var insulin: String
+    @NSManaged public var id: UUID
     @NSManaged public var templateProduct: NSSet?
+    @NSManaged public var category: String
 
 }
 

@@ -10,38 +10,14 @@ import UIKit
 final class ProductTableViewCell: UITableViewCell {
     lazy var productImageView: UIImageView = UIImageView()
     private lazy var borderView: UIView = UIView()
+    private lazy var verticalSeparateView: UIView = UIView()
+    private lazy var horizontalSeparateView: UIView = UIView()
     lazy var productLabel: UILabel = UILabel()
     lazy var productInfoVStack: UIStackView = UIStackView()
     lazy var productPropsHStack: UIStackView = UIStackView()
     var proteinVStack: UIStackView?
     var fatVStack: UIStackView?
     var carbohydratesVStack: UIStackView?
-
-    enum ProductCategories: String {
-        case fruit
-        case vegetable
-        case cereal
-        case fish
-        case meat
-        case none
-
-        func getImageByType() -> UIImage {
-            switch self {
-            case .fruit:
-                return UIImage.fruit.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .vegetable:
-                return UIImage.vegetable.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .cereal:
-                return UIImage.cereal.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .fish:
-                return UIImage.fish.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .meat:
-                return UIImage.meat.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .none:
-                return UIImage.lunch.resizeImage(newSize: CGSize(width: 45, height: 45))
-            }
-        }
-    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,8 +31,10 @@ final class ProductTableViewCell: UITableViewCell {
     private func setUp() {
         setUpBorderView()
         setUpProductImageView()
+        setUpVerticalSeparateView()
         setUpProductInfoVStack()
         setUpProductLabel()
+        setUpHorizontalSeparateView()
         setUpProductPropsHStack()
     }
 
@@ -86,14 +64,6 @@ final class ProductTableViewCell: UITableViewCell {
             productPropsHStack.addArrangedSubview(carbohydratesVStack)
     }
 
-    func getCategoryFromString(_ categoryString: String) -> ProductCategories {
-        if let category = ProductCategories(rawValue: categoryString) {
-            return category
-        } else {
-            return .none
-        }
-    }
-
     private func setUpBorderView() {
         addSubview(borderView)
         borderView.layer.cornerRadius = 10
@@ -111,10 +81,20 @@ final class ProductTableViewCell: UITableViewCell {
         productImageView.contentMode = .center
 
         productImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(5)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().inset(-5)
             make.width.equalTo(40)
+        }
+    }
+
+    private func setUpVerticalSeparateView() {
+        borderView.addSubview(verticalSeparateView)
+        verticalSeparateView.backgroundColor = .lightGray
+        verticalSeparateView.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.leading.equalTo(productImageView.snp.trailing).offset(5)
+            make.top.bottom.equalToSuperview()
         }
     }
 
@@ -125,7 +105,7 @@ final class ProductTableViewCell: UITableViewCell {
         productInfoVStack.spacing = 0
         productInfoVStack.snp.makeConstraints { make in
             make.trailing.top.bottom.equalToSuperview()
-            make.leading.equalTo(productImageView.snp.trailing)
+            make.leading.equalTo(verticalSeparateView.snp.trailing)
         }
     }
 
@@ -136,6 +116,15 @@ final class ProductTableViewCell: UITableViewCell {
         productLabel.textAlignment = .center
         productLabel.font = UIFont.systemFont(ofSize: 20)
         productLabel.textColor = .black
+    }
+
+    private func setUpHorizontalSeparateView() {
+        productInfoVStack.addArrangedSubview(horizontalSeparateView)
+        horizontalSeparateView.backgroundColor = .lightGray
+        horizontalSeparateView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
 
     private func setUpProductPropsHStack() {

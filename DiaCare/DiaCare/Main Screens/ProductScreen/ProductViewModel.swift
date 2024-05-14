@@ -90,7 +90,7 @@ extension ProductViewModel: UITableViewDataSource {
             let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none
-            let category = cell.getCategoryFromString(productCategory ?? "")
+            let category = getCategoryFromString(productCategory ?? "")
             cell.config(
                 productName: productItem[indexPath.row].name,
                 productCategory: category,
@@ -103,7 +103,7 @@ extension ProductViewModel: UITableViewDataSource {
         } else {
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none
-            let category = cell.getCategoryFromString(userSavedProducts[indexPath.row].category)
+            let category = getCategoryFromString(userSavedProducts[indexPath.row].category)
             cell.config(
                 productName: userSavedProducts[indexPath.row].name,
                 productCategory: category,
@@ -111,6 +111,14 @@ extension ProductViewModel: UITableViewDataSource {
                 fatCount: String(userSavedProducts[indexPath.row].fat),
                 carbCount: String(userSavedProducts[indexPath.row].carbohydrates))
             return cell
+        }
+    }
+
+    private func getCategoryFromString(_ categoryString: String) -> ProductCategories {
+        if let category = ProductCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
         }
     }
 }

@@ -1,32 +1,32 @@
 //
-//  NewNoteViewModel.swift
+//  NewTemplateViewModel.swift
 //  DiaCare
 //
-//  Created by Кирилл Щёлоков on 11.03.2024.
+//  Created by Кирилл Щёлоков on 14.05.2024.
 //
 
-import Foundation
 import UIKit
 
-protocol NewNoteViewModelProtocol: UITableViewDataSource {
-    var averageSugar: String { get }
+protocol NewTemplateViewModelProtocol: UITableViewDataSource, UIPickerViewDataSource {
     var userProducts: [UserProductModel] {get set}
-    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String)
+    var pickerViewDataSource: [String] { get }
     func getBreadCount() -> String
     func getInsulinCount() -> String
-    func getAverageSugar() -> String
+    func getFatCount() -> String
+    func getProteinCount() -> String
+    func getCarbsCount() -> String
+    func saveNewTemplate(breadCount: String, shortInsulin: String, name: String, category: String)
 }
 
-final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDataSource {
-    var averageSugar: String
+final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
     var coreDataManager: CoreDataManagerProtocol
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol
     var userProducts: [UserProductModel] = []
+    var pickerViewDataSource: [String] = ["breakfast", "snack", "secondBreakfast", "lunch", "dinner", "afternoonSnack"]
 
     init(coreDM: CoreDataManagerProtocol, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
-        averageSugar = coreDataManager.obtainAverageSugar()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,13 +47,48 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         return cell
     }
 
-    func getAverageSugar() -> String {
-        averageSugar = coreDataManager.obtainAverageSugar()
-        return averageSugar
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
     }
 
-    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String) {
-        coreDataManager.addToHistory(breadCount: breadCount, sugar: sugar, shortInsulin: shortInsulin)
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        pickerViewDataSource.count
+    }
+
+    func saveNewTemplate(breadCount: String, shortInsulin: String, name: String, category: String) {
+        coreDataManager.addNewTemplate(
+            breadCount: breadCount,
+            shortInsulin: shortInsulin,
+            templateName: name,
+            category: category,
+            products: userProducts)
+    }
+
+    func getFatCount() -> String {
+        var result: Double = 0
+        for product in userProducts {
+            guard let fatCount = Double(product.fat) else { return ""}
+            result += fatCount
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getProteinCount() -> String {
+        var result: Double = 0
+        for product in userProducts {
+            guard let proteinCount = Double(product.protein) else { return ""}
+            result += proteinCount
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getCarbsCount() -> String {
+        var result: Double = 0
+        for product in userProducts {
+            guard let carbsCount = Double(product.carbs) else { return ""}
+            result += carbsCount
+        }
+        return String(format: "%.1f", result)
     }
 
     func getBreadCount() -> String {

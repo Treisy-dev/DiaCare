@@ -10,6 +10,8 @@ import UIKit
 final class UserProductTableViewCell: UITableViewCell {
     private lazy var productImageView: UIImageView = UIImageView()
     private lazy var borderView: UIView = UIView()
+    private lazy var verticalSeparateView: UIView = UIView()
+    private lazy var horizontalSeparateView: UIView = UIView()
     private lazy var productLabel: UILabel = UILabel()
     private lazy var productInfoVStack: UIStackView = UIStackView()
     private lazy var productPropsHStack: UIStackView = UIStackView()
@@ -18,32 +20,6 @@ final class UserProductTableViewCell: UITableViewCell {
     private var carbohydratesVStack: UIStackView?
     private var grammsVStack: UIStackView?
     private var breadCountVStack: UIStackView?
-
-    enum ProductCategories: String {
-        case fruit
-        case vegetable
-        case cereal
-        case fish
-        case meat
-        case none
-
-        func getImageByType() -> UIImage {
-            switch self {
-            case .fruit:
-                return UIImage.fruit.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .vegetable:
-                return UIImage.vegetable.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .cereal:
-                return UIImage.cereal.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .fish:
-                return UIImage.fish.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .meat:
-                return UIImage.meat.resizeImage(newSize: CGSize(width: 45, height: 45))
-            case .none:
-                return UIImage.lunch.resizeImage(newSize: CGSize(width: 45, height: 45))
-            }
-        }
-    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -58,8 +34,10 @@ final class UserProductTableViewCell: UITableViewCell {
     private func setUp() {
         setUpBorderView()
         setUpProductImageView()
+        setUpVerticalSeparateView()
         setUpProductInfoVStack()
         setUpProductLabel()
+        setUpHorizontalSeparateView()
         setUpProductPropsHStack()
     }
 
@@ -93,14 +71,6 @@ final class UserProductTableViewCell: UITableViewCell {
             productPropsHStack.addArrangedSubview(breadCountVStack)
         }
 
-    func getCategoryFromString(_ categoryString: String) -> ProductCategories {
-        if let category = ProductCategories(rawValue: categoryString) {
-            return category
-        } else {
-            return .none
-        }
-    }
-
     private func setUpBorderView() {
         addSubview(borderView)
         borderView.layer.cornerRadius = 10
@@ -118,10 +88,20 @@ final class UserProductTableViewCell: UITableViewCell {
         productImageView.contentMode = .center
 
         productImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(5)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().inset(-5)
             make.width.equalTo(40)
+        }
+    }
+
+    private func setUpVerticalSeparateView() {
+        borderView.addSubview(verticalSeparateView)
+        verticalSeparateView.backgroundColor = .lightGray
+        verticalSeparateView.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.leading.equalTo(productImageView.snp.trailing).offset(5)
+            make.top.bottom.equalToSuperview()
         }
     }
 
@@ -132,7 +112,7 @@ final class UserProductTableViewCell: UITableViewCell {
         productInfoVStack.spacing = 0
         productInfoVStack.snp.makeConstraints { make in
             make.trailing.top.bottom.equalToSuperview()
-            make.leading.equalTo(productImageView.snp.trailing)
+            make.leading.equalTo(verticalSeparateView.snp.trailing)
         }
     }
 
@@ -143,6 +123,15 @@ final class UserProductTableViewCell: UITableViewCell {
         productLabel.textAlignment = .center
         productLabel.font = UIFont.systemFont(ofSize: 20)
         productLabel.textColor = .black
+    }
+
+    private func setUpHorizontalSeparateView() {
+        productInfoVStack.addArrangedSubview(horizontalSeparateView)
+        horizontalSeparateView.backgroundColor = .lightGray
+        horizontalSeparateView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
 
     private func setUpProductPropsHStack() {
