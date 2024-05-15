@@ -59,9 +59,9 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
     }
 
     private func clearProductVStack() {
-      for arrangedSubview in productsVStack.arrangedSubviews {
-        arrangedSubview.removeFromSuperview()
-      }
+        for arrangedSubview in productsVStack.arrangedSubviews {
+            arrangedSubview.removeFromSuperview()
+        }
     }
 
     private func setUpTemplateTitle() {
