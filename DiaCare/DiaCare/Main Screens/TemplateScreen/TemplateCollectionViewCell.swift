@@ -54,7 +54,14 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
             self.breadCount.text = stats.breadCount
             self.insulinCount.text = stats.insulinCount
             categoryImage.image = templateCategory.getImageByType()
+            clearProductVStack()
             fillProductVStack()
+    }
+
+    private func clearProductVStack() {
+      for arrangedSubview in productsVStack.arrangedSubviews {
+        arrangedSubview.removeFromSuperview()
+      }
     }
 
     private func setUpTemplateTitle() {
