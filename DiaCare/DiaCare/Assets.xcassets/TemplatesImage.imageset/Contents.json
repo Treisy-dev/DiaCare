@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "фото девочки.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

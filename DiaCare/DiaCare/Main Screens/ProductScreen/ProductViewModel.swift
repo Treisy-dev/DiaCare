@@ -11,10 +11,15 @@ import Combine
 protocol ProductViewModelProtocol: UITableViewDataSource {
     func searchProducts(for queryText: String, completion: @escaping () -> Void)
     func getUserSavedProducts()
-    var productItem: [Product] {get}
-    var usersProduct: [UserProductModel] {get set}
-    var userSavedProducts: [UserProducts] {get}
-    var selectedSegmentControllIndex: Int {get set}
+    func getUserTemplates()
+    var productItem: [Product] { get }
+    var usersProduct: [UserProductModel] { get set }
+    var userSavedProducts: [UserProducts] { get }
+    var userTemplates: [Templates] { get }
+    var selectedSegmentControllIndex: Int { get set }
+    func getProteintForTemplate(for template: Templates) -> String
+    func getFatForTemplate(for template: Templates) -> String
+    func getCarbsForTemplate(for template: Templates) -> String
 }
 
 final class ProductViewModel: NSObject, ProductViewModelProtocol {
@@ -22,19 +27,23 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     var translationNS: TranslationNetworkServiceProtocol
     var productNS: ProductNetworkServiceProtocol
     var coreDataManager: CoreDataManagerProtocol
+    var userDefaultsDataManager: UserDefaultsDataManagerProtocol
     var selectedSegmentControllIndex: Int = 0
 
     var usersProduct: [UserProductModel] = []
     var productItem: [Product] = []
     var userSavedProducts: [UserProducts] = []
+    var userTemplates: [Templates] = []
 
     init(
         translationService: TranslationNetworkServiceProtocol,
         productService: ProductNetworkServiceProtocol,
-        coreDM: CoreDataManagerProtocol) {
-        translationNS = translationService
-        productNS = productService
-        coreDataManager = coreDM
+        coreDM: CoreDataManagerProtocol,
+        userDefaultsDM: UserDefaultsDataManagerProtocol) {
+            translationNS = translationService
+            productNS = productService
+            coreDataManager = coreDM
+            userDefaultsDataManager = userDefaultsDM
     }
 
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {
@@ -71,6 +80,10 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     func getUserSavedProducts() {
         userSavedProducts = coreDataManager.obtainUsersProduct()
     }
+
+    func getUserTemplates() {
+        userTemplates = coreDataManager.obtainUsersTemplates()
+    }
 }
 
 extension ProductViewModel: UITableViewDataSource {
@@ -79,7 +92,7 @@ extension ProductViewModel: UITableViewDataSource {
         if selectedSegmentControllIndex == 0 {
             return productItem.count
         } else if selectedSegmentControllIndex == 1 {
-            return 0
+            return userTemplates.count
         } else {
             return userSavedProducts.count
         }
@@ -90,7 +103,7 @@ extension ProductViewModel: UITableViewDataSource {
             let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none
-            let category = cell.getCategoryFromString(productCategory ?? "")
+            let category = getCategoryFromStringProduct(productCategory ?? "")
             cell.config(
                 productName: productItem[indexPath.row].name,
                 productCategory: category,
@@ -99,11 +112,21 @@ extension ProductViewModel: UITableViewDataSource {
                 carbCount: String(productItem[indexPath.row].carbohydrates_total_g))
             return cell
         } else if selectedSegmentControllIndex == 1 {
-            return UITableViewCell()
+            let productCategory = coreDataManager.obtainCategoryFromTemplate(for: userTemplates[indexPath.row].name)
+            let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
+            cell.selectionStyle = .none
+            let category = getCategoryFromStringTemplate(productCategory ?? "")
+            cell.configTemplate(
+                productName: userTemplates[indexPath.row].name,
+                templateCategory: category,
+                breadCount: String(userTemplates[indexPath.row].breadCount),
+                insulinCount: String(userTemplates[indexPath.row].insulin),
+                carbCount: String(getCarbsCount(breadCount: userTemplates[indexPath.row].breadCount)))
+            return cell
         } else {
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none
-            let category = cell.getCategoryFromString(userSavedProducts[indexPath.row].category)
+            let category = getCategoryFromStringProduct(userSavedProducts[indexPath.row].category)
             cell.config(
                 productName: userSavedProducts[indexPath.row].name,
                 productCategory: category,
@@ -112,5 +135,58 @@ extension ProductViewModel: UITableViewDataSource {
                 carbCount: String(userSavedProducts[indexPath.row].carbohydrates))
             return cell
         }
+    }
+
+    private func getCarbsCount(breadCount: String) -> String {
+        guard let carbsInBreadCount = Double(userDefaultsDataManager.getUserBreadCount()),
+            let breadCountDouble = Double(breadCount) else { return ""}
+
+        return String(format: "%.1f", breadCountDouble * carbsInBreadCount)
+    }
+
+    private func getCategoryFromStringProduct(_ categoryString: String) -> ProductCategories {
+        if let category = ProductCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
+        }
+    }
+
+    private func getCategoryFromStringTemplate(_ categoryString: String) -> TemplateCategories {
+        if let category = TemplateCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
+        }
+    }
+
+    func getProteintForTemplate(for template: Templates) -> String {
+        var result: Double = 0
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        for product in products {
+            guard let protein = Double(product.protein) else { return ""}
+            result += protein
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getFatForTemplate(for template: Templates) -> String {
+        var result: Double = 0
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        for product in products {
+            guard let fat = Double(product.fat) else { return ""}
+            result += fat
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getCarbsForTemplate(for template: Templates) -> String {
+        var result: Double = 0
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        for product in products {
+            guard let carbohydrates = Double(product.carbohydrates) else { return ""}
+            result += carbohydrates
+        }
+        return String(format: "%.1f", result)
     }
 }

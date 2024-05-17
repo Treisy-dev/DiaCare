@@ -26,6 +26,9 @@ protocol CoreDataManagerProtocol {
     func obtainShortInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
     func obtainLongInsulinCountBy(from startDate: Date, to endDate: Date) -> Double
     func obtainHistoryBy(from startDate: Date, to endDate: Date) -> [NotesHistory]
+    func obtainUsersTemplates() -> [Templates]
+    func addNewTemplate(breadCount: String, shortInsulin: String, templateName: String, category: String, products: [UserProductModel])
+    func obtainCategoryFromTemplate(for word: String) -> String?
 }
 
 final class CoreDataManager: CoreDataManagerProtocol {
@@ -324,5 +327,52 @@ final class CoreDataManager: CoreDataManagerProtocol {
             print("Error fetching data: \(error)")
             return "5.5"
         }
+    }
+
+    func obtainUsersTemplates() -> [Templates] {
+        let templatesFetchRequest = Templates.fetchRequest()
+        do {
+            let result = try viewContext.fetch(templatesFetchRequest)
+            return result
+        } catch {
+            print("Error fetching data: \(error)")
+            return []
+        }
+    }
+
+    func addNewTemplate(breadCount: String, shortInsulin: String, templateName: String, category: String, products: [UserProductModel]) {
+        let newTemplate = Templates(context: viewContext)
+        newTemplate.id = UUID()
+        newTemplate.breadCount = breadCount
+        newTemplate.insulin = shortInsulin
+        newTemplate.name = templateName
+        newTemplate.category = category
+        for product in products {
+            let newTemplateProduct = TemplateProduct(context: viewContext)
+            newTemplateProduct.name = product.name
+            newTemplateProduct.carbohydrates = product.carbs
+            newTemplateProduct.fat = product.fat
+            newTemplateProduct.id = UUID()
+            newTemplateProduct.protein = product.protein
+            newTemplateProduct.template = newTemplate
+            newTemplate.addToTemplateProduct(newTemplateProduct)
+        }
+        saveContext()
+    }
+
+    func obtainCategoryFromTemplate(for word: String) -> String? {
+        let templateFetchRequest = Templates.fetchRequest()
+        templateFetchRequest.predicate = NSPredicate(format: "name == %@", word)
+
+        do {
+            let results = try viewContext.fetch(templateFetchRequest)
+            if let productType = results.first {
+            return productType.category
+            }
+        } catch {
+            print("Ошибка при получении категории: \(error)")
+        }
+
+        return nil
     }
 }

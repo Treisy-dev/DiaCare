@@ -107,7 +107,15 @@ final class ProductViewController: UIViewController {
             viewModel.selectedSegmentControllIndex = 0
             contentView.productTableView.reloadData()
         } else if selectedIndex == 1 {
-
+            viewModel.selectedSegmentControllIndex = 1
+            viewModel.getUserTemplates()
+            if viewModel.userTemplates.count == 0 {
+                contentView.hintLabel.isHidden = false
+                contentView.hintLabel.text = "У вас пока нет своих добавленных шаблонов"
+            } else {
+                contentView.hintLabel.isHidden = true
+            }
+            contentView.productTableView.reloadData()
         } else {
             viewModel.selectedSegmentControllIndex = 2
             viewModel.getUserSavedProducts()
@@ -157,7 +165,26 @@ extension ProductViewController: UITableViewDelegate {
                 )
             )
         } else if viewModel.selectedSegmentControllIndex == 1 {
-
+            let selectedTemplate = viewModel.userTemplates[indexPath.row]
+            let alertController = UIAlertController(
+                title: "Добавить шаблон?",
+                message: "Добавить шаблон \(productName) в прием пищи?",
+                preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
+                self?.viewModel.usersProduct.append(UserProductModel(
+                    name: productName,
+                    protein: self?.viewModel.getProteintForTemplate(for: selectedTemplate) ?? "0",
+                    fat: self?.viewModel.getFatForTemplate(for: selectedTemplate) ?? "0",
+                    carbs: self?.viewModel.getCarbsForTemplate(for: selectedTemplate) ?? "0",
+                    breadCount: self?.viewModel.userTemplates[indexPath.row].breadCount ?? "0",
+                    isTemplate: true))
+            }
+            let noAction = UIAlertAction(title: "Нет", style: .cancel) { _ in
+                alertController.dismiss(animated: true, completion: nil)
+            }
+            alertController.addAction(yesAction)
+            alertController.addAction(noAction)
+            present(alertController, animated: true, completion: nil)
         } else {
             productTapped?(
                 productName,

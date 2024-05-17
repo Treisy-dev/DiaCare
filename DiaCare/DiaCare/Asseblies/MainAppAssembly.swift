@@ -70,7 +70,11 @@ final class MainAppAssembly: Assembly {
         }
 
         container.register(ProductViewModelProtocol.self) { _ in
-            ProductViewModel(translationService: translationNS, productService: productNS, coreDM: coreDM)
+            ProductViewModel(
+                translationService: translationNS,
+                productService: productNS,
+                coreDM: coreDM,
+                userDefaultsDM: userDefaultsDM)
         }
 
         container.register(TemplateViewModelProtocol.self) { _ in
@@ -91,6 +95,10 @@ final class MainAppAssembly: Assembly {
 
         container.register(StatisticViewModelProtocol.self) { _ in
             StatisticViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
+        }
+
+        container.register(NewTemplateViewModelProtocol.self) { _ in
+            NewTemplateViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
         }
     }
 }
