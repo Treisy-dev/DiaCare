@@ -35,31 +35,32 @@ final class HistoryTableViewCell: UITableViewCell {
         bloodCount: String,
         breadCount: String,
         insulinCount: String,
-        longInsulinCount: String) {
-            timeLabel.text = date.time
-            dateLabel.text = date.date
-            self.bloodCount.text = bloodCount
-            if Double(breadCount) == 0 {
-                breadIcon.image = .breadIcon
-                self.breadCount.text = "-"
-            } else {
-                breadIcon.image = .breadIconFill
-                self.breadCount.text = breadCount
-            }
-            if Double(insulinCount) == 0 {
-                insulinIcon.image = .shortInsulinIcon
-                self.insulinCount.text = "-"
-            } else {
-                insulinIcon.image = .longInsulinIcon
-                self.insulinCount.text = insulinCount
-            }
-            if Double(longInsulinCount) == 0 {
-                longInsulinIcon.image = .insulinGreen
-                self.longInsulinCount.text = "-"
-            } else {
-                longInsulinIcon.image = .insulinGreenFill
-                self.longInsulinCount.text = longInsulinCount
-            }
+        longInsulinCount: String
+    ) {
+        timeLabel.text = date.time
+        dateLabel.text = date.date
+        self.bloodCount.text = bloodCount
+        if Double(breadCount) == 0 {
+            breadIcon.image = .breadIcon
+            self.breadCount.text = "-"
+        } else {
+            breadIcon.image = .breadIconFill
+            self.breadCount.text = breadCount
+        }
+        if Double(insulinCount) == 0 {
+            insulinIcon.image = .shortInsulinIcon
+            self.insulinCount.text = "-"
+        } else {
+            insulinIcon.image = .longInsulinIcon
+            self.insulinCount.text = insulinCount
+        }
+        if Double(longInsulinCount) == 0 {
+            longInsulinIcon.image = .insulinGreen
+            self.longInsulinCount.text = "-"
+        } else {
+            longInsulinIcon.image = .insulinGreenFill
+            self.longInsulinCount.text = longInsulinCount
+        }
     }
 
     private func setUp() {

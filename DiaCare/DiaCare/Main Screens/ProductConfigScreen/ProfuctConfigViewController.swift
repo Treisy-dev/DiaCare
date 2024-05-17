@@ -19,13 +19,15 @@ final class ProfuctConfigViewController: UIViewController {
     init(
         viewModel: ProductConfigViewModelProtocol,
         productName: String,
-        productProps: (String, String, String)) {
+        productProps: (String, String, String)
+    ) {
         self.viewModel = viewModel
         contentView = ProductConfigView(
             frame: .zero,
             productName: productName,
             productProps: productProps,
-            userBreadCount: self.viewModel.getUserBreadCount())
+            userBreadCount: self.viewModel.getUserBreadCount()
+        )
         super.init(nibName: nil, bundle: nil)
         contentView.addAction = { [weak self] userProduct in
             self?.onFinishWithProduct?(userProduct)

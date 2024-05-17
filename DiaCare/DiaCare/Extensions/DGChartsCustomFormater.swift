@@ -9,7 +9,12 @@ import Foundation
 import DGCharts
 
 class CustomDataFormater: ValueFormatter {
-    func stringForValue(_ value: Double, entry: DGCharts.ChartDataEntry, dataSetIndex: Int, viewPortHandler: DGCharts.ViewPortHandler?) -> String {
+    func stringForValue(
+        _ value: Double,
+        entry: DGCharts.ChartDataEntry,
+        dataSetIndex: Int,
+        viewPortHandler: DGCharts.ViewPortHandler?
+    ) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 1

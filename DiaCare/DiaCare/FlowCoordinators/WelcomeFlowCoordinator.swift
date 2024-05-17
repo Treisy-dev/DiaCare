@@ -9,7 +9,7 @@ import Swinject
 import UIKit
 
 class WelcomeFlowCoordinator: Coordinator {
-    
+
     let container: Container
 
     var navigationController: UINavigationController

@@ -61,7 +61,8 @@ final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
             shortInsulin: shortInsulin,
             templateName: name,
             category: category,
-            products: userProducts)
+            products: userProducts
+        )
     }
 
     func getFatCount() -> String {

@@ -8,7 +8,7 @@ import SnapKit
 import UIKit
 
 final class NotificationView: UIView {
-    
+
     lazy var notificationContentView: UIView = UIView()
     lazy var notificationTableView: UITableView = UITableView()
     lazy var hintLabel: UILabel = UILabel()

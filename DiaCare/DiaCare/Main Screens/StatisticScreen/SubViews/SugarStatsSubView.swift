@@ -20,17 +20,20 @@ final class SugarStatsSubView: UIView {
             frame: .zero,
             levelName: "Низкий",
             sugarCount: String(format: "%.1f", lowSugar.0),
-            sugarState: lowSugar.1)
+            sugarState: lowSugar.1
+        )
         self.averageSugarView = CustomSugarStatisticView(
             frame: .zero,
             levelName: "Средний",
             sugarCount: String(format: "%.1f", averageSugar.0),
-            sugarState: averageSugar.1)
+            sugarState: averageSugar.1
+        )
         self.highSugarView = CustomSugarStatisticView(
             frame: .zero,
             levelName: "Высокий",
             sugarCount: String(format: "%.1f", highSugar.0),
-            sugarState: highSugar.1)
+            sugarState: highSugar.1
+        )
         super.init(frame: frame)
         setUp()
     }

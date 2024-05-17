@@ -19,15 +19,18 @@ final class FoodStatsSubView: UIView {
         self.shortInsulinStatView = CustomFoodStatisticView(
             frame: .zero,
             countLabel: String(format: "%.1f", shortInsulinCount),
-            titleLabel: "Короткий инсулин")
+            titleLabel: "Короткий инсулин"
+        )
         self.breadCountStatView = CustomFoodStatisticView(
             frame: .zero,
             countLabel: String(format: "%.1f", breadCount),
-            titleLabel: "Хлебные единицы")
+            titleLabel: "Хлебные единицы"
+        )
         self.longInsulinStatView = CustomFoodStatisticView(
             frame: .zero,
             countLabel: String(format: "%.1f", longInsulinCount),
-            titleLabel: "Длинный инсулин")
+            titleLabel: "Длинный инсулин"
+        )
         super.init(frame: frame)
         setUp()
     }

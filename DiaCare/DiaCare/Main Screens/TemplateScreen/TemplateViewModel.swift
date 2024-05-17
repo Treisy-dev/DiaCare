@@ -32,23 +32,26 @@ final class TemplateViewModel: NSObject, TemplateViewModelProtocol {
         if indexPath.row == dataSource.count {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: NewTemplateCollectionViewCell.reuseIdentifier,
-                for: indexPath)
-                    as? NewTemplateCollectionViewCell else { return UICollectionViewCell()}
+                for: indexPath
+            )
+                as? NewTemplateCollectionViewCell else { return UICollectionViewCell()}
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TemplateCollectionViewCell.reuseIdentifier,
-                for: indexPath)
-                    as? TemplateCollectionViewCell else { return UICollectionViewCell()}
+                for: indexPath
+            )
+                as? TemplateCollectionViewCell else { return UICollectionViewCell()}
             guard let productsArray = dataSource[indexPath.row].templateProduct?.allObjects as? [TemplateProduct]
-                else { return UICollectionViewCell()}
+            else { return UICollectionViewCell()}
 
             let category = getCategoryFromString(dataSource[indexPath.row].category)
             cell.config(
                 templateTitle: dataSource[indexPath.row].name,
                 templateCategory: category,
                 products: productsArray,
-                stats: (dataSource[indexPath.row].breadCount, dataSource[indexPath.row].insulin))
+                stats: (dataSource[indexPath.row].breadCount, dataSource[indexPath.row].insulin)
+            )
 
             return cell
         }

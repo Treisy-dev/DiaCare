@@ -31,7 +31,8 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
         guard let statisticViewModel = container.resolve(StatisticViewModelProtocol.self) else { return tbController}
         let statisticViewController = configTabBarItem(
             viewController: StatisticViewController(viewModel: statisticViewModel),
-            image: UIImage.chartIcon)
+            image: UIImage.chartIcon
+        )
 
         let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(container: container, navigationController: UINavigationController())
         newNoteFlowCoordinator.start()
@@ -39,12 +40,14 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
         guard let notificationViewModel = container.resolve(NotificationViewModelProtocol.self) else { return tbController}
         let notificationViewController = configTabBarItem(
             viewController: NotificationViewController(viewModel: notificationViewModel),
-            image: UIImage.bellIcon)
+            image: UIImage.bellIcon
+        )
 
         guard let profileVM = container.resolve(ProfileViewModelProtocol.self) else { return tbController}
         let profileViewController = configTabBarItem(
             viewController: ProfileViewController(viewModel: profileVM),
-            image: UIImage.profileIcon)
+            image: UIImage.profileIcon
+        )
 
         tbController.viewControllers = [
             templateFlowCoordinator.navigationController,
@@ -62,7 +65,8 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
         let templateTabBarItem = UITabBarItem(
             title: nil,
             image: image.resizeImage(newSize: CGSize(width: 30, height: 30)),
-            selectedImage: nil)
+            selectedImage: nil
+        )
         viewController.tabBarItem = templateTabBarItem
 
         return viewController

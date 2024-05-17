@@ -16,30 +16,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
-        options connectionOptions: UIScene.ConnectionOptions) {
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
 
-            let mainAppAssembly = MainAppAssembly()
-            mainAppAssembly.assemble(container: container)
+        let mainAppAssembly = MainAppAssembly()
+        mainAppAssembly.assemble(container: container)
 
-            guard let mainAppTabBarFabric = container.resolve(MainAppTabBarFabricProtocol.self) else { return }
+        guard let mainAppTabBarFabric = container.resolve(MainAppTabBarFabricProtocol.self) else { return }
 
-            guard let windowScene = (scene as? UIWindowScene) else { return }
-            self.window = UIWindow(windowScene: windowScene)
-            if UserDefaults.standard.bool(forKey: "isUserLogged") {
-                let tbController = mainAppTabBarFabric.makeMainAppTabBarController()
-                self.window?.rootViewController = tbController
-                self.window?.makeKeyAndVisible()
-            } else {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        self.window = UIWindow(windowScene: windowScene)
+        if UserDefaults.standard.bool(forKey: "isUserLogged") {
+            let tbController = mainAppTabBarFabric.makeMainAppTabBarController()
+            self.window?.rootViewController = tbController
+            self.window?.makeKeyAndVisible()
+        } else {
 
-                let welcomeFlowCoordinator = WelcomeFlowCoordinator(container: container, navigationController: UINavigationController())
-                welcomeFlowCoordinator.start()
+            let welcomeFlowCoordinator = WelcomeFlowCoordinator(container: container, navigationController: UINavigationController())
+            welcomeFlowCoordinator.start()
 
-                let navigationController = welcomeFlowCoordinator.navigationController
-                navigationController.isNavigationBarHidden = true
-                self.window?.rootViewController = navigationController
-                self.window?.makeKeyAndVisible()
-            }
-
+            let navigationController = welcomeFlowCoordinator.navigationController
+            navigationController.isNavigationBarHidden = true
+            self.window?.rootViewController = navigationController
+            self.window?.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -46,7 +46,8 @@ final class StatisticViewController: UIViewController {
             highSugar: viewModel.getMaximalSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
             shortInsulinCount: viewModel.getShortInsulinBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
             breadCount: viewModel.getBreadCountBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
-            longInsulinCount: viewModel.getLongInsulinBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()))
+            longInsulinCount: viewModel.getLongInsulinBy(startDate: startDate ?? Date(), endDate: endDate ?? Date())
+        )
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -95,7 +96,8 @@ final class StatisticViewController: UIViewController {
             foodStats: (
                 shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
                 breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
-                longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate)))
+                longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate))
+        )
         viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
         if viewModel.dataSource.count == 0 {
             contentView?.scrollAddition = 345
@@ -118,8 +120,8 @@ final class StatisticViewController: UIViewController {
                 default:
                     print("Unexpected segmentControll index")
                 }
-            })
-            .store(in: &subscriptions)
+            }
+            ).store(in: &subscriptions)
     }
 
     private func updateDataForDay() {

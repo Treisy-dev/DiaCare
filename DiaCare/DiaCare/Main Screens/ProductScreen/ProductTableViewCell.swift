@@ -8,7 +8,7 @@ import SnapKit
 import UIKit
 
 final class ProductTableViewCell: UITableViewCell {
-    
+
     lazy var productImageView: UIImageView = UIImageView()
     lazy var productLabel: UILabel = UILabel()
     lazy var productInfoVStack: UIStackView = UIStackView()
@@ -35,25 +35,29 @@ final class ProductTableViewCell: UITableViewCell {
         productCategory: ProductCategories,
         proteinCount: String,
         fatCount: String,
-        carbCount: String) {
-            productLabel.text = productName
-            productImageView.image = productCategory.getImageByType()
-            proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
-                titleLabel: "Белки",
-                titleLabelColor: .systemYellow,
-                count: proteinCount)
-            fatVStack = ProductVStackFabric.shared.makeProductPropVStack(
-                titleLabel: "Жиры",
-                titleLabelColor: .systemBlue,
-                count: fatCount)
-            carbohydratesVStack = ProductVStackFabric.shared.makeProductPropVStack(
-                titleLabel: "Углеводы",
-                titleLabelColor: .systemRed,
-                count: carbCount)
-            guard let proteinVStack, let fatVStack, let carbohydratesVStack else { return }
-            productPropsHStack.addArrangedSubview(proteinVStack)
-            productPropsHStack.addArrangedSubview(fatVStack)
-            productPropsHStack.addArrangedSubview(carbohydratesVStack)
+        carbCount: String
+    ) {
+        productLabel.text = productName
+        productImageView.image = productCategory.getImageByType()
+        proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
+            titleLabel: "Белки",
+            titleLabelColor: .systemYellow,
+            count: proteinCount
+        )
+        fatVStack = ProductVStackFabric.shared.makeProductPropVStack(
+            titleLabel: "Жиры",
+            titleLabelColor: .systemBlue,
+            count: fatCount
+        )
+        carbohydratesVStack = ProductVStackFabric.shared.makeProductPropVStack(
+            titleLabel: "Углеводы",
+            titleLabelColor: .systemRed,
+            count: carbCount
+        )
+        guard let proteinVStack, let fatVStack, let carbohydratesVStack else { return }
+        productPropsHStack.addArrangedSubview(proteinVStack)
+        productPropsHStack.addArrangedSubview(fatVStack)
+        productPropsHStack.addArrangedSubview(carbohydratesVStack)
     }
 
     func configTemplate(
@@ -61,25 +65,29 @@ final class ProductTableViewCell: UITableViewCell {
         templateCategory: TemplateCategories,
         breadCount: String,
         insulinCount: String,
-        carbCount: String) {
-            productLabel.text = productName
-            productImageView.image = templateCategory.getImageByType()
-            proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
-                titleLabel: "ХЕ",
-                titleLabelColor: .systemBlue,
-                count: breadCount)
-            fatVStack = ProductVStackFabric.shared.makeProductPropVStack(
-                titleLabel: "Инсулин",
-                titleLabelColor: .purple,
-                count: insulinCount)
-            carbohydratesVStack = ProductVStackFabric.shared.makeProductPropVStack(
-                titleLabel: "Углеводы",
-                titleLabelColor: .systemRed,
-                count: carbCount)
-            guard let proteinVStack, let fatVStack, let carbohydratesVStack else { return }
-            productPropsHStack.addArrangedSubview(proteinVStack)
-            productPropsHStack.addArrangedSubview(fatVStack)
-            productPropsHStack.addArrangedSubview(carbohydratesVStack)
+        carbCount: String
+    ) {
+        productLabel.text = productName
+        productImageView.image = templateCategory.getImageByType()
+        proteinVStack = ProductVStackFabric.shared.makeProductPropVStack(
+            titleLabel: "ХЕ",
+            titleLabelColor: .systemBlue,
+            count: breadCount
+        )
+        fatVStack = ProductVStackFabric.shared.makeProductPropVStack(
+            titleLabel: "Инсулин",
+            titleLabelColor: .purple,
+            count: insulinCount
+        )
+        carbohydratesVStack = ProductVStackFabric.shared.makeProductPropVStack(
+            titleLabel: "Углеводы",
+            titleLabelColor: .systemRed,
+            count: carbCount
+        )
+        guard let proteinVStack, let fatVStack, let carbohydratesVStack else { return }
+        productPropsHStack.addArrangedSubview(proteinVStack)
+        productPropsHStack.addArrangedSubview(fatVStack)
+        productPropsHStack.addArrangedSubview(carbohydratesVStack)
     }
 
     private func setUp() {

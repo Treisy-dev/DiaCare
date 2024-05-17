@@ -41,7 +41,8 @@ final class NewNoteViewController: UIViewController {
             self?.viewModel.saveNewNote(
                 breadCount: self?.contentView.injectionSubView.breadTextField.text ?? "0.0",
                 sugar: self?.contentView.sugarSubView.sugarCountLabel.text ?? "5.5",
-                shortInsulin: self?.contentView.injectionSubView.insulinTextField.text ?? "0.0")
+                shortInsulin: self?.contentView.injectionSubView.insulinTextField.text ?? "0.0"
+            )
 
             self?.resetChanges()
             self?.updateContentViewLayout()

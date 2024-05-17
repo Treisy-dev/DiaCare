@@ -8,7 +8,7 @@ import SnapKit
 import UIKit
 
 final class PreferencesSubView: UIView {
-    
+
     let preferencesHSFabric: PreferencesHStackFabricProtocol
 
     private lazy var preferencesVStack: UIStackView = UIStackView()

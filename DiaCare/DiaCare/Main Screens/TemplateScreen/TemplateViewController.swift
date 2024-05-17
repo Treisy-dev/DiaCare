@@ -35,11 +35,13 @@ final class TemplateViewController: UIViewController {
         contentView.templatesCollectionView.dataSource = viewModel
         contentView.templatesCollectionView.register(
             TemplateCollectionViewCell.self,
-            forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseIdentifier)
+            forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseIdentifier
+        )
 
         contentView.templatesCollectionView.register(
             NewTemplateCollectionViewCell.self,
-            forCellWithReuseIdentifier: NewTemplateCollectionViewCell.reuseIdentifier)
+            forCellWithReuseIdentifier: NewTemplateCollectionViewCell.reuseIdentifier
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,11 +55,12 @@ extension TemplateViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let width = collectionView.frame.width / 2 - 10
-            let height = 153.0
-            return CGSize(width: width, height: height)
-        }
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let width = collectionView.frame.width / 2 - 10
+        let height = 153.0
+        return CGSize(width: width, height: height)
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.cellForItem(at: indexPath) is NewTemplateCollectionViewCell {

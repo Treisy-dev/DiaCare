@@ -56,7 +56,8 @@ final class ProductViewController: UIViewController {
                 let alertController = UIAlertController(
                     title: "Удалить добавленные продукты?",
                     message: "У вас есть добавленные продукты, вы действительно хотите отменить добавление?",
-                    preferredStyle: .alert)
+                    preferredStyle: .alert
+                )
                 let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
                     self?.onFinish?()
                 }
@@ -177,7 +178,9 @@ extension ProductViewController: UITableViewDelegate {
                     fat: self?.viewModel.getFatForTemplate(for: selectedTemplate) ?? "0",
                     carbs: self?.viewModel.getCarbsForTemplate(for: selectedTemplate) ?? "0",
                     breadCount: self?.viewModel.userTemplates[indexPath.row].breadCount ?? "0",
-                    isTemplate: true))
+                    isTemplate: true
+                )
+                )
             }
             let noAction = UIAlertAction(title: "Нет", style: .cancel) { _ in
                 alertController.dismiss(animated: true, completion: nil)
@@ -195,7 +198,6 @@ extension ProductViewController: UITableViewDelegate {
                 )
             )
         }
-
     }
 }
 

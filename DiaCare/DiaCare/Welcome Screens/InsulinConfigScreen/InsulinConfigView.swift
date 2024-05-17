@@ -18,11 +18,13 @@ final class InsulinConfigView: UIView {
     lazy var shortInsulinField: CustomConfigTextField = CustomConfigTextField(
         frame: frame,
         icon: UIImage.shortInsulinIcon,
-        placeholder: "Короткий инсулин")
+        placeholder: "Короткий инсулин"
+    )
     lazy var longInsulinField: CustomConfigTextField = CustomConfigTextField(
         frame: frame,
         icon: UIImage.longInsulinIcon,
-        placeholder: "Продленный инсулин")
+        placeholder: "Продленный инсулин"
+    )
     lazy var shortPickerView: UIPickerView = UIPickerView()
     lazy var longPickerView: UIPickerView = UIPickerView()
     lazy var saveButton: UIButton = UIButton()
@@ -105,7 +107,8 @@ final class InsulinConfigView: UIView {
         let nextAction: UIAction = UIAction { [weak self] _ in
             self?.delegate?.didPressSave(
                 shortInsulin: self?.shortInsulinField.text,
-                longInsulin: self?.longInsulinField.text)
+                longInsulin: self?.longInsulinField.text
+            )
         }
         saveButton.addAction(nextAction, for: .touchUpInside)
 

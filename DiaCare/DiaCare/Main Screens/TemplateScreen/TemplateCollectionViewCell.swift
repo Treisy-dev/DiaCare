@@ -37,14 +37,15 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
         templateTitle: String,
         templateCategory: TemplateCategories,
         products: [TemplateProduct],
-        stats: (breadCount: String, insulinCount: String)) {
-            self.templateTitle.text = templateTitle
-            self.products = products
-            self.breadCount.text = stats.breadCount
-            self.insulinCount.text = stats.insulinCount
-            categoryImage.image = templateCategory.getImageByType()
-            clearProductVStack()
-            fillProductVStack()
+        stats: (breadCount: String, insulinCount: String)
+    ) {
+        self.templateTitle.text = templateTitle
+        self.products = products
+        self.breadCount.text = stats.breadCount
+        self.insulinCount.text = stats.insulinCount
+        categoryImage.image = templateCategory.getImageByType()
+        clearProductVStack()
+        fillProductVStack()
     }
 
     private func setUp() {

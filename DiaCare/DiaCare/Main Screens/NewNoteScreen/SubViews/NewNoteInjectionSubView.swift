@@ -14,7 +14,7 @@ final class NewNoteInjectionSubView: UIView {
     lazy var breadTextField: UITextField = UITextField()
     lazy var insulinSlider: UISlider = UISlider()
     lazy var insulinTextField: UITextField = UITextField()
-    
+
     private lazy var breadLabel: UILabel = UILabel()
     private lazy var insulinLabel: UILabel = UILabel()
 

@@ -30,7 +30,6 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
     init(coreDM: CoreDataManagerProtocol, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
-
     }
 
     func getSugarHistoryDay(startDate: Date, endDate: Date) -> [ChartDataEntry] {
@@ -136,7 +135,8 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
             bloodCount: String(dataSource[indexPath.row].sugar),
             breadCount: String(dataSource[indexPath.row].breadCount),
             insulinCount: String(dataSource[indexPath.row].shortInsulin),
-            longInsulinCount: String(dataSource[indexPath.row].longInsulin))
+            longInsulinCount: String(dataSource[indexPath.row].longInsulin)
+        )
         return cell
     }
 

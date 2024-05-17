@@ -38,11 +38,12 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
         translationService: TranslationNetworkServiceProtocol,
         productService: ProductNetworkServiceProtocol,
         coreDM: CoreDataManagerProtocol,
-        userDefaultsDM: UserDefaultsDataManagerProtocol) {
-            translationNS = translationService
-            productNS = productService
-            coreDataManager = coreDM
-            userDefaultsDataManager = userDefaultsDM
+        userDefaultsDM: UserDefaultsDataManagerProtocol
+    ) {
+        translationNS = translationService
+        productNS = productService
+        coreDataManager = coreDM
+        userDefaultsDataManager = userDefaultsDM
     }
 
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {
@@ -161,7 +162,8 @@ extension ProductViewModel: UITableViewDataSource {
                 productCategory: category,
                 proteinCount: String(productItem[indexPath.row].protein_g),
                 fatCount: String(productItem[indexPath.row].fat_total_g),
-                carbCount: String(productItem[indexPath.row].carbohydrates_total_g))
+                carbCount: String(productItem[indexPath.row].carbohydrates_total_g)
+            )
             return cell
         } else if selectedSegmentControllIndex == 1 {
             let productCategory = coreDataManager.obtainCategoryFromTemplate(for: userTemplates[indexPath.row].name)
@@ -173,7 +175,8 @@ extension ProductViewModel: UITableViewDataSource {
                 templateCategory: category,
                 breadCount: String(userTemplates[indexPath.row].breadCount),
                 insulinCount: String(userTemplates[indexPath.row].insulin),
-                carbCount: String(getCarbsCount(breadCount: userTemplates[indexPath.row].breadCount)))
+                carbCount: String(getCarbsCount(breadCount: userTemplates[indexPath.row].breadCount))
+            )
             return cell
         } else {
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
@@ -184,7 +187,8 @@ extension ProductViewModel: UITableViewDataSource {
                 productCategory: category,
                 proteinCount: String(userSavedProducts[indexPath.row].protein),
                 fatCount: String(userSavedProducts[indexPath.row].fat),
-                carbCount: String(userSavedProducts[indexPath.row].carbohydrates))
+                carbCount: String(userSavedProducts[indexPath.row].carbohydrates)
+            )
             return cell
         }
     }

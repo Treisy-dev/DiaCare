@@ -8,7 +8,7 @@ import SnapKit
 import UIKit
 
 final class NewTemplateStatsSubView: UIView {
-    
+
     lazy var proteinVStack: UIStackView = ProductVStackFabric.shared.makeCircledProductPropVStack(
         titleLabel: "Белки",
         titleLabelColor: .systemYellow,

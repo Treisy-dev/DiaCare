@@ -9,7 +9,7 @@ import UIKit
 import DGCharts
 
 final class StatisticView: UIView {
-    
+
     lazy var contentView: UIView = UIView()
     lazy var timeSegmentControll: UISegmentedControl = UISegmentedControl(items: ["День", "Неделя", "Месяц"])
     lazy var historyTable: UITableView = UITableView()
@@ -35,21 +35,23 @@ final class StatisticView: UIView {
         highSugar: (Double, SugarState),
         shortInsulinCount: Double,
         breadCount: Double,
-        longInsulinCount: Double) {
-            self.chartSubView = ChartSubView(frame: .zero, chartData: chartData)
-            self.sugarStatsSubView = SugarStatsSubView(frame: .zero, lowSugar: lowSugar, averageSugar: averageSugar, highSugar: highSugar)
-            self.foodStatsSubView = FoodStatsSubView(
-                frame: .zero,
-                shortInsulinCount: shortInsulinCount,
-                breadCount: breadCount,
-                longInsulinCount: longInsulinCount)
-            super.init(frame: frame)
-            backgroundColor = .white.withAlphaComponent(0.96)
-            setUp()
-            if chartData.count == 0 {
-                historyTable.isHidden = true
-                historyHintLabel.isHidden = false
-            }
+        longInsulinCount: Double
+    ) {
+        self.chartSubView = ChartSubView(frame: .zero, chartData: chartData)
+        self.sugarStatsSubView = SugarStatsSubView(frame: .zero, lowSugar: lowSugar, averageSugar: averageSugar, highSugar: highSugar)
+        self.foodStatsSubView = FoodStatsSubView(
+            frame: .zero,
+            shortInsulinCount: shortInsulinCount,
+            breadCount: breadCount,
+            longInsulinCount: longInsulinCount
+        )
+        super.init(frame: frame)
+        backgroundColor = .white.withAlphaComponent(0.96)
+        setUp()
+        if chartData.count == 0 {
+            historyTable.isHidden = true
+            historyHintLabel.isHidden = false
+        }
     }
 
     override func layoutSubviews() {
@@ -69,27 +71,31 @@ final class StatisticView: UIView {
     func updateUI(
         chartData: [ChartDataEntry],
         sugarStats: (lowSugar: (Double, SugarState), averageSugar: (Double, SugarState), highSugar: (Double, SugarState)),
-        foodStats: (shortInsulin: Double, breadCount: Double, longInsulin: Double)) {
-            self.chartSubView.updateUI(chartData: chartData)
-            sugarStatsSubView.lowSugarView.updateUI(
-                countLabel: String(format: "%.1f", sugarStats.lowSugar.0),
-                sugarState: sugarStats.lowSugar.1)
-            sugarStatsSubView.averageSugarView.updateUI(
-                countLabel: String(format: "%.1f", sugarStats.averageSugar.0),
-                sugarState: sugarStats.averageSugar.1)
-            sugarStatsSubView.highSugarView.updateUI(
-                countLabel: String(format: "%.1f", sugarStats.highSugar.0),
-                sugarState: sugarStats.highSugar.1)
-            foodStatsSubView.shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
-            foodStatsSubView.breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
-            foodStatsSubView.longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
-            if chartData.count == 0 {
-                historyTable.isHidden = true
-                historyHintLabel.isHidden = false
-            } else {
-                historyTable.isHidden = false
-                historyHintLabel.isHidden = true
-            }
+        foodStats: (shortInsulin: Double, breadCount: Double, longInsulin: Double)
+    ) {
+        self.chartSubView.updateUI(chartData: chartData)
+        sugarStatsSubView.lowSugarView.updateUI(
+            countLabel: String(format: "%.1f", sugarStats.lowSugar.0),
+            sugarState: sugarStats.lowSugar.1
+        )
+        sugarStatsSubView.averageSugarView.updateUI(
+            countLabel: String(format: "%.1f", sugarStats.averageSugar.0),
+            sugarState: sugarStats.averageSugar.1
+        )
+        sugarStatsSubView.highSugarView.updateUI(
+            countLabel: String(format: "%.1f", sugarStats.highSugar.0),
+            sugarState: sugarStats.highSugar.1
+        )
+        foodStatsSubView.shortInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.shortInsulin))
+        foodStatsSubView.breadCountStatView.updateUI(countLabel: String(format: "%.1f", foodStats.breadCount))
+        foodStatsSubView.longInsulinStatView.updateUI(countLabel: String(format: "%.1f", foodStats.longInsulin))
+        if chartData.count == 0 {
+            historyTable.isHidden = true
+            historyHintLabel.isHidden = false
+        } else {
+            historyTable.isHidden = false
+            historyHintLabel.isHidden = true
+        }
     }
 
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {

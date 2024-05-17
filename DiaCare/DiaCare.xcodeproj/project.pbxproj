@@ -44,6 +44,7 @@
 		C3607D4D2BF3A55F004595BD /* NewTemplateStatsSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D4C2BF3A55F004595BD /* NewTemplateStatsSubView.swift */; };
 		C3607D502BF4098B004595BD /* ProductCategoriesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D4F2BF4098B004595BD /* ProductCategoriesEnum.swift */; };
 		C3607D522BF409B5004595BD /* TemplateCategoriesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D512BF409B5004595BD /* TemplateCategoriesEnum.swift */; };
+		C3607D542BF80A16004595BD /* SugarStateEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D532BF80A16004595BD /* SugarStateEnum.swift */; };
 		C364B5282BB48CFC00AC1CB3 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5272BB48CFC00AC1CB3 /* ProductView.swift */; };
 		C364B52A2BB48D0600AC1CB3 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5292BB48D0600AC1CB3 /* ProductViewController.swift */; };
 		C364B52C2BB48D1500AC1CB3 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B52B2BB48D1500AC1CB3 /* ProductViewModel.swift */; };
@@ -164,6 +165,7 @@
 		C3607D4C2BF3A55F004595BD /* NewTemplateStatsSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTemplateStatsSubView.swift; sourceTree = "<group>"; };
 		C3607D4F2BF4098B004595BD /* ProductCategoriesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoriesEnum.swift; sourceTree = "<group>"; };
 		C3607D512BF409B5004595BD /* TemplateCategoriesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCategoriesEnum.swift; sourceTree = "<group>"; };
+		C3607D532BF80A16004595BD /* SugarStateEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarStateEnum.swift; sourceTree = "<group>"; };
 		C364B5272BB48CFC00AC1CB3 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		C364B5292BB48D0600AC1CB3 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		C364B52B2BB48D1500AC1CB3 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			children = (
 				C3607D4F2BF4098B004595BD /* ProductCategoriesEnum.swift */,
 				C3607D512BF409B5004595BD /* TemplateCategoriesEnum.swift */,
+				C3607D532BF80A16004595BD /* SugarStateEnum.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -856,6 +859,7 @@
 				C3666A812BEAB5A900BA9551 /* SugarStatsSubView.swift in Sources */,
 				C3DCFA102B9E5C21007D7FF0 /* TemplateView.swift in Sources */,
 				C333ABC12BA37D9000EA100E /* CustomAddFoodButton.swift in Sources */,
+				C3607D542BF80A16004595BD /* SugarStateEnum.swift in Sources */,
 				C3DCF9D92B9E03AB007D7FF0 /* SugarConfigViewController.swift in Sources */,
 				C3DCF9E82B9E337F007D7FF0 /* InsulinConfigView.swift in Sources */,
 				C364B55F2BB9F43700AC1CB3 /* UITableViewExtensions.swift in Sources */,

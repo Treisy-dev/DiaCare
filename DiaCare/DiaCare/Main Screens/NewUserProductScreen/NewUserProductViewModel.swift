@@ -47,7 +47,8 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
             name: name,
             protein: protein,
             fat: fat,
-            carbs: carbs)
+            carbs: carbs
+        )
     }
 }
 

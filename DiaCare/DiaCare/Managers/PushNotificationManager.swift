@@ -27,8 +27,8 @@ class PushNotificationManager: NSObject {
 extension PushNotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification)
-    async -> UNNotificationPresentationOptions {
+        willPresent notification: UNNotification
+    ) async -> UNNotificationPresentationOptions {
         return [.banner, .sound]
     }
 }

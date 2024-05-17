@@ -64,7 +64,8 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
                 isColored: true,
                 title: currentDataSource[indexPath.row].title,
                 date: getDate(date: currentDataSource[indexPath.row].date),
-                time: getTime(date: currentDataSource[indexPath.row].date))
+                time: getTime(date: currentDataSource[indexPath.row].date)
+            )
             return cell
         } else {
             let cell = NotificationTableViewCell(style: .default, reuseIdentifier: nil)
@@ -73,7 +74,8 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
                 isColored: false,
                 title: finishedDataSource[indexPath.row].title,
                 date: getDate(date: finishedDataSource[indexPath.row].date),
-                time: getTime(date: finishedDataSource[indexPath.row].date))
+                time: getTime(date: finishedDataSource[indexPath.row].date)
+            )
             return cell
         }
     }

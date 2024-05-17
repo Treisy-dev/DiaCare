@@ -28,7 +28,8 @@ final class SugarConfigViewModel: NSObject, UIPickerViewDataSource, SugarConfigV
         userDefaultsDataManager.addSugarConfigToUserInfo(
             lowSugar: lowSugar,
             targetSugar: targetSugar,
-            hightSugar: hightSugar)
+            hightSugar: hightSugar
+        )
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

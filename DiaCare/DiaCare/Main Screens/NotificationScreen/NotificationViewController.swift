@@ -31,12 +31,14 @@ final class NotificationViewController: UIViewController {
         contentView.addButtonTapped = { [weak self] in
             self?.navigationController?.pushViewController(
                 NotificationConfigViewController(viewModel: NotificationConfigViewModel()),
-                animated: true)
+                animated: true
+            )
         }
 
         contentView.notificationTableView.delegate = self
         contentView.notificationTableView.dataSource = viewModel
-        contentView.notificationTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier)
+        contentView.notificationTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {

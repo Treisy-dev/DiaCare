@@ -7,12 +7,6 @@
 import SnapKit
 import UIKit
 
-enum SugarState {
-    case good
-    case normal
-    case bad
-}
-
 final class CustomSugarStatisticView: UIView {
 
     private lazy var levelLabel: UILabel = UILabel()
