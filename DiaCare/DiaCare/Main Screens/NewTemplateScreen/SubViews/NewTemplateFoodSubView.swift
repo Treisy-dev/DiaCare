@@ -7,12 +7,13 @@
 import SnapKit
 import UIKit
 
-class NewTemplateFoodSubView: UIView {
-    private lazy var foodLabel: UILabel = UILabel()
-    lazy var foodTableView: UITableView = UITableView()
-    private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить блюдо")
+final class NewTemplateFoodSubView: UIView {
 
+    lazy var foodTableView: UITableView = UITableView()
     var addProductTapped: (() -> Void)?
+
+    private lazy var foodLabel: UILabel = UILabel()
+    private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить блюдо")
 
     override init(frame: CGRect) {
         super.init(frame: frame)

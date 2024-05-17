@@ -17,8 +17,9 @@ enum DateDuration {
 
 final class StatisticViewController: UIViewController {
 
-    private var contentView: StatisticView?
     private let viewModel: StatisticViewModelProtocol
+
+    private var contentView: StatisticView?
     private var subscriptions = Set<AnyCancellable>()
     private var wasOpened: Bool = false
 

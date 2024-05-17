@@ -115,6 +115,31 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         dataSource = coreDataManager.obtainHistoryBy(from: startDate, to: endDate)
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataSource.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = HistoryTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.selectionStyle = .none
+
+        let date = dataSource[indexPath.row].date
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        let formattedTime = timeFormatter.string(from: date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM"
+        let formattedDate = dateFormatter.string(from: date)
+
+        cell.config(
+            date: (formattedDate, formattedTime),
+            bloodCount: String(dataSource[indexPath.row].sugar),
+            breadCount: String(dataSource[indexPath.row].breadCount),
+            insulinCount: String(dataSource[indexPath.row].shortInsulin),
+            longInsulinCount: String(dataSource[indexPath.row].longInsulin))
+        return cell
+    }
+
     private func getMinimalSugarState(target: Double, value: Double) -> SugarState {
         if abs(value - target) <= 0.5 {
             return .good
@@ -149,30 +174,5 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         } else {
             return .good
         }
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = HistoryTableViewCell(style: .default, reuseIdentifier: nil)
-        cell.selectionStyle = .none
-
-        let date = dataSource[indexPath.row].date
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        let formattedTime = timeFormatter.string(from: date)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM"
-        let formattedDate = dateFormatter.string(from: date)
-
-        cell.config(
-            date: (formattedDate, formattedTime),
-            bloodCount: String(dataSource[indexPath.row].sugar),
-            breadCount: String(dataSource[indexPath.row].breadCount),
-            insulinCount: String(dataSource[indexPath.row].shortInsulin),
-            longInsulinCount: String(dataSource[indexPath.row].longInsulin))
-        return cell
     }
 }

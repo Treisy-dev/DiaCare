@@ -9,8 +9,10 @@ import Swinject
 import UIKit
 
 final class NewNoteScreenFlowCoordinator: Coordinator {
-    var navigationController: UINavigationController
+
     let container: Container
+
+    var navigationController: UINavigationController
 
     init(container: Container, navigationController: UINavigationController) {
         self.container = container

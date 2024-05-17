@@ -28,17 +28,6 @@ final class NotificationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUp() {
-        setUpCellView()
-        setUpNotificationIcon()
-        setUpNotificationTitle()
-        setUpSeparator()
-        setUpWatchIcon()
-        setUpTimeStackView()
-        setUpDateTitle()
-        setUpTimeTitle()
-    }
-
     func config(isColored: Bool, title: String, date: String, time: String) {
         notificationTitle.text = title
         dateTitle.text = date
@@ -48,6 +37,17 @@ final class NotificationTableViewCell: UITableViewCell {
         } else {
             makeCellUncolored()
         }
+    }
+
+    private func setUp() {
+        setUpCellView()
+        setUpNotificationIcon()
+        setUpNotificationTitle()
+        setUpSeparator()
+        setUpWatchIcon()
+        setUpTimeStackView()
+        setUpDateTitle()
+        setUpTimeTitle()
     }
 
     private func setUpCellView() {

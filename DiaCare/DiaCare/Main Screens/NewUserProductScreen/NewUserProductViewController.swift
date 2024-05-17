@@ -9,13 +9,14 @@ import UIKit
 import Combine
 
 final class NewUserProductViewController: UIViewController {
-    private let contentView: NewUserProductView = .init()
-    private var subscriptions = Set<AnyCancellable>()
-
-    private let viewModel: NewUserProductViewModelProtocol
 
     var onFinish: (() -> Void)?
     var onFinishWithProduct: ((_ userProduct: UserProductModel) -> Void)?
+
+    private let contentView: NewUserProductView = .init()
+    private let viewModel: NewUserProductViewModelProtocol
+
+    private var subscriptions = Set<AnyCancellable>()
 
     init(viewModel: NewUserProductViewModelProtocol) {
         self.viewModel = viewModel

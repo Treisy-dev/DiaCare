@@ -30,20 +30,6 @@ final class HistoryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUp() {
-        setUpCellView()
-        setUpTimeLabel()
-        setUpDateLabel()
-        setUpBloodIcon()
-        setUpBloodCount()
-        setUpBreadIcon()
-        setUpBreadCount()
-        setUpInsulinIcon()
-        setUpInsulinCount()
-        setUpLongInsulinIcon()
-        setUpLongInsulinCount()
-    }
-
     func config(
         date: (date: String, time: String),
         bloodCount: String,
@@ -74,6 +60,20 @@ final class HistoryTableViewCell: UITableViewCell {
                 longInsulinIcon.image = .insulinGreenFill
                 self.longInsulinCount.text = longInsulinCount
             }
+    }
+
+    private func setUp() {
+        setUpCellView()
+        setUpTimeLabel()
+        setUpDateLabel()
+        setUpBloodIcon()
+        setUpBloodCount()
+        setUpBreadIcon()
+        setUpBreadCount()
+        setUpInsulinIcon()
+        setUpInsulinCount()
+        setUpLongInsulinIcon()
+        setUpLongInsulinCount()
     }
 
     private func setUpCellView() {

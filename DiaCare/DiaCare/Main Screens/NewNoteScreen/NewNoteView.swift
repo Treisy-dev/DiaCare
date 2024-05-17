@@ -8,27 +8,23 @@ import SnapKit
 import UIKit
 
 final class NewNoteView: UIView {
-
-    private lazy var gradientView: CustomGradientView = CustomGradientView()
-    private lazy var titleLable: UILabel = UILabel()
     lazy var newNoteContentView: UIView = UIView()
-    private lazy var doctorImageView: UIImageView = UIImageView()
-    private var averageSugar: String?
     var sugarSubView: NewNoteSugarSubView
     var foodSubView: NewNoteFoodSubView = NewNoteFoodSubView(frame: CGRect())
     var injectionSubView: NewNoteInjectionSubView = NewNoteInjectionSubView(frame: CGRect())
-
     var scrollAddition: CGFloat = 0
+    var saveTapped: (() -> Void)?
+    var resetTapped: (() -> Void)?
 
+    private lazy var gradientView: CustomGradientView = CustomGradientView()
+    private lazy var titleLable: UILabel = UILabel()
+    private lazy var doctorImageView: UIImageView = UIImageView()
     private lazy var resetButton: UIButton = UIButton()
     private lazy var saveButton: UIButton = UIButton()
-
+    private var averageSugar: String?
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
-
-    var saveTapped: (() -> Void)?
-    var resetTapped: (() -> Void)?
 
     init(frame: CGRect, averageSugar: String) {
         sugarSubView = NewNoteSugarSubView(frame: frame, avarageSugar: averageSugar)
@@ -49,6 +45,28 @@ final class NewNoteView: UIView {
             panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
             guard let panGestureRecognizer else {return}
             newNoteContentView.addGestureRecognizer(panGestureRecognizer)
+        }
+    }
+
+    func scrollToUpside() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.newNoteContentView.transform = .identity
+        }
+    }
+
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+
+        if recognizer.state == .began {
+            initialCenterYConstraintConstant = newNoteContentView.frame.maxY
+            initialTransform = newNoteContentView.transform
+        } else if recognizer.state == .changed {
+            let newMaxY = initialCenterYConstraintConstant + translation.y
+
+            if newMaxY <= 950 + scrollAddition && newMaxY >= 770 - scrollAddition / 6 {
+                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
+                newNoteContentView.transform = newTransform
+            }
         }
     }
 
@@ -180,28 +198,6 @@ final class NewNoteView: UIView {
             make.leading.equalTo(resetButton.snp.trailing).offset(11)
             make.top.equalTo(injectionSubView.snp_bottomMargin).offset(40)
             make.height.equalTo(40)
-        }
-    }
-
-    func scrollToUpside() {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.newNoteContentView.transform = .identity
-        }
-    }
-
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-
-        if recognizer.state == .began {
-            initialCenterYConstraintConstant = newNoteContentView.frame.maxY
-            initialTransform = newNoteContentView.transform
-        } else if recognizer.state == .changed {
-            let newMaxY = initialCenterYConstraintConstant + translation.y
-
-            if newMaxY <= 950 + scrollAddition && newMaxY >= 770 - scrollAddition / 6 {
-                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
-                newNoteContentView.transform = newTransform
-            }
         }
     }
 }

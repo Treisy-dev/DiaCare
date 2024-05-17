@@ -9,29 +9,25 @@ import UIKit
 
 final class NewUserProductView: UIView {
 
+    lazy var categoryTextField: UITextField = UITextField()
+    lazy var categoryPickerView: UIPickerView = UIPickerView()
+    lazy var productNameTextField: UITextField = UITextField()
+    lazy var proteinInputView = NewProductInputView(frame: .zero, title: "Количество белков на 100гр")
+    lazy var fatInputView = NewProductInputView(frame: .zero, title: "Количество жиров на 100гр")
+    lazy var carbsInputView = NewProductInputView(frame: .zero, title: "Количество углеводов на 100гр")
+    var closeAction: (() -> Void)?
+    var addAction: (() -> Void)?
+
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var newProductImageView: UIImageView = UIImageView()
     private lazy var newProductContentView: UIView = UIView()
     private lazy var titleLable: UILabel = UILabel()
-    lazy var categoryTextField: UITextField = UITextField()
-    lazy var categoryPickerView: UIPickerView = UIPickerView()
-
     private lazy var productNameLabel: UILabel = UILabel()
-    lazy var productNameTextField: UITextField = UITextField()
-
-    lazy var proteinInputView = NewProductInputView(frame: .zero, title: "Количество белков на 100гр")
-    lazy var fatInputView = NewProductInputView(frame: .zero, title: "Количество жиров на 100гр")
-    lazy var carbsInputView = NewProductInputView(frame: .zero, title: "Количество углеводов на 100гр")
-
     private lazy var addButton: UIButton = UIButtonFabric.shared.makeAddButton()
     private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
-
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
-
-    var closeAction: (() -> Void)?
-    var addAction: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +46,22 @@ final class NewUserProductView: UIView {
             panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
             guard let panGestureRecognizer else {return}
             newProductContentView.addGestureRecognizer(panGestureRecognizer)
+        }
+    }
+
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+
+        if recognizer.state == .began {
+            initialCenterYConstraintConstant = newProductContentView.frame.maxY
+            initialTransform = newProductContentView.transform
+        } else if recognizer.state == .changed {
+            let newMaxY = initialCenterYConstraintConstant + translation.y
+
+            if newMaxY <= 850 && newMaxY >= 770 {
+                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
+                newProductContentView.transform = newTransform
+            }
         }
     }
 
@@ -235,22 +247,6 @@ final class NewUserProductView: UIView {
             make.leading.equalToSuperview().offset(40)
             make.width.equalTo(150)
             make.height.equalTo(40)
-        }
-    }
-
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-
-        if recognizer.state == .began {
-            initialCenterYConstraintConstant = newProductContentView.frame.maxY
-            initialTransform = newProductContentView.transform
-        } else if recognizer.state == .changed {
-            let newMaxY = initialCenterYConstraintConstant + translation.y
-
-            if newMaxY <= 850 && newMaxY >= 770 {
-                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
-                newProductContentView.transform = newTransform
-            }
         }
     }
 }

@@ -9,30 +9,27 @@ import UIKit
 
 final class NewTemplateView: UIView {
 
-    private lazy var gradientView: CustomGradientView = CustomGradientView()
-    private lazy var newTemplateImageView: UIImageView = UIImageView()
-    private lazy var titleLable: UILabel = UILabel()
     lazy var newTemplateContentView: UIView = UIView()
-    private lazy var templateNameLabel: UILabel = UILabel()
     lazy var nameTextField: UITextField = UITextField()
-    private lazy var categoryLabel: UILabel = UILabel()
     lazy var categoryTextField: UITextField = UITextField()
     lazy var categoryPickerView: UIPickerView = UIPickerView()
     lazy var foodSubView: NewTemplateFoodSubView = NewTemplateFoodSubView(frame: .zero)
     lazy var injectionSubView: NewTemplateInjectionSubView = NewTemplateInjectionSubView(frame: .zero)
     lazy var statsSubView: NewTemplateStatsSubView = NewTemplateStatsSubView(frame: .zero)
-
+    var saveTapped: (() -> Void)?
+    var resetTapped: (() -> Void)?
     var scrollAddition: CGFloat = 0
 
+    private lazy var gradientView: CustomGradientView = CustomGradientView()
+    private lazy var newTemplateImageView: UIImageView = UIImageView()
+    private lazy var titleLable: UILabel = UILabel()
+    private lazy var templateNameLabel: UILabel = UILabel()
+    private lazy var categoryLabel: UILabel = UILabel()
     private lazy var resetButton: UIButton = UIButton()
     private lazy var saveButton: UIButton = UIButton()
-
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
-
-    var saveTapped: (() -> Void)?
-    var resetTapped: (() -> Void)?
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -52,6 +49,22 @@ final class NewTemplateView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+
+        if recognizer.state == .began {
+            initialCenterYConstraintConstant = newTemplateContentView.frame.maxY
+            initialTransform = newTemplateContentView.transform
+        } else if recognizer.state == .changed {
+            let newMaxY = initialCenterYConstraintConstant + translation.y
+
+            if newMaxY <= 930 + scrollAddition && newMaxY >= 770 - scrollAddition / 6 {
+                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
+                newTemplateContentView.transform = newTransform
+            }
+        }
     }
 
     private func setUp() {
@@ -239,22 +252,6 @@ final class NewTemplateView: UIView {
             make.leading.equalTo(resetButton.snp.trailing).offset(11)
             make.top.equalTo(statsSubView.snp.bottom).offset(20)
             make.height.equalTo(40)
-        }
-    }
-
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-
-        if recognizer.state == .began {
-            initialCenterYConstraintConstant = newTemplateContentView.frame.maxY
-            initialTransform = newTemplateContentView.transform
-        } else if recognizer.state == .changed {
-            let newMaxY = initialCenterYConstraintConstant + translation.y
-
-            if newMaxY <= 930 + scrollAddition && newMaxY >= 770 - scrollAddition / 6 {
-                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
-                newTemplateContentView.transform = newTransform
-            }
         }
     }
 

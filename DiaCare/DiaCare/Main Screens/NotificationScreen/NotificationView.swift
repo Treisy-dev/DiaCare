@@ -8,16 +8,16 @@ import SnapKit
 import UIKit
 
 final class NotificationView: UIView {
-    private lazy var gradientView: CustomGradientView = CustomGradientView()
-    private lazy var titleLable: UILabel = UILabel()
+    
     lazy var notificationContentView: UIView = UIView()
-    private lazy var doctorImageView: UIImageView = UIImageView()
-    private lazy var addNotifyButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить напоминание")
     lazy var notificationTableView: UITableView = UITableView()
     lazy var hintLabel: UILabel = UILabel()
-
     var addButtonTapped: (() -> Void)?
 
+    private lazy var gradientView: CustomGradientView = CustomGradientView()
+    private lazy var titleLable: UILabel = UILabel()
+    private lazy var doctorImageView: UIImageView = UIImageView()
+    private lazy var addNotifyButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить напоминание")
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
@@ -39,6 +39,32 @@ final class NotificationView: UIView {
             panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
             guard let panGestureRecognizer else {return}
             notificationContentView.addGestureRecognizer(panGestureRecognizer)
+        }
+    }
+
+    func showHint() {
+        hintLabel.isHidden = false
+        notificationTableView.isHidden = true
+    }
+
+    func hideHint() {
+        hintLabel.isHidden = true
+        notificationTableView.isHidden = false
+    }
+
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+
+        if recognizer.state == .began {
+            initialCenterYConstraintConstant = notificationContentView.frame.maxY
+            initialTransform = notificationContentView.transform
+        } else if recognizer.state == .changed {
+            let newMaxY = initialCenterYConstraintConstant + translation.y
+
+            if newMaxY <= 780 && newMaxY >= 570 {
+                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
+                notificationContentView.transform = newTransform
+            }
         }
     }
 
@@ -138,31 +164,4 @@ final class NotificationView: UIView {
             make.trailing.equalToSuperview().inset(50)
         }
     }
-
-    func showHint() {
-        hintLabel.isHidden = false
-        notificationTableView.isHidden = true
-    }
-
-    func hideHint() {
-        hintLabel.isHidden = true
-        notificationTableView.isHidden = false
-    }
-
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-
-        if recognizer.state == .began {
-            initialCenterYConstraintConstant = notificationContentView.frame.maxY
-            initialTransform = notificationContentView.transform
-        } else if recognizer.state == .changed {
-            let newMaxY = initialCenterYConstraintConstant + translation.y
-
-            if newMaxY <= 780 && newMaxY >= 570 {
-                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
-                notificationContentView.transform = newTransform
-            }
-        }
-    }
-
 }

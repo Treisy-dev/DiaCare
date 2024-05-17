@@ -14,9 +14,9 @@ protocol SugarConfigViewModelProtocol: UIPickerViewDataSource {
 }
 
 final class SugarConfigViewModel: NSObject, UIPickerViewDataSource, SugarConfigViewModelProtocol {
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
     var dataSource: [String] = []
-    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
     init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM

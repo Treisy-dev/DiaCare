@@ -10,7 +10,6 @@ import UIKit
 final class NotificationViewController: UIViewController {
 
     private let contentView: NotificationView = .init()
-
     private let viewModel: NotificationViewModelProtocol
 
     init(viewModel: NotificationViewModelProtocol) {

@@ -9,10 +9,11 @@ import UIKit
 
 final class SugarStatsSubView: UIView {
 
-    private lazy var sugarStatsHStack: UIStackView = UIStackView()
     var lowSugarView: CustomSugarStatisticView
     var averageSugarView: CustomSugarStatisticView
     var highSugarView: CustomSugarStatisticView
+
+    private lazy var sugarStatsHStack: UIStackView = UIStackView()
 
     init(frame: CGRect, lowSugar: (Double, SugarState), averageSugar: (Double, SugarState), highSugar: (Double, SugarState)) {
         self.lowSugarView = CustomSugarStatisticView(

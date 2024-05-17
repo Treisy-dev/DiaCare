@@ -25,9 +25,7 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
     var fatCount: CurrentValueSubject<String?, Never> = .init("")
     var proteinCount: CurrentValueSubject<String?, Never> = .init("")
     var carbsCount: CurrentValueSubject<String?, Never> = .init("")
-
     var dataSource: [String] = []
-
     var coreDataManager: CoreDataManagerProtocol
 
     init(coreDM: CoreDataManagerProtocol) {
@@ -51,7 +49,9 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
             fat: fat,
             carbs: carbs)
     }
+}
 
+extension NewUserProductViewModel: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }

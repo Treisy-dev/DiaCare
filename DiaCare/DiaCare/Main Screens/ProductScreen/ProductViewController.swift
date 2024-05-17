@@ -10,16 +10,16 @@ import Combine
 
 final class ProductViewController: UIViewController {
 
-    private let contentView: ProductView = .init()
-
     let viewModel: ProductViewModelProtocol
-
-    private var subscriptions = Set<AnyCancellable>()
 
     var productTapped: ((_ productName: String, _ productProps: (fat: String, protein: String, carbs: String)) -> Void)?
     var onFinishWithProducts: (([UserProductModel]) -> Void)?
     var onFinish: (() -> Void)?
     var addUserProductTapped: (() -> Void)?
+
+    private let contentView: ProductView = .init()
+
+    private var subscriptions = Set<AnyCancellable>()
 
     init(viewModel: ProductViewModelProtocol) {
         self.viewModel = viewModel

@@ -8,8 +8,7 @@ import SnapKit
 import UIKit
 
 final class TemplateView: UIView {
-    private lazy var templateLabel: UILabel = UILabel()
-    private lazy var templateImage: UIImageView = UIImageView()
+
     lazy var templatesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 20
@@ -17,6 +16,9 @@ final class TemplateView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
+
+    private lazy var templateLabel: UILabel = UILabel()
+    private lazy var templateImage: UIImageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -9,11 +9,10 @@ import UIKit
 
 final class TemplateViewController: UIViewController {
 
-    private let contentView: TemplateView
-
-    private let viewModel: TemplateViewModelProtocol
-
     var addNewTemplate: (() -> Void)?
+
+    private let contentView: TemplateView
+    private let viewModel: TemplateViewModelProtocol
 
     init(viewModel: TemplateViewModelProtocol) {
         self.viewModel = viewModel

@@ -29,7 +29,6 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     var coreDataManager: CoreDataManagerProtocol
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol
     var selectedSegmentControllIndex: Int = 0
-
     var usersProduct: [UserProductModel] = []
     var productItem: [Product] = []
     var userSavedProducts: [UserProducts] = []
@@ -55,6 +54,44 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
         }
     }
 
+    func getUserSavedProducts() {
+        userSavedProducts = coreDataManager.obtainUsersProduct()
+    }
+
+    func getUserTemplates() {
+        userTemplates = coreDataManager.obtainUsersTemplates()
+    }
+
+    func getProteintForTemplate(for template: Templates) -> String {
+        var result: Double = 0
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        for product in products {
+            guard let protein = Double(product.protein) else { return ""}
+            result += protein
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getFatForTemplate(for template: Templates) -> String {
+        var result: Double = 0
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        for product in products {
+            guard let fat = Double(product.fat) else { return ""}
+            result += fat
+        }
+        return String(format: "%.1f", result)
+    }
+
+    func getCarbsForTemplate(for template: Templates) -> String {
+        var result: Double = 0
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        for product in products {
+            guard let carbohydrates = Double(product.carbohydrates) else { return ""}
+            result += carbohydrates
+        }
+        return String(format: "%.1f", result)
+    }
+
     private func translateWord(word: String, completion: @escaping (String) -> Void) {
         translationNS.translateWord(word: word) {result in
             switch result {
@@ -77,12 +114,27 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
         }
     }
 
-    func getUserSavedProducts() {
-        userSavedProducts = coreDataManager.obtainUsersProduct()
+    private func getCarbsCount(breadCount: String) -> String {
+        guard let carbsInBreadCount = Double(userDefaultsDataManager.getUserBreadCount()),
+            let breadCountDouble = Double(breadCount) else { return ""}
+
+        return String(format: "%.1f", breadCountDouble * carbsInBreadCount)
     }
 
-    func getUserTemplates() {
-        userTemplates = coreDataManager.obtainUsersTemplates()
+    private func getCategoryFromStringProduct(_ categoryString: String) -> ProductCategories {
+        if let category = ProductCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
+        }
+    }
+
+    private func getCategoryFromStringTemplate(_ categoryString: String) -> TemplateCategories {
+        if let category = TemplateCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
+        }
     }
 }
 
@@ -135,58 +187,5 @@ extension ProductViewModel: UITableViewDataSource {
                 carbCount: String(userSavedProducts[indexPath.row].carbohydrates))
             return cell
         }
-    }
-
-    private func getCarbsCount(breadCount: String) -> String {
-        guard let carbsInBreadCount = Double(userDefaultsDataManager.getUserBreadCount()),
-            let breadCountDouble = Double(breadCount) else { return ""}
-
-        return String(format: "%.1f", breadCountDouble * carbsInBreadCount)
-    }
-
-    private func getCategoryFromStringProduct(_ categoryString: String) -> ProductCategories {
-        if let category = ProductCategories(rawValue: categoryString) {
-            return category
-        } else {
-            return .none
-        }
-    }
-
-    private func getCategoryFromStringTemplate(_ categoryString: String) -> TemplateCategories {
-        if let category = TemplateCategories(rawValue: categoryString) {
-            return category
-        } else {
-            return .none
-        }
-    }
-
-    func getProteintForTemplate(for template: Templates) -> String {
-        var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
-        for product in products {
-            guard let protein = Double(product.protein) else { return ""}
-            result += protein
-        }
-        return String(format: "%.1f", result)
-    }
-
-    func getFatForTemplate(for template: Templates) -> String {
-        var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
-        for product in products {
-            guard let fat = Double(product.fat) else { return ""}
-            result += fat
-        }
-        return String(format: "%.1f", result)
-    }
-
-    func getCarbsForTemplate(for template: Templates) -> String {
-        var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
-        for product in products {
-            guard let carbohydrates = Double(product.carbohydrates) else { return ""}
-            result += carbohydrates
-        }
-        return String(format: "%.1f", result)
     }
 }

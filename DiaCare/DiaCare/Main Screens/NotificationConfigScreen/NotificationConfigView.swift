@@ -7,32 +7,27 @@
 import SnapKit
 import UIKit
 
-class NotificationConfigView: UIView {
+final class NotificationConfigView: UIView {
+    lazy var titleTextField: UITextField = UITextField()
+    lazy var datePicker: UIDatePicker = UIDatePicker()
+    lazy var messageTextField: UITextField = UITextField()
+    var addButtonTapped: (() -> Void)?
+    var backButtonTapped: (() -> Void)?
+
     private lazy var configTitle: UILabel = UILabel()
     private lazy var backButton: UIButton = UIButton()
-
     private lazy var titleView: UIView = UIView()
     private lazy var bellIcon: UIImageView = UIImageView()
     private lazy var titleSeparator: UIView = UIView()
     private lazy var titleLabel: UILabel = UILabel()
-    lazy var titleTextField: UITextField = UITextField()
-
     private lazy var dateView: UIView = UIView()
     private lazy var dateIcon: UIImageView = UIImageView()
     private lazy var dateSeparator: UIView = UIView()
     private lazy var dateLabel: UILabel = UILabel()
-    lazy var datePicker: UIDatePicker = UIDatePicker()
-
     private lazy var messageView: UIView = UIView()
     private lazy var messageTitle: UILabel = UILabel()
-    lazy var messageTextField: UITextField = UITextField()
-
     private lazy var addButton: UIButton = UIButton()
-
     private lazy var configImage: UIImageView = UIImageView()
-
-    var addButtonTapped: (() -> Void)?
-    var backButtonTapped: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

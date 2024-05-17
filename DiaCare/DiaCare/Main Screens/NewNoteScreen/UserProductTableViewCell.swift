@@ -31,16 +31,6 @@ final class UserProductTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUp() {
-        setUpBorderView()
-        setUpProductImageView()
-        setUpVerticalSeparateView()
-        setUpProductInfoVStack()
-        setUpProductLabel()
-        setUpHorizontalSeparateView()
-        setUpProductPropsHStack()
-    }
-
     func config(
         productName: String,
         productCategory: ProductCategories,
@@ -100,6 +90,16 @@ final class UserProductTableViewCell: UITableViewCell {
             productPropsHStack.addArrangedSubview(carbohydratesVStack)
             productPropsHStack.addArrangedSubview(breadCountVStack)
         }
+
+    private func setUp() {
+        setUpBorderView()
+        setUpProductImageView()
+        setUpVerticalSeparateView()
+        setUpProductInfoVStack()
+        setUpProductLabel()
+        setUpHorizontalSeparateView()
+        setUpProductPropsHStack()
+    }
 
     private func setUpBorderView() {
         addSubview(borderView)

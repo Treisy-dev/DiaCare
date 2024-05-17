@@ -9,10 +9,11 @@ import UIKit
 
 final class FoodStatsSubView: UIView {
 
-    private lazy var foodStatsHStack: UIStackView = UIStackView()
     var shortInsulinStatView: CustomFoodStatisticView
     var breadCountStatView: CustomFoodStatisticView
     var longInsulinStatView: CustomFoodStatisticView
+
+    private lazy var foodStatsHStack: UIStackView = UIStackView()
 
     init(frame: CGRect, shortInsulinCount: Double, breadCount: Double, longInsulinCount: Double) {
         self.shortInsulinStatView = CustomFoodStatisticView(

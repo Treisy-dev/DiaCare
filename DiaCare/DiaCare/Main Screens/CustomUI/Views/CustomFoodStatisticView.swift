@@ -30,15 +30,15 @@ class CustomFoodStatisticView: UIView {
         setUp()
     }
 
+    func updateUI(countLabel: String) {
+        self.countLabel.text = countLabel
+    }
+
     private func setUp() {
         setUpGradientView()
         setUpWhiteCircle()
         setUpCountLabel()
         setUpTitleLabel()
-    }
-
-    func updateUI(countLabel: String) {
-        self.countLabel.text = countLabel
     }
 
     private func setUpGradientView() {

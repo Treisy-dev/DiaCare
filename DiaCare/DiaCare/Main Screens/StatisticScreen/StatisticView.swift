@@ -9,19 +9,20 @@ import UIKit
 import DGCharts
 
 final class StatisticView: UIView {
+    
     lazy var contentView: UIView = UIView()
-    private lazy var statisticLabel: UILabel = UILabel()
     lazy var timeSegmentControll: UISegmentedControl = UISegmentedControl(items: ["День", "Неделя", "Месяц"])
-    var chartSubView: ChartSubView
-    private lazy var sugarLabel: UILabel = UILabel()
-    var sugarStatsSubView: SugarStatsSubView
-    private lazy var averageFoodStatsLabel: UILabel = UILabel()
-    var foodStatsSubView: FoodStatsSubView
-    private lazy var historyLabel: UILabel = UILabel()
     lazy var historyTable: UITableView = UITableView()
-    private lazy var historyHintLabel: UILabel = UILabel()
-
+    var chartSubView: ChartSubView
+    var sugarStatsSubView: SugarStatsSubView
+    var foodStatsSubView: FoodStatsSubView
     var scrollAddition: CGFloat = 0
+
+    private lazy var statisticLabel: UILabel = UILabel()
+    private lazy var sugarLabel: UILabel = UILabel()
+    private lazy var averageFoodStatsLabel: UILabel = UILabel()
+    private lazy var historyLabel: UILabel = UILabel()
+    private lazy var historyHintLabel: UILabel = UILabel()
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
     private var panGestureRecognizer: UIPanGestureRecognizer?
@@ -65,20 +66,6 @@ final class StatisticView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUp() {
-        setUpContentView()
-        setUpStatisticLabel()
-        setUpTimeSegmentControll()
-        setUpChartSubView()
-        setUpSugarLabel()
-        setUpSugarStatsSubView()
-        setUpAverageFoodStatsLabel()
-        setUpFoodStatsSubView()
-        setUpHistoryLabel()
-        setUpHistoryTable()
-        setUpHistoryHintLabel()
-    }
-
     func updateUI(
         chartData: [ChartDataEntry],
         sugarStats: (lowSugar: (Double, SugarState), averageSugar: (Double, SugarState), highSugar: (Double, SugarState)),
@@ -103,6 +90,40 @@ final class StatisticView: UIView {
                 historyTable.isHidden = false
                 historyHintLabel.isHidden = true
             }
+    }
+
+    @objc func segmentValueChanged(_ sender: UISegmentedControl) {
+        chartSubView.updateDataForChart()
+    }
+
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+
+        if recognizer.state == .began {
+            initialCenterYConstraintConstant = contentView.frame.maxY
+            initialTransform = contentView.transform
+        } else if recognizer.state == .changed {
+            let newMaxY = initialCenterYConstraintConstant + translation.y
+
+            if newMaxY <= 1320 && newMaxY >= 780 + scrollAddition {
+                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
+                contentView.transform = newTransform
+            }
+        }
+    }
+
+    private func setUp() {
+        setUpContentView()
+        setUpStatisticLabel()
+        setUpTimeSegmentControll()
+        setUpChartSubView()
+        setUpSugarLabel()
+        setUpSugarStatsSubView()
+        setUpAverageFoodStatsLabel()
+        setUpFoodStatsSubView()
+        setUpHistoryLabel()
+        setUpHistoryTable()
+        setUpHistoryHintLabel()
     }
 
     private func setUpContentView() {
@@ -238,26 +259,6 @@ final class StatisticView: UIView {
             make.leading.equalToSuperview().offset(40)
             make.trailing.equalToSuperview().inset(40)
             make.top.equalTo(historyLabel.snp.bottom).offset(15)
-        }
-    }
-
-    @objc func segmentValueChanged(_ sender: UISegmentedControl) {
-        chartSubView.updateDataForChart()
-    }
-
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-
-        if recognizer.state == .began {
-            initialCenterYConstraintConstant = contentView.frame.maxY
-            initialTransform = contentView.transform
-        } else if recognizer.state == .changed {
-            let newMaxY = initialCenterYConstraintConstant + translation.y
-
-            if newMaxY <= 1320 && newMaxY >= 780 + scrollAddition {
-                let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
-                contentView.transform = newTransform
-            }
         }
     }
 }

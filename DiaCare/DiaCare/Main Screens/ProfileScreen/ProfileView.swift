@@ -9,10 +9,11 @@ import UIKit
 
 final class ProfileView: UIView {
 
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    var settingsSubView: SettingsSubView
     private var userNameSubView: UserNameSubView
     private var preferencesSubView: PreferencesSubView
     private var dragSubView: DragSubView
-    var settingsSubView: SettingsSubView
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var titleLable: UILabel = UILabel()
     private lazy var profileContentView: UIView = UIView()
@@ -21,7 +22,6 @@ final class ProfileView: UIView {
 
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var panGestureRecognizer: UIPanGestureRecognizer?
-    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
     init(frame: CGRect, userNameData: [String: String], selectedLanguage: String, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM

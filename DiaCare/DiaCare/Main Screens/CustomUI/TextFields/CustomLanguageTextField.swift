@@ -9,9 +9,10 @@ import UIKit
 
 final class CustomLanguageTextField: UITextField {
 
+    lazy var languagePickerView: UIPickerView = UIPickerView()
+
     private lazy var iconImageView: UIImageView = UIImageView()
     private lazy var arrowImageView: UIImageView = UIImageView()
-    lazy var languagePickerView: UIPickerView = UIPickerView()
 
     init(frame: CGRect, icon: UIImage, placeholder: String) {
         super.init(frame: frame)

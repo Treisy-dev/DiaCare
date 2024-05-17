@@ -9,10 +9,11 @@ import UIKit
 
 final class NewNoteSugarSubView: UIView {
 
+    lazy var sugarCountLabel: UILabel = UILabel()
+
     private lazy var downArrow: UIButton = UIButton()
     private lazy var upArrow: UIButton = UIButton()
     private lazy var sugarView: UIView = UIView()
-    lazy var sugarCountLabel: UILabel = UILabel()
     private lazy var sugarLabel: UILabel = UILabel()
     private lazy var bloodIcon: UIImageView = UIImageView()
     private lazy var hintLabel: UILabel = UILabel()
@@ -27,6 +28,19 @@ final class NewNoteSugarSubView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let velocity = gesture.velocity(in: sugarView)
+
+        if gesture.state == .changed {
+            let speedMultiplier: Double = 0.001
+            let valueChange = Double(velocity.y) * speedMultiplier
+            guard let currentSugar = Double(sugarCountLabel.text ?? "8.5") else { return }
+            if currentSugar + valueChange >= 1.5 || velocity.y > 0 {
+                sugarCountLabel.text = String(format: "%.1f", currentSugar + valueChange)
+            }
+        }
     }
 
     private func setUp() {
@@ -133,19 +147,6 @@ final class NewNoteSugarSubView: UIView {
         hintLabel.snp.makeConstraints { make in
             make.top.equalTo(sugarView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
-        }
-    }
-
-    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let velocity = gesture.velocity(in: sugarView)
-
-        if gesture.state == .changed {
-            let speedMultiplier: Double = 0.001
-            let valueChange = Double(velocity.y) * speedMultiplier
-            guard let currentSugar = Double(sugarCountLabel.text ?? "8.5") else { return }
-            if currentSugar + valueChange >= 1.5 || velocity.y > 0 {
-                sugarCountLabel.text = String(format: "%.1f", currentSugar + valueChange)
-            }
         }
     }
 }

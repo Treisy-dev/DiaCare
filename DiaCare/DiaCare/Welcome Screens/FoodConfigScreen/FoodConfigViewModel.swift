@@ -15,8 +15,9 @@ protocol FoodConfigViewModelProtocol: UIPickerViewDataSource {
 
 final class FoodConfigViewModel: NSObject, UIPickerViewDataSource, FoodConfigViewModelProtocol {
 
-    var dataSource: [String] = []
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+
+    var dataSource: [String] = []
 
     init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM

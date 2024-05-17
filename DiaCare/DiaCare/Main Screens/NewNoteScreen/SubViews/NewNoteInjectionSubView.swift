@@ -10,13 +10,13 @@ import UIKit
 
 final class NewNoteInjectionSubView: UIView {
 
-    lazy var breadTextField: UITextField = UITextField()
-    private lazy var breadLabel: UILabel = UILabel()
     lazy var breadSlider: UISlider = UISlider()
-
-    lazy var insulinTextField: UITextField = UITextField()
-    private lazy var insulinLabel: UILabel = UILabel()
+    lazy var breadTextField: UITextField = UITextField()
     lazy var insulinSlider: UISlider = UISlider()
+    lazy var insulinTextField: UITextField = UITextField()
+    
+    private lazy var breadLabel: UILabel = UILabel()
+    private lazy var insulinLabel: UILabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

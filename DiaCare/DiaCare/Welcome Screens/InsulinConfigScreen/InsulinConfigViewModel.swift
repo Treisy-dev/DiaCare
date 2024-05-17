@@ -18,11 +18,11 @@ protocol InsulinConfigViewModelProtocol: UIPickerViewDataSource {
 
 final class InsulinConfigViewModel: NSObject, UIPickerViewDataSource, InsulinConfigViewModelProtocol {
 
-    var shortPickerView: UIPickerView?
-    var longPickerView: UIPickerView?
     let coreDataManager: CoreDataManagerProtocol
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
+    var shortPickerView: UIPickerView?
+    var longPickerView: UIPickerView?
     var shortDataSource: [String] = ["Хумалог", "НовоРапид", "Апидра"]
     var longDataSource: [String] = ["Лантус", "Туджео", "Левемир"]
 

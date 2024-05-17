@@ -8,16 +8,18 @@ import SnapKit
 import UIKit
 
 final class ProductTableViewCell: UITableViewCell {
+    
     lazy var productImageView: UIImageView = UIImageView()
-    private lazy var borderView: UIView = UIView()
-    private lazy var verticalSeparateView: UIView = UIView()
-    private lazy var horizontalSeparateView: UIView = UIView()
     lazy var productLabel: UILabel = UILabel()
     lazy var productInfoVStack: UIStackView = UIStackView()
     lazy var productPropsHStack: UIStackView = UIStackView()
     var proteinVStack: UIStackView?
     var fatVStack: UIStackView?
     var carbohydratesVStack: UIStackView?
+
+    private lazy var borderView: UIView = UIView()
+    private lazy var verticalSeparateView: UIView = UIView()
+    private lazy var horizontalSeparateView: UIView = UIView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,16 +28,6 @@ final class ProductTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setUp() {
-        setUpBorderView()
-        setUpProductImageView()
-        setUpVerticalSeparateView()
-        setUpProductInfoVStack()
-        setUpProductLabel()
-        setUpHorizontalSeparateView()
-        setUpProductPropsHStack()
     }
 
     func config(
@@ -88,6 +80,16 @@ final class ProductTableViewCell: UITableViewCell {
             productPropsHStack.addArrangedSubview(proteinVStack)
             productPropsHStack.addArrangedSubview(fatVStack)
             productPropsHStack.addArrangedSubview(carbohydratesVStack)
+    }
+
+    private func setUp() {
+        setUpBorderView()
+        setUpProductImageView()
+        setUpVerticalSeparateView()
+        setUpProductInfoVStack()
+        setUpProductLabel()
+        setUpHorizontalSeparateView()
+        setUpProductPropsHStack()
     }
 
     private func setUpBorderView() {

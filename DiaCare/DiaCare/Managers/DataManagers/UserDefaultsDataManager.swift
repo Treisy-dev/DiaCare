@@ -9,37 +9,23 @@ import Foundation
 
 protocol UserDefaultsDataManagerProtocol {
     func getUserInfo() -> [String: String]
-
     func addNameToUserInfo(name: String?, email: String?)
-
     func addSugarConfigToUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?)
-
     func addFoodConfigToUserInfo(breadCount: String?, insulinCount: String?)
-
     func addInsulinToUserInfo(shortInsulin: String?, longInsulin: String?)
-
     func prepareData(with userNameData: [String: String], for key: String) -> String
-
     func getUserBreadCount() -> String
-
     func getUserInsulinCount() -> String
-
     func getLowTarget() -> String
-
     func getAverageTarget() -> String
-
     func getHighTarget() -> String
 }
 
 final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
 
-    var userInfo: [String: String] = [:]
     let userDefaults = UserDefaults.standard
 
-    private func saveUserData() {
-        userDefaults.setValue(true, forKey: "isUserLogged")
-        userDefaults.set(userInfo, forKey: "userInfo")
-    }
+    var userInfo: [String: String] = [:]
 
     func getUserInfo() -> [String: String] {
         guard let loadedDictionary = userDefaults.dictionary(forKey: "userInfo") as? [String: String] else { return [:] }
@@ -96,5 +82,10 @@ final class UserDefaultsDataManager: UserDefaultsDataManagerProtocol {
     func getHighTarget() -> String {
         guard let highSugar = getUserInfo()["hightSugar"] else { return "10.0"}
         return highSugar
+    }
+
+    private func saveUserData() {
+        userDefaults.setValue(true, forKey: "isUserLogged")
+        userDefaults.set(userInfo, forKey: "userInfo")
     }
 }

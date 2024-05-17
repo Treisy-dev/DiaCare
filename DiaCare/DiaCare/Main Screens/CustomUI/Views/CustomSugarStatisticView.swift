@@ -49,13 +49,6 @@ final class CustomSugarStatisticView: UIView {
         setUp()
     }
 
-    private func setUp() {
-        setUpLevelLabel()
-        setUpSugarCountLabel()
-        setUpSugarDimensionLabel()
-        setUpStateHStack()
-    }
-
     func updateUI(countLabel: String, sugarState: SugarState) {
         sugarCountLabel.text = countLabel
         switch sugarState {
@@ -69,6 +62,13 @@ final class CustomSugarStatisticView: UIView {
             coloredView.backgroundColor = .systemRed
             stateLabel.text = "плохо"
         }
+    }
+
+    private func setUp() {
+        setUpLevelLabel()
+        setUpSugarCountLabel()
+        setUpSugarDimensionLabel()
+        setUpStateHStack()
     }
 
     private func setUpLevelLabel() {

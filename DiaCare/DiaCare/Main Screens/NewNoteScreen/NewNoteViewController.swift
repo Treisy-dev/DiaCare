@@ -12,7 +12,6 @@ final class NewNoteViewController: UIViewController {
     private let contentView: NewNoteView
 
     var viewModel: NewNoteViewModelProtocol
-
     var onFinish: (() -> Void)?
 
     init(viewModel: NewNoteViewModelProtocol) {

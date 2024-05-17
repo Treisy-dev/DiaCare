@@ -8,6 +8,9 @@ import SnapKit
 import UIKit
 
 final class TemplateCollectionViewCell: UICollectionViewCell {
+
+    var products: [TemplateProduct] = []
+
     private lazy var templateTitle: UILabel = UILabel()
     private lazy var underlineView: UIView = UIView()
     private lazy var productsVStack: UIStackView = UIStackView()
@@ -17,8 +20,6 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
     private lazy var breadCount: UILabel = UILabel()
     private lazy var insulinLabel: UILabel = UILabel()
     private lazy var insulinCount: UILabel = UILabel()
-
-    var products: [TemplateProduct] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,18 +31,6 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setUp() {
-        setUpTemplateTitle()
-        setUpUnderlineView()
-        setUpProductsVStack()
-        setUpCategoryImage()
-        setUpSeparateView()
-        setUpBreadCountLabel()
-        setUpBreadCount()
-        setUpInsulinLabel()
-        setUpInsulinCount()
     }
 
     func config(
@@ -56,6 +45,18 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
             categoryImage.image = templateCategory.getImageByType()
             clearProductVStack()
             fillProductVStack()
+    }
+
+    private func setUp() {
+        setUpTemplateTitle()
+        setUpUnderlineView()
+        setUpProductsVStack()
+        setUpCategoryImage()
+        setUpSeparateView()
+        setUpBreadCountLabel()
+        setUpBreadCount()
+        setUpInsulinLabel()
+        setUpInsulinCount()
     }
 
     private func clearProductVStack() {

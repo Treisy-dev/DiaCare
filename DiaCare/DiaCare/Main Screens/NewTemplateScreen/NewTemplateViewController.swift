@@ -9,12 +9,11 @@ import UIKit
 
 final class NewTemplateViewController: UIViewController {
 
-    private let contentView: NewTemplateView = .init()
-
     var viewModel: NewTemplateViewModelProtocol
-
     var onFinish: (() -> Void)?
     var addProductTapped: (() -> Void)?
+
+    private let contentView: NewTemplateView = .init()
 
     init(viewModel: NewTemplateViewModelProtocol) {
         self.viewModel = viewModel

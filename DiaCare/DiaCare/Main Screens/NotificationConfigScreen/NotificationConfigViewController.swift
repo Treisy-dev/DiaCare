@@ -7,10 +7,9 @@
 
 import UIKit
 
-class NotificationConfigViewController: UIViewController {
+final class NotificationConfigViewController: UIViewController {
 
     private let contentView: NotificationConfigView = .init()
-
     private let viewModel: NotificationConfigViewModelProtocol
 
     init(viewModel: NotificationConfigViewModelProtocol) {

@@ -9,8 +9,9 @@ import UIKit
 import Swinject
 
 final class TemplateScreenFlowCoordinator {
-    var navigationController: UINavigationController
     let container: Container
+
+    var navigationController: UINavigationController
 
     init(container: Container, navigationController: UINavigationController) {
         self.container = container

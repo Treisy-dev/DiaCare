@@ -8,8 +8,7 @@ import SnapKit
 import UIKit
 
 final class NewTemplateStatsSubView: UIView {
-    private lazy var summaryLabel: UILabel = UILabel()
-    private lazy var statsHStack: UIStackView = UIStackView()
+    
     lazy var proteinVStack: UIStackView = ProductVStackFabric.shared.makeCircledProductPropVStack(
         titleLabel: "Белки",
         titleLabelColor: .systemYellow,
@@ -35,6 +34,9 @@ final class NewTemplateStatsSubView: UIView {
         titleLabelColor: .purple,
         count: "0"
     )
+
+    private lazy var summaryLabel: UILabel = UILabel()
+    private lazy var statsHStack: UIStackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
