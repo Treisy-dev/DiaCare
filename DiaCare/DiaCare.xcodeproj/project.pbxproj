@@ -45,6 +45,9 @@
 		C3607D502BF4098B004595BD /* ProductCategoriesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D4F2BF4098B004595BD /* ProductCategoriesEnum.swift */; };
 		C3607D522BF409B5004595BD /* TemplateCategoriesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D512BF409B5004595BD /* TemplateCategoriesEnum.swift */; };
 		C3607D542BF80A16004595BD /* SugarStateEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D532BF80A16004595BD /* SugarStateEnum.swift */; };
+		C3607D562BF8DE65004595BD /* MainAppModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D552BF8DE65004595BD /* MainAppModuleFactory.swift */; };
+		C3607D592BF8EBC7004595BD /* WelcomeModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D582BF8EBC7004595BD /* WelcomeModuleFactory.swift */; };
+		C3607D5B2BF8EC7B004595BD /* TabBarModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3607D5A2BF8EC7B004595BD /* TabBarModuleFactory.swift */; };
 		C364B5282BB48CFC00AC1CB3 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5272BB48CFC00AC1CB3 /* ProductView.swift */; };
 		C364B52A2BB48D0600AC1CB3 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B5292BB48D0600AC1CB3 /* ProductViewController.swift */; };
 		C364B52C2BB48D1500AC1CB3 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C364B52B2BB48D1500AC1CB3 /* ProductViewModel.swift */; };
@@ -166,6 +169,9 @@
 		C3607D4F2BF4098B004595BD /* ProductCategoriesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoriesEnum.swift; sourceTree = "<group>"; };
 		C3607D512BF409B5004595BD /* TemplateCategoriesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCategoriesEnum.swift; sourceTree = "<group>"; };
 		C3607D532BF80A16004595BD /* SugarStateEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugarStateEnum.swift; sourceTree = "<group>"; };
+		C3607D552BF8DE65004595BD /* MainAppModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppModuleFactory.swift; sourceTree = "<group>"; };
+		C3607D582BF8EBC7004595BD /* WelcomeModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModuleFactory.swift; sourceTree = "<group>"; };
+		C3607D5A2BF8EC7B004595BD /* TabBarModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleFactory.swift; sourceTree = "<group>"; };
 		C364B5272BB48CFC00AC1CB3 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		C364B5292BB48D0600AC1CB3 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		C364B52B2BB48D1500AC1CB3 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
@@ -410,6 +416,16 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		C3607D572BF8EBAD004595BD /* ModuleFactories */ = {
+			isa = PBXGroup;
+			children = (
+				C3607D552BF8DE65004595BD /* MainAppModuleFactory.swift */,
+				C3607D582BF8EBC7004595BD /* WelcomeModuleFactory.swift */,
+				C3607D5A2BF8EC7B004595BD /* TabBarModuleFactory.swift */,
+			);
+			path = ModuleFactories;
+			sourceTree = "<group>";
+		};
 		C364B5262BB48CE200AC1CB3 /* ProductScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +505,7 @@
 		C364B56E2BBD693700AC1CB3 /* FlowCoordinators */ = {
 			isa = PBXGroup;
 			children = (
+				C3607D572BF8EBAD004595BD /* ModuleFactories */,
 				C364B56C2BBD60C100AC1CB3 /* WelcomeFlowCoordinator.swift */,
 				C364B56F2BBD696C00AC1CB3 /* NewNoteScreenFlowCoordinator.swift */,
 				C364B5732BBD778D00AC1CB3 /* TemplateScreenFlowCoordinator.swift */,
@@ -822,6 +839,7 @@
 				C333ABAD2B9FCA9200EA100E /* UserDefaultsDataManager.swift in Sources */,
 				C364B5382BB4B97300AC1CB3 /* TranslationAPIModel.swift in Sources */,
 				C364B5502BB9967300AC1CB3 /* PushNotification+CoreDataProperties.swift in Sources */,
+				C3607D5B2BF8EC7B004595BD /* TabBarModuleFactory.swift in Sources */,
 				C3607D502BF4098B004595BD /* ProductCategoriesEnum.swift in Sources */,
 				C3607D442BF38A13004595BD /* NewTemplateViewModel.swift in Sources */,
 				C31D17222BD0F77F004A133F /* NewUserProductViewModel.swift in Sources */,
@@ -836,8 +854,10 @@
 				C333ABC72BA7476F00EA100E /* UIImageExtensions.swift in Sources */,
 				C3DCFA0B2B9E5B26007D7FF0 /* StatisticViewModel.swift in Sources */,
 				C3666A6D2BE58D8B00BA9551 /* NotificationConfigView.swift in Sources */,
+				C3607D562BF8DE65004595BD /* MainAppModuleFactory.swift in Sources */,
 				C333ABA62B9FBBD900EA100E /* PreferencesSubView.swift in Sources */,
 				C31D167A2BC77999004A133F /* UserProductModel.swift in Sources */,
+				C3607D592BF8EBC7004595BD /* WelcomeModuleFactory.swift in Sources */,
 				C3DCF9FB2B9E5A5A007D7FF0 /* NotificationView.swift in Sources */,
 				C3DCF9D22B9DF5A4007D7FF0 /* NameRegisterView.swift in Sources */,
 				C3DCFA002B9E5ABA007D7FF0 /* NewNoteViewController.swift in Sources */,

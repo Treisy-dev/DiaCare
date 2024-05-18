@@ -10,18 +10,18 @@ import UIKit
 
 final class NewNoteScreenFlowCoordinator: Coordinator {
 
-    let container: Container
+    let moduleFactory: MainAppModuleFactoryProtocol
 
     var navigationController: UINavigationController
 
-    init(container: Container, navigationController: UINavigationController) {
-        self.container = container
+    init(moduleFactory: MainAppModuleFactoryProtocol, navigationController: UINavigationController) {
+        self.moduleFactory = moduleFactory
         self.navigationController = navigationController
     }
 
     func start() {
-        guard let viewModel = container.resolve(NewNoteViewModelProtocol.self) else { return }
-        let viewController = NewNoteViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createNewNoteViewController() as? NewNoteViewController else { return }
+
         let templateTabBarItem = UITabBarItem(
             title: nil,
             image: UIImage.circledPlusIcon.resizeImage(newSize: CGSize(width: 30, height: 30)),
@@ -34,8 +34,7 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
     }
 
     private func showProductScreen() {
-        guard let viewModel = container.resolve(ProductViewModelProtocol.self) else { return }
-        let viewController = ProductViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createProductViewController() as? ProductViewController else { return }
 
         viewController.productTapped = { [weak self] productName, productProps in
             self?.showProductConfigScreen(productName: productName, productProps: productProps)
@@ -61,8 +60,7 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
     }
 
     private func showNewUserProductScreen() {
-        guard let viewModel = container.resolve(NewUserProductViewModelProtocol.self) else { return }
-        let viewController = NewUserProductViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createNewUserProductViewController() as? NewUserProductViewController else { return }
 
         viewController.onFinish = { [weak self] in
             self?.navigationController.popViewController(animated: true)
@@ -72,8 +70,10 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
     }
 
     private func showProductConfigScreen(productName: String, productProps: (String, String, String)) {
-        guard let viewModel = container.resolve(ProductConfigViewModelProtocol.self) else { return }
-        let viewController = ProfuctConfigViewController(viewModel: viewModel, productName: productName, productProps: productProps)
+        guard let viewController = moduleFactory.createProductConfigViewController(
+            productName: productName,
+            productProps: productProps
+        ) as? ProfuctConfigViewController else { return }
 
         viewController.onFinish = { [weak self] in
             self?.navigationController.popViewController(animated: true)

@@ -22,17 +22,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mainAppAssembly = MainAppAssembly()
         mainAppAssembly.assemble(container: container)
 
-        guard let mainAppTabBarFabric = container.resolve(MainAppTabBarFabricProtocol.self) else { return }
+        guard let welcomeModuleFactory = container.resolve(WelcomeModuleFactoryProtocol.self) else { return }
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         if UserDefaults.standard.bool(forKey: "isUserLogged") {
-            let tbController = mainAppTabBarFabric.makeMainAppTabBarController()
+            let tbController = welcomeModuleFactory.createMainAppTabBar()
             self.window?.rootViewController = tbController
             self.window?.makeKeyAndVisible()
         } else {
-
-            let welcomeFlowCoordinator = WelcomeFlowCoordinator(container: container, navigationController: UINavigationController())
+            let welcomeFlowCoordinator = WelcomeFlowCoordinator(moduleFactory: welcomeModuleFactory, navigationController: UINavigationController())
             welcomeFlowCoordinator.start()
 
             let navigationController = welcomeFlowCoordinator.navigationController
