@@ -10,6 +10,7 @@ import UIKit
 protocol NotificationViewModelProtocol: UITableViewDataSource {
     var currentDataSource: [PushNotification] { get }
     var finishedDataSource: [PushNotification] { get }
+
     func addNewNotify(title: String, message: String, date: Date)
 }
 

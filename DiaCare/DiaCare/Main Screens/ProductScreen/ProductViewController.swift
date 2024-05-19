@@ -174,7 +174,7 @@ extension ProductViewController: UITableViewDelegate {
                 message: "Добавить шаблон \(productName) в прием пищи?",
                 preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
-                self?.viewModel.usersProduct.append(UserProductModel(
+                self?.viewModel.addUserProduct(product: UserProductModel(
                     name: productName,
                     protein: self?.viewModel.getProteintForTemplate(for: selectedTemplate) ?? "0",
                     fat: self?.viewModel.getFatForTemplate(for: selectedTemplate) ?? "0",

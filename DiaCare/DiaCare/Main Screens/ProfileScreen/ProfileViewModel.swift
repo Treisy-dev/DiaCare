@@ -12,6 +12,7 @@ protocol ProfileViewModelProtocol: UIPickerViewDataSource {
     var userInfoData: [String: String] { get }
     var languageDataSource: [String] { get }
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol {get}
+
     func getSelectedLanguage() -> String
 }
 

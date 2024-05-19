@@ -9,15 +9,17 @@ import UIKit
 import Combine
 
 protocol ProductViewModelProtocol: UITableViewDataSource {
-    func searchProducts(for queryText: String, completion: @escaping () -> Void)
     var productItem: [Product] { get }
-    var usersProduct: [UserProductModel] { get set }
+    var usersProduct: [UserProductModel] { get }
     var userSavedProducts: [UserProducts] { get }
     var userTemplates: [Templates] { get }
+    var selectedIndex: CurrentValueSubject<Int, Never> { get }
+
+    func searchProducts(for queryText: String, completion: @escaping () -> Void)
     func getProteintForTemplate(for template: Templates) -> String
     func getFatForTemplate(for template: Templates) -> String
     func getCarbsForTemplate(for template: Templates) -> String
-    var selectedIndex: CurrentValueSubject<Int, Never> { get }
+    func addUserProduct(product: UserProductModel)
 }
 
 final class ProductViewModel: NSObject, ProductViewModelProtocol {
@@ -106,6 +108,10 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
             result += carbohydrates
         }
         return String(format: "%.1f", result)
+    }
+
+    func addUserProduct(product: UserProductModel) {
+        usersProduct.append(product)
     }
 
     private func updateUserSavedProducts() {

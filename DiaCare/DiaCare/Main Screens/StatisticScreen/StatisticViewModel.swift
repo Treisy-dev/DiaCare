@@ -10,6 +10,8 @@ import DGCharts
 import Combine
 
 protocol StatisticViewModelProtocol: UITableViewDataSource {
+    var dataSource: [NotesHistory] { get }
+
     func getSugarHistoryDay(startDate: Date, endDate: Date) -> [ChartDataEntry]
     func getSugarHistoryWeek(startDate: Date, endDate: Date) -> [ChartDataEntry]
     func getMinimalSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState)
@@ -18,7 +20,6 @@ protocol StatisticViewModelProtocol: UITableViewDataSource {
     func getBreadCountBy(startDate: Date, endDate: Date) -> Double
     func getShortInsulinBy(startDate: Date, endDate: Date) -> Double
     func getLongInsulinBy(startDate: Date, endDate: Date) -> Double
-    var dataSource: [NotesHistory] { get }
 }
 
 final class StatisticViewModel: NSObject, StatisticViewModelProtocol {

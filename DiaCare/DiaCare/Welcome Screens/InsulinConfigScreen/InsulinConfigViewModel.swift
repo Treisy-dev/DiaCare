@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol InsulinConfigViewModelProtocol: UIPickerViewDataSource {
-    var shortDataSource: [String] { get set }
-    var longDataSource: [String] { get set }
+    var shortDataSource: [String] { get }
+    var longDataSource: [String] { get }
 
     func saveUserInfo(shortInsulin: String?, longInsulin: String?)
     func setUpDefaultsProductTypes()

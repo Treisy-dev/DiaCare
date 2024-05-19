@@ -8,14 +8,16 @@
 import UIKit
 
 protocol NewTemplateViewModelProtocol: UITableViewDataSource, UIPickerViewDataSource {
-    var userProducts: [UserProductModel] {get set}
+    var userProducts: [UserProductModel] { get }
     var pickerViewDataSource: [String] { get }
+
     func getBreadCount() -> String
     func getInsulinCount() -> String
     func getFatCount() -> String
     func getProteinCount() -> String
     func getCarbsCount() -> String
     func saveNewTemplate(breadCount: String, shortInsulin: String, name: String, category: String)
+    func addUserProduct(product: UserProductModel)
 }
 
 final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
@@ -106,6 +108,10 @@ final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
         guard let insulinCount = Double(userDefaultsDataManager.getUserInsulinCount()) else { return ""}
 
         return String(format: "%.1f", breadCount * insulinCount)
+    }
+
+    func addUserProduct(product: UserProductModel) {
+        userProducts.append(product)
     }
 
     private func getCategoryFromString(_ categoryString: String) -> ProductCategories {

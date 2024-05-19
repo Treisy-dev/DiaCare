@@ -48,7 +48,7 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
             self?.navigationController.popViewController(animated: true)
             guard let previousVC = self?.navigationController.topViewController as? NewNoteViewController else { return }
             for product in userProducts {
-                previousVC.viewModel.userProducts.append(product)
+                previousVC.viewModel.addUserProduct(product: product)
             }
         }
 
@@ -82,7 +82,7 @@ final class NewNoteScreenFlowCoordinator: Coordinator {
         viewController.onFinishWithProduct = { [weak self] userProduct in
             self?.navigationController.popViewController(animated: true)
             guard let previousVC = self?.navigationController.topViewController as? ProductViewController else { return }
-            previousVC.viewModel.usersProduct.append(userProduct)
+            previousVC.viewModel.addUserProduct(product: userProduct)
         }
 
         navigationController.pushViewController(viewController, animated: true)

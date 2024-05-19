@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 protocol SugarConfigViewModelProtocol: UIPickerViewDataSource {
-    var dataSource: [String] { get set }
+    var dataSource: [String] { get }
+
     func saveUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?)
 }
 
