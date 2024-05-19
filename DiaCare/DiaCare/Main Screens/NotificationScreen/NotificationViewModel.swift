@@ -11,7 +11,6 @@ protocol NotificationViewModelProtocol: UITableViewDataSource {
     var currentDataSource: [PushNotification] { get }
     var finishedDataSource: [PushNotification] { get }
     func addNewNotify(title: String, message: String, date: Date)
-    func updateDataSource()
 }
 
 final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITableViewDataSource {
@@ -21,14 +20,21 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
 
     init(coreDM: CoreDataManagerProtocol) {
         coreDataManager = coreDM
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationReceived),
+            name: Notification.Name("updateNotificationDataNotification"),
+            object: nil
+        )
     }
 
-    func updateDataSource() {
-        let notifications = coreDataManager.obtainUserNotifications()
-        currentDataSource = notifications.filter { $0.date >= Date()}
-        finishedDataSource = notifications.filter { $0.date < Date()}
-        currentDataSource.sort { $0.date < $1.date}
-        finishedDataSource.sort { $0.date > $1.date}
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateNotificationDataNotification"), object: nil)
+    }
+
+    @objc func notificationReceived(_ notification: Notification) {
+        updateDataSource()
     }
 
     func addNewNotify(title: String, message: String, date: Date) {
@@ -78,6 +84,14 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
             )
             return cell
         }
+    }
+
+    private func updateDataSource() {
+        let notifications = coreDataManager.obtainUserNotifications()
+        currentDataSource = notifications.filter { $0.date >= Date()}
+        finishedDataSource = notifications.filter { $0.date < Date()}
+        currentDataSource.sort { $0.date < $1.date}
+        finishedDataSource.sort { $0.date > $1.date}
     }
 
     private func getDate(date: Date) -> String {

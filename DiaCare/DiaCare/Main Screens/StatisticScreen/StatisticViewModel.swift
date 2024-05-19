@@ -18,7 +18,6 @@ protocol StatisticViewModelProtocol: UITableViewDataSource {
     func getBreadCountBy(startDate: Date, endDate: Date) -> Double
     func getShortInsulinBy(startDate: Date, endDate: Date) -> Double
     func getLongInsulinBy(startDate: Date, endDate: Date) -> Double
-    func updateTableDataSource(startDate: Date, endDate: Date)
     var dataSource: [NotesHistory] { get }
 }
 
@@ -30,6 +29,22 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
     init(coreDM: CoreDataManagerProtocol, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationReceived),
+            name: Notification.Name("updateStatisticDataNotification"),
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateStatisticDataNotification"), object: nil)
+    }
+
+    @objc func notificationReceived(_ notification: Notification) {
+        guard let datePair = notification.object as? (Date, Date) else { return }
+        updateTableDataSource(startDate: datePair.0, endDate: datePair.1)
     }
 
     func getSugarHistoryDay(startDate: Date, endDate: Date) -> [ChartDataEntry] {
@@ -110,10 +125,6 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
         return coreDataManager.obtainLongInsulinCountBy(from: startDate, to: endDate)
     }
 
-    func updateTableDataSource(startDate: Date, endDate: Date) {
-        dataSource = coreDataManager.obtainHistoryBy(from: startDate, to: endDate)
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataSource.count
     }
@@ -138,6 +149,10 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
             longInsulinCount: String(dataSource[indexPath.row].longInsulin)
         )
         return cell
+    }
+
+    private func updateTableDataSource(startDate: Date, endDate: Date) {
+        dataSource = coreDataManager.obtainHistoryBy(from: startDate, to: endDate)
     }
 
     private func getMinimalSugarState(target: Double, value: Double) -> SugarState {

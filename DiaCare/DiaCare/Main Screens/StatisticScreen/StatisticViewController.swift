@@ -35,7 +35,7 @@ final class StatisticViewController: UIViewController {
         endComponents.minute = 59
         endComponents.second = 59
         let endDate = Calendar.current.date(from: endComponents)
-        viewModel.updateTableDataSource(startDate: startDate ?? Date(), endDate: endDate ?? Date())
+        NotificationCenter.default.post(name: Notification.Name("updateStatisticDataNotification"), object: (startDate, endDate))
         self.contentView = StatisticView(
             frame: .zero,
             chartData: viewModel.getSugarHistoryDay(
@@ -98,7 +98,7 @@ final class StatisticViewController: UIViewController {
                 breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
                 longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate))
         )
-        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
+        NotificationCenter.default.post(name: Notification.Name("updateStatisticDataNotification"), object: (startDate, endDate))
         if viewModel.dataSource.count == 0 {
             contentView?.scrollAddition = 345
         } else {
@@ -136,7 +136,6 @@ final class StatisticViewController: UIViewController {
         contentView?.chartSubView.chart.leftAxis.axisMinimum = minimalSugar
         contentView?.chartSubView.chart.leftAxis.axisMaximum = maximalSugar
         contentView?.chartSubView.chart.rightAxis.labelFont = UIFont.systemFont(ofSize: 0)
-        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
         updateData(startDate: startDate, endDate: endDate, for: .day)
         contentView?.historyTable.reloadData()
     }
@@ -154,7 +153,6 @@ final class StatisticViewController: UIViewController {
         contentView?.chartSubView.chart.leftAxis.labelCount = Int(maximalSugar - minimalSugar)
         contentView?.chartSubView.chart.leftAxis.axisMinimum = minimalSugar - 1
         contentView?.chartSubView.chart.leftAxis.axisMaximum = maximalSugar + 2
-        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
         updateData(startDate: startDate, endDate: endDate, for: .week)
         contentView?.historyTable.reloadData()
     }
@@ -172,7 +170,6 @@ final class StatisticViewController: UIViewController {
         contentView?.chartSubView.chart.leftAxis.labelCount = Int(maximalSugar - minimalSugar)
         contentView?.chartSubView.chart.leftAxis.axisMinimum = minimalSugar - 1
         contentView?.chartSubView.chart.leftAxis.axisMaximum = maximalSugar + 2
-        viewModel.updateTableDataSource(startDate: startDate, endDate: endDate)
         updateData(startDate: startDate, endDate: endDate, for: .month)
         contentView?.historyTable.reloadData()
     }

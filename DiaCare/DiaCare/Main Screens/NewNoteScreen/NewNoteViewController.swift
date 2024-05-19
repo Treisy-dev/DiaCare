@@ -71,7 +71,7 @@ final class NewNoteViewController: UIViewController {
     }
 
     private func resetChanges() {
-        viewModel.userProducts = []
+        NotificationCenter.default.post(name: Notification.Name("resetNoteChangesNotification"), object: nil)
         contentView.injectionSubView.breadTextField.text = "0"
         contentView.injectionSubView.insulinTextField.text = "0"
         contentView.injectionSubView.breadSlider.value = 0

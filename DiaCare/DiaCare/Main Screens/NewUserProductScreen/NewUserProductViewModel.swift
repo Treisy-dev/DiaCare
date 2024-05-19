@@ -14,7 +14,7 @@ protocol NewUserProductViewModelProtocol: UIPickerViewDataSource {
     var fatCount: CurrentValueSubject<String?, Never> { get }
     var proteinCount: CurrentValueSubject<String?, Never> { get }
     var carbsCount: CurrentValueSubject<String?, Never> { get }
-    var dataSource: [String] { get set}
+    var dataSource: [String] { get }
 
     func saveProduct()
 }

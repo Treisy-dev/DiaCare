@@ -79,7 +79,7 @@ final class ProductViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        contentView.typesSegmentControl.selectedSegmentIndex = viewModel.selectedSegmentControllIndex
+        contentView.typesSegmentControl.selectedSegmentIndex = viewModel.selectedIndex.value
     }
 
     private func setUpBindings() {
@@ -95,6 +95,11 @@ final class ProductViewController: UIViewController {
                 self?.checkHintVisibility(selectedIndex: selectedIndex)
             }
             .store(in: &subscriptions)
+
+        contentView.typesSegmentControl
+            .publisher(for: \.selectedSegmentIndex)
+            .assign(to: \.value, on: viewModel.selectedIndex)
+            .store(in: &subscriptions)
     }
 
     private func checkHintVisibility(selectedIndex: Int) {
@@ -105,11 +110,9 @@ final class ProductViewController: UIViewController {
             } else {
                 contentView.hintLabel.isHidden = true
             }
-            viewModel.selectedSegmentControllIndex = 0
             contentView.productTableView.reloadData()
         } else if selectedIndex == 1 {
-            viewModel.selectedSegmentControllIndex = 1
-            viewModel.getUserTemplates()
+            NotificationCenter.default.post(name: Notification.Name("updateUserTemplatesDataNotification"), object: nil)
             if viewModel.userTemplates.count == 0 {
                 contentView.hintLabel.isHidden = false
                 contentView.hintLabel.text = "У вас пока нет своих добавленных шаблонов"
@@ -118,8 +121,7 @@ final class ProductViewController: UIViewController {
             }
             contentView.productTableView.reloadData()
         } else {
-            viewModel.selectedSegmentControllIndex = 2
-            viewModel.getUserSavedProducts()
+            NotificationCenter.default.post(name: Notification.Name("updateUserSavedProductsDataNotification"), object: nil)
             if viewModel.userSavedProducts.count == 0 {
                 contentView.hintLabel.isHidden = false
                 contentView.hintLabel.text = "У вас пока нет своих добавленных продуктов"
@@ -156,7 +158,7 @@ extension ProductViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ProductTableViewCell else { return }
         guard let productName = cell.productLabel.text else { return }
-        if viewModel.selectedSegmentControllIndex == 0 {
+        if viewModel.selectedIndex.value == 0 {
             productTapped?(
                 productName,
                 (
@@ -165,7 +167,7 @@ extension ProductViewController: UITableViewDelegate {
                     carbs: String(viewModel.productItem[indexPath.row].carbohydrates_total_g)
                 )
             )
-        } else if viewModel.selectedSegmentControllIndex == 1 {
+        } else if viewModel.selectedIndex.value == 1 {
             let selectedTemplate = viewModel.userTemplates[indexPath.row]
             let alertController = UIAlertController(
                 title: "Добавить шаблон?",

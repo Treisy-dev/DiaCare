@@ -10,16 +10,14 @@ import Combine
 
 protocol ProductViewModelProtocol: UITableViewDataSource {
     func searchProducts(for queryText: String, completion: @escaping () -> Void)
-    func getUserSavedProducts()
-    func getUserTemplates()
     var productItem: [Product] { get }
     var usersProduct: [UserProductModel] { get set }
     var userSavedProducts: [UserProducts] { get }
     var userTemplates: [Templates] { get }
-    var selectedSegmentControllIndex: Int { get set }
     func getProteintForTemplate(for template: Templates) -> String
     func getFatForTemplate(for template: Templates) -> String
     func getCarbsForTemplate(for template: Templates) -> String
+    var selectedIndex: CurrentValueSubject<Int, Never> { get }
 }
 
 final class ProductViewModel: NSObject, ProductViewModelProtocol {
@@ -28,7 +26,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     var productNS: ProductNetworkServiceProtocol
     var coreDataManager: CoreDataManagerProtocol
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol
-    var selectedSegmentControllIndex: Int = 0
+    var selectedIndex: CurrentValueSubject<Int, Never> = .init(0)
     var usersProduct: [UserProductModel] = []
     var productItem: [Product] = []
     var userSavedProducts: [UserProducts] = []
@@ -44,6 +42,31 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
         productNS = productService
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templatesNotificationReceived),
+            name: Notification.Name("updateUserTemplatesDataNotification"),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(templatesNotificationReceived),
+            name: Notification.Name("updateUserSavedProductsDataNotification"),
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateUserTemplatesDataNotification"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateUserSavedProductsDataNotification"), object: nil)
+    }
+
+    @objc func templatesNotificationReceived(_ notification: Notification) {
+        updateUserTemplates()
+    }
+    @objc func userSavedProductsNotificationReceived(_ notification: Notification) {
+        updateUserSavedProducts()
     }
 
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {
@@ -53,14 +76,6 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
                 completion()
             }
         }
-    }
-
-    func getUserSavedProducts() {
-        userSavedProducts = coreDataManager.obtainUsersProduct()
-    }
-
-    func getUserTemplates() {
-        userTemplates = coreDataManager.obtainUsersTemplates()
     }
 
     func getProteintForTemplate(for template: Templates) -> String {
@@ -91,6 +106,14 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
             result += carbohydrates
         }
         return String(format: "%.1f", result)
+    }
+
+    private func updateUserSavedProducts() {
+        userSavedProducts = coreDataManager.obtainUsersProduct()
+    }
+
+    private func updateUserTemplates() {
+        userTemplates = coreDataManager.obtainUsersTemplates()
     }
 
     private func translateWord(word: String, completion: @escaping (String) -> Void) {
@@ -142,9 +165,9 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 extension ProductViewModel: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedSegmentControllIndex == 0 {
+        if selectedIndex.value == 0 {
             return productItem.count
-        } else if selectedSegmentControllIndex == 1 {
+        } else if selectedIndex.value == 1 {
             return userTemplates.count
         } else {
             return userSavedProducts.count
@@ -152,7 +175,7 @@ extension ProductViewModel: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if selectedSegmentControllIndex == 0 {
+        if selectedIndex.value == 0 {
             let productCategory = coreDataManager.obtainCategoryFromProduct(for: productItem[indexPath.row].name)
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none
@@ -165,7 +188,7 @@ extension ProductViewModel: UITableViewDataSource {
                 carbCount: String(productItem[indexPath.row].carbohydrates_total_g)
             )
             return cell
-        } else if selectedSegmentControllIndex == 1 {
+        } else if selectedIndex.value == 1 {
             let productCategory = coreDataManager.obtainCategoryFromTemplate(for: userTemplates[indexPath.row].name)
             let cell = ProductTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none

@@ -46,7 +46,7 @@ final class TemplateViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.updateDataSource()
+        NotificationCenter.default.post(name: Notification.Name("updateTemplateNotification"), object: nil)
         contentView.templatesCollectionView.reloadData()
     }
 }

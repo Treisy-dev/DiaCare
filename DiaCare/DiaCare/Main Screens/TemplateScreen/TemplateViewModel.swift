@@ -9,7 +9,6 @@ import UIKit
 
 protocol TemplateViewModelProtocol: UICollectionViewDataSource {
     var dataSource: [Templates] { get }
-    func updateDataSource()
 }
 
 final class TemplateViewModel: NSObject, TemplateViewModelProtocol {
@@ -18,10 +17,21 @@ final class TemplateViewModel: NSObject, TemplateViewModelProtocol {
 
     init(coreDM: CoreDataManagerProtocol) {
         coreDataManager = coreDM
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationReceived),
+            name: Notification.Name("updateTemplateNotification"),
+            object: nil
+        )
     }
 
-    func updateDataSource() {
-        dataSource = coreDataManager.obtainUsersTemplates()
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateTemplateNotification"), object: nil)
+    }
+
+    @objc func notificationReceived(_ notification: Notification) {
+        updateDataSource()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,6 +65,10 @@ final class TemplateViewModel: NSObject, TemplateViewModelProtocol {
 
             return cell
         }
+    }
+
+    private func updateDataSource() {
+        dataSource = coreDataManager.obtainUsersTemplates()
     }
 
     private func getCategoryFromString(_ categoryString: String) -> TemplateCategories {

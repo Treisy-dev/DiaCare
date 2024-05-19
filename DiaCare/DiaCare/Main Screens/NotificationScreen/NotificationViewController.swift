@@ -43,7 +43,7 @@ final class NotificationViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.updateDataSource()
+        NotificationCenter.default.post(name: Notification.Name("updateNotificationDataNotification"), object: nil)
         if viewModel.finishedDataSource.count + viewModel.currentDataSource.count == 0 {
             contentView.showHint()
         } else {

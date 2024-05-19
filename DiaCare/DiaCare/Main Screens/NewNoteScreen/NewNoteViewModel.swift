@@ -27,6 +27,21 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
         averageSugar = coreDataManager.obtainAverageSugar()
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationReceived),
+            name: Notification.Name("resetNoteChangesNotification"),
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("resetNoteChangesNotification"), object: nil)
+    }
+
+    @objc func notificationReceived(_ notification: Notification) {
+        userProducts = []
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
