@@ -53,7 +53,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(templatesNotificationReceived),
+            selector: #selector(userSavedProductsNotificationReceived),
             name: Notification.Name("updateUserSavedProductsDataNotification"),
             object: nil
         )
