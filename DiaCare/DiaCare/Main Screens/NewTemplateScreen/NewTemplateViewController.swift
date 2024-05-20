@@ -9,12 +9,11 @@ import UIKit
 
 final class NewTemplateViewController: UIViewController {
 
-    private let contentView: NewTemplateView = .init()
-
     var viewModel: NewTemplateViewModelProtocol
-
     var onFinish: (() -> Void)?
     var addProductTapped: (() -> Void)?
+
+    private let contentView: NewTemplateView = .init()
 
     init(viewModel: NewTemplateViewModelProtocol) {
         self.viewModel = viewModel
@@ -35,7 +34,8 @@ final class NewTemplateViewController: UIViewController {
         contentView.foodSubView.foodTableView.dataSource = viewModel
         contentView.foodSubView.foodTableView.register(
             UserProductTableViewCell.self,
-            forCellReuseIdentifier: UserProductTableViewCell.reuseIdentifier)
+            forCellReuseIdentifier: UserProductTableViewCell.reuseIdentifier
+        )
         contentView.categoryPickerView.dataSource = viewModel
         contentView.categoryPickerView.delegate = self
 
@@ -44,7 +44,8 @@ final class NewTemplateViewController: UIViewController {
                 let alert = UIAlertController(
                     title: "Удалить шаблон?",
                     message: "В шаблоне есть добавленные продукты. Вы действительно хотите отменить изменения и вернуться?",
-                    preferredStyle: .alert)
+                    preferredStyle: .alert
+                )
                 let okAction = UIAlertAction(title: "OK", style: .default) { _ in
                     self?.onFinish?()
                 }
@@ -59,7 +60,8 @@ final class NewTemplateViewController: UIViewController {
                 breadCount: self?.contentView.injectionSubView.breadCountTextField.text ?? "",
                 shortInsulin: self?.contentView.injectionSubView.insulinTextField.text ?? "",
                 name: self?.contentView.nameTextField.text ?? "",
-                category: self?.contentView.categoryTextField.text ?? "")
+                category: self?.contentView.categoryTextField.text ?? ""
+            )
 
             let alert = UIAlertController(title: "Шаблон добавлен!", message: "Вы добавили шаблон", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) { _ in

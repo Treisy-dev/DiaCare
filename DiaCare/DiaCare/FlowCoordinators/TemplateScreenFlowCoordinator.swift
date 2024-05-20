@@ -9,17 +9,18 @@ import UIKit
 import Swinject
 
 final class TemplateScreenFlowCoordinator {
-    var navigationController: UINavigationController
-    let container: Container
+    let moduleFactory: MainAppModuleFactoryProtocol
 
-    init(container: Container, navigationController: UINavigationController) {
-        self.container = container
+    var navigationController: UINavigationController
+
+    init(moduleFactory: MainAppModuleFactoryProtocol, navigationController: UINavigationController) {
+        self.moduleFactory = moduleFactory
         self.navigationController = navigationController
     }
 
     func start() {
-        guard let viewModel = container.resolve(TemplateViewModelProtocol.self) else { return }
-        let viewController = TemplateViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createTemplateViewController() as? TemplateViewController else { return }
+
         let templateTabBarItem = UITabBarItem(
             title: nil,
             image: UIImage.listIcon.resizeImage(newSize: CGSize(width: 30, height: 30)),
@@ -32,8 +33,7 @@ final class TemplateScreenFlowCoordinator {
     }
 
     private func showNewTemplateScreen() {
-        guard let viewModel = container.resolve(NewTemplateViewModelProtocol.self) else { return }
-        let viewController = NewTemplateViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createNewTemplateViewController() as? NewTemplateViewController else { return }
 
         viewController.onFinish = { [weak self] in
             self?.navigationController.popViewController(animated: true)
@@ -47,8 +47,7 @@ final class TemplateScreenFlowCoordinator {
     }
 
     private func showProductScreen() {
-        guard let viewModel = container.resolve(ProductViewModelProtocol.self) else { return }
-        let viewController = ProductViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createProductViewController() as? ProductViewController else { return }
 
         viewController.productTapped = { [weak self] productName, productProps in
             self?.showProductConfigScreen(productName: productName, productProps: productProps)
@@ -62,7 +61,7 @@ final class TemplateScreenFlowCoordinator {
             self?.navigationController.popViewController(animated: true)
             guard let previousVC = self?.navigationController.topViewController as? NewTemplateViewController else { return }
             for product in userProducts {
-                previousVC.viewModel.userProducts.append(product)
+                previousVC.viewModel.addUserProduct(product: product)
             }
         }
 
@@ -74,8 +73,7 @@ final class TemplateScreenFlowCoordinator {
     }
 
     private func showNewUserProductScreen() {
-        guard let viewModel = container.resolve(NewUserProductViewModelProtocol.self) else { return }
-        let viewController = NewUserProductViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createNewUserProductViewController() as? NewUserProductViewController else { return }
 
         viewController.onFinish = { [weak self] in
             self?.navigationController.popViewController(animated: true)
@@ -85,8 +83,10 @@ final class TemplateScreenFlowCoordinator {
     }
 
     private func showProductConfigScreen(productName: String, productProps: (String, String, String)) {
-        guard let viewModel = container.resolve(ProductConfigViewModelProtocol.self) else { return }
-        let viewController = ProfuctConfigViewController(viewModel: viewModel, productName: productName, productProps: productProps)
+        guard let viewController = moduleFactory.createProductConfigViewController(
+            productName: productName,
+            productProps: productProps
+        ) as? ProfuctConfigViewController else { return }
 
         viewController.onFinish = { [weak self] in
             self?.navigationController.popViewController(animated: true)
@@ -95,7 +95,7 @@ final class TemplateScreenFlowCoordinator {
         viewController.onFinishWithProduct = { [weak self] userProduct in
             self?.navigationController.popViewController(animated: true)
             guard let previousVC = self?.navigationController.topViewController as? ProductViewController else { return }
-            previousVC.viewModel.usersProduct.append(userProduct)
+            previousVC.viewModel.addUserProduct(product: userProduct)
         }
 
         navigationController.pushViewController(viewController, animated: true)

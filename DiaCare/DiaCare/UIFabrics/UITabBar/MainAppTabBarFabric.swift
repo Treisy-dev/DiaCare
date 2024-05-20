@@ -14,10 +14,12 @@ protocol MainAppTabBarFabricProtocol {
 
 final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
 
-    let container: Container
+    let mainAppModuleFactory: MainAppModuleFactoryProtocol
+    let tabBarModuleFactory: TabBarModuleFactoryProtocol
 
-    init(container: Container) {
-        self.container = container
+    init(mainAppModuleFactory: MainAppModuleFactoryProtocol, tabBarModuleFactory: TabBarModuleFactoryProtocol) {
+        self.mainAppModuleFactory = mainAppModuleFactory
+        self.tabBarModuleFactory = tabBarModuleFactory
     }
 
     func makeMainAppTabBarController() -> UIViewController {
@@ -25,26 +27,16 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
         tbController.tabBar.tintColor = .mainApp
         tbController.tabBar.backgroundColor = .white
 
-        let templateFlowCoordinator = TemplateScreenFlowCoordinator(container: container, navigationController: UINavigationController())
+        let templateFlowCoordinator = TemplateScreenFlowCoordinator(
+            moduleFactory: mainAppModuleFactory,
+            navigationController: UINavigationController()
+        )
         templateFlowCoordinator.start()
-
-        guard let statisticViewModel = container.resolve(StatisticViewModelProtocol.self) else { return tbController}
-        let statisticViewController = configTabBarItem(
-            viewController: StatisticViewController(viewModel: statisticViewModel),
-            image: UIImage.chartIcon)
-
-        let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(container: container, navigationController: UINavigationController())
+        let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(moduleFactory: mainAppModuleFactory, navigationController: UINavigationController())
         newNoteFlowCoordinator.start()
-
-        guard let notificationViewModel = container.resolve(NotificationViewModelProtocol.self) else { return tbController}
-        let notificationViewController = configTabBarItem(
-            viewController: NotificationViewController(viewModel: notificationViewModel),
-            image: UIImage.bellIcon)
-
-        guard let profileVM = container.resolve(ProfileViewModelProtocol.self) else { return tbController}
-        let profileViewController = configTabBarItem(
-            viewController: ProfileViewController(viewModel: profileVM),
-            image: UIImage.profileIcon)
+        let statisticViewController = tabBarModuleFactory.createStatisticViewController()
+        let notificationViewController = tabBarModuleFactory.createNotificationViewController()
+        let profileViewController = tabBarModuleFactory.createProfileViewController()
 
         tbController.viewControllers = [
             templateFlowCoordinator.navigationController,
@@ -57,14 +49,14 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
 
         return tbController
     }
-
-    private func configTabBarItem(viewController: UIViewController, image: UIImage) -> UIViewController {
-        let templateTabBarItem = UITabBarItem(
-            title: nil,
-            image: image.resizeImage(newSize: CGSize(width: 30, height: 30)),
-            selectedImage: nil)
-        viewController.tabBarItem = templateTabBarItem
-
-        return viewController
-    }
+//    private func configTabBarItem(viewController: UIViewController, image: UIImage) -> UIViewController {
+//        let templateTabBarItem = UITabBarItem(
+//            title: nil,
+//            image: image.resizeImage(newSize: CGSize(width: 30, height: 30)),
+//            selectedImage: nil
+//        )
+//        viewController.tabBarItem = templateTabBarItem
+//
+//        return viewController
+//    }
 }

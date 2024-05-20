@@ -10,6 +10,9 @@ import UIKit
 
 final class ProductConfigView: UIView {
 
+    var closeAction: (() -> Void)?
+    var addAction: ((_ userProduct: UserProductModel) -> Void)?
+
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var configImageView: UIImageView = UIImageView()
     private lazy var productConfigContentView: UIView = UIView()
@@ -23,10 +26,6 @@ final class ProductConfigView: UIView {
     private lazy var summaryHStack: UIStackView = UIStackView()
     private lazy var addButton: UIButton = UIButtonFabric.shared.makeAddButton()
     private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
-
-    var closeAction: (() -> Void)?
-    var addAction: ((_ userProduct: UserProductModel) -> Void)?
-
     private lazy var productProps: (fat: String, protein: String, carbs: String) = ("", "", "")
     private var userBreadCount: Double = 10
 
@@ -277,7 +276,7 @@ final class ProductConfigView: UIView {
     private func setUpAddButton() {
         productConfigContentView.addSubview(addButton)
         let addAction: UIAction = UIAction { [weak self] _ in
-            guard let userProduct = self?.getCofigedProductInfo() else { return }
+            guard let userProduct = self?.getConfigedProductInfo() else { return }
             self?.addButton.addAlphaAnimation()
             self?.addAction?(userProduct)
         }
@@ -342,7 +341,7 @@ final class ProductConfigView: UIView {
         breadCountView.countLabel.text = String(format: "%.1f", carbCount / 100 * gramms / userBreadCount)
     }
 
-    private func getCofigedProductInfo() -> UserProductModel {
+    private func getConfigedProductInfo() -> UserProductModel {
         guard let name = titleLable.text,
             let gramms = grammsConfigTextField.text,
             let protein = Double(productProps.protein),

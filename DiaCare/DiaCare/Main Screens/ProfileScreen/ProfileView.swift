@@ -9,10 +9,11 @@ import UIKit
 
 final class ProfileView: UIView {
 
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+    var settingsSubView: SettingsSubView
     private var userNameSubView: UserNameSubView
     private var preferencesSubView: PreferencesSubView
     private var dragSubView: DragSubView
-    var settingsSubView: SettingsSubView
     private lazy var gradientView: CustomGradientView = CustomGradientView()
     private lazy var titleLable: UILabel = UILabel()
     private lazy var profileContentView: UIView = UIView()
@@ -21,7 +22,6 @@ final class ProfileView: UIView {
 
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var panGestureRecognizer: UIPanGestureRecognizer?
-    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
     init(frame: CGRect, userNameData: [String: String], selectedLanguage: String, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM
@@ -29,11 +29,13 @@ final class ProfileView: UIView {
             frame: frame,
             shortInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "shortInsulin"),
             longInsulin: userDefaultsDataManager.prepareData(with: userNameData, for: "longInsulin"),
-            preferenceHStackFabric: preferencesHStackFabric)
+            preferenceHStackFabric: preferencesHStackFabric
+        )
         userNameSubView = UserNameSubView(
             frame: frame,
             name: userDefaultsDataManager.prepareData(with: userNameData, for: "name"),
-            email: userDefaultsDataManager.prepareData(with: userNameData, for: "email"))
+            email: userDefaultsDataManager.prepareData(with: userNameData, for: "email")
+        )
         preferencesSubView = PreferencesSubView(
             frame: frame,
             targetSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "targetSugar"),
@@ -41,7 +43,8 @@ final class ProfileView: UIView {
             lowSugarText: userDefaultsDataManager.prepareData(with: userNameData, for: "lowSugar"),
             foodText: userDefaultsDataManager.prepareData(with: userNameData, for: "breadCount"),
             insulinText: userDefaultsDataManager.prepareData(with: userNameData, for: "insulinCount"),
-            preferenceHStackFabric: preferencesHStackFabric)
+            preferenceHStackFabric: preferencesHStackFabric
+        )
         settingsSubView = SettingsSubView(frame: frame, selectedLanguage: selectedLanguage)
         super.init(frame: frame)
         backgroundColor = .white

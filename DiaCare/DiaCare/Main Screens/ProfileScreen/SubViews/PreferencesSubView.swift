@@ -9,9 +9,10 @@ import UIKit
 
 final class PreferencesSubView: UIView {
 
+    let preferencesHSFabric: PreferencesHStackFabricProtocol
+
     private lazy var preferencesVStack: UIStackView = UIStackView()
     private lazy var preferencesLable: UILabel = UILabel()
-    let preferencesHSFabric: PreferencesHStackFabricProtocol
 
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))

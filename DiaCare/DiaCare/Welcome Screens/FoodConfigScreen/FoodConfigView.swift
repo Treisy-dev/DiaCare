@@ -151,7 +151,8 @@ final class FoodConfigView: UIView {
                 else { return }
             self?.delegate?.didPressNext(
                 breadCount: breadCount,
-                insulinCount: self?.insulinTextField.text)
+                insulinCount: self?.insulinTextField.text
+            )
         }
         nextButton.addAction(nextAction, for: .touchUpInside)
 

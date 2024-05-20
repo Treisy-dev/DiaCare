@@ -8,6 +8,9 @@ import SnapKit
 import UIKit
 
 final class TemplateCollectionViewCell: UICollectionViewCell {
+
+    var products: [TemplateProduct] = []
+
     private lazy var templateTitle: UILabel = UILabel()
     private lazy var underlineView: UIView = UIView()
     private lazy var productsVStack: UIStackView = UIStackView()
@@ -17,8 +20,6 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
     private lazy var breadCount: UILabel = UILabel()
     private lazy var insulinLabel: UILabel = UILabel()
     private lazy var insulinCount: UILabel = UILabel()
-
-    var products: [TemplateProduct] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +33,21 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func config(
+        templateTitle: String,
+        templateCategory: TemplateCategories,
+        products: [TemplateProduct],
+        stats: (breadCount: String, insulinCount: String)
+    ) {
+        self.templateTitle.text = templateTitle
+        self.products = products
+        self.breadCount.text = stats.breadCount
+        self.insulinCount.text = stats.insulinCount
+        categoryImage.image = templateCategory.getImageByType()
+        clearProductVStack()
+        fillProductVStack()
+    }
+
     private func setUp() {
         setUpTemplateTitle()
         setUpUnderlineView()
@@ -42,20 +58,6 @@ final class TemplateCollectionViewCell: UICollectionViewCell {
         setUpBreadCount()
         setUpInsulinLabel()
         setUpInsulinCount()
-    }
-
-    func config(
-        templateTitle: String,
-        templateCategory: TemplateCategories,
-        products: [TemplateProduct],
-        stats: (breadCount: String, insulinCount: String)) {
-            self.templateTitle.text = templateTitle
-            self.products = products
-            self.breadCount.text = stats.breadCount
-            self.insulinCount.text = stats.insulinCount
-            categoryImage.image = templateCategory.getImageByType()
-            clearProductVStack()
-            fillProductVStack()
     }
 
     private func clearProductVStack() {

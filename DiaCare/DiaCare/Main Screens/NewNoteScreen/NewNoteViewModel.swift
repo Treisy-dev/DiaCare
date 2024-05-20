@@ -10,11 +10,13 @@ import UIKit
 
 protocol NewNoteViewModelProtocol: UITableViewDataSource {
     var averageSugar: String { get }
-    var userProducts: [UserProductModel] {get set}
+    var userProducts: [UserProductModel] { get }
+
     func saveNewNote(breadCount: String, sugar: String, shortInsulin: String)
     func getBreadCount() -> String
     func getInsulinCount() -> String
     func getAverageSugar() -> String
+    func addUserProduct(product: UserProductModel)
 }
 
 final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDataSource {
@@ -27,6 +29,21 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         coreDataManager = coreDM
         userDefaultsDataManager = userDefaultsDM
         averageSugar = coreDataManager.obtainAverageSugar()
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationReceived),
+            name: Notification.Name("resetNoteChangesNotification"),
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("resetNoteChangesNotification"), object: nil)
+    }
+
+    @objc func notificationReceived(_ notification: Notification) {
+        userProducts = []
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,6 +102,10 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         guard let insulinCount = Double(userDefaultsDataManager.getUserInsulinCount()) else { return ""}
 
         return String(format: "%.1f", breadCount * insulinCount)
+    }
+
+    func addUserProduct(product: UserProductModel) {
+        userProducts.append(product)
     }
 
     private func getCategoryFromStringProduct(_ categoryString: String) -> ProductCategories {

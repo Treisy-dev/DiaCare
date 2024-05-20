@@ -14,7 +14,7 @@ protocol NewUserProductViewModelProtocol: UIPickerViewDataSource {
     var fatCount: CurrentValueSubject<String?, Never> { get }
     var proteinCount: CurrentValueSubject<String?, Never> { get }
     var carbsCount: CurrentValueSubject<String?, Never> { get }
-    var dataSource: [String] { get set}
+    var dataSource: [String] { get }
 
     func saveProduct()
 }
@@ -25,9 +25,7 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
     var fatCount: CurrentValueSubject<String?, Never> = .init("")
     var proteinCount: CurrentValueSubject<String?, Never> = .init("")
     var carbsCount: CurrentValueSubject<String?, Never> = .init("")
-
     var dataSource: [String] = []
-
     var coreDataManager: CoreDataManagerProtocol
 
     init(coreDM: CoreDataManagerProtocol) {
@@ -49,9 +47,12 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
             name: name,
             protein: protein,
             fat: fat,
-            carbs: carbs)
+            carbs: carbs
+        )
     }
+}
 
+extension NewUserProductViewModel: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }

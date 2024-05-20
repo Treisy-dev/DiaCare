@@ -11,16 +11,16 @@ final class ProductView: UIView {
 
     lazy var productSearchBar: UISearchBar = UISearchBar()
     lazy var typesSegmentControl: UISegmentedControl = UISegmentedControl(items: ["Все", "Шаблоны", "Мои"])
-    private lazy var addProductButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить свой продукт")
     lazy var productTableView: UITableView = UITableView()
     lazy var hintLabel: UILabel = UILabel()
-    private lazy var addButton: UIButton = UIButtonFabric.shared.makeAddButton()
-    private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
     lazy var loadAnimationView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
-
     var addUserProfuctAction: (() -> Void)?
     var closeAction: (() -> Void)?
     var addAction: (() -> Void)?
+
+    private lazy var addProductButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить свой продукт")
+    private lazy var addButton: UIButton = UIButtonFabric.shared.makeAddButton()
+    private lazy var closeButton: UIButton = UIButtonFabric.shared.makeCloseButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

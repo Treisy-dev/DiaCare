@@ -9,9 +9,10 @@ import UIKit
 
 class NewProductInputView: UIView {
 
-    private lazy var titleLabel: UILabel = UILabel()
     lazy var countTextField: UITextField = UITextField()
     lazy var countSlider: UISlider = UISlider()
+
+    private lazy var titleLabel: UILabel = UILabel()
 
     init(frame: CGRect, title: String) {
         super.init(frame: frame)

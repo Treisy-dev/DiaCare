@@ -31,22 +31,37 @@ final class MainAppAssembly: Assembly {
         }
         .inObjectScope(.weak)
 
+        container.register(MainAppModuleFactoryProtocol.self) { _ in
+            MainAppModuleFactory(container: container)
+        }
+        .inObjectScope(.weak)
+
+        container.register(TabBarModuleFactoryProtocol.self) { _ in
+            TabBarModuleFactory(container: container)
+        }
+        .inObjectScope(.weak)
+
+        container.register(WelcomeModuleFactoryProtocol.self) { _ in
+            WelcomeModuleFactory(container: container)
+        }
+        .inObjectScope(.weak)
+
         guard let userDefaultsDM = container.resolve(UserDefaultsDataManagerProtocol.self),
             let coreDM = container.resolve(CoreDataManagerProtocol.self),
             let translationNS = container.resolve(TranslationNetworkServiceProtocol.self),
-            let productNS = container.resolve(ProductNetworkServiceProtocol.self) else { return }
+            let productNS = container.resolve(ProductNetworkServiceProtocol.self),
+            let mainAppModuleFactory = container.resolve(MainAppModuleFactoryProtocol.self),
+            let tabBarModuleFactory = container.resolve(TabBarModuleFactoryProtocol.self) else { return }
 
         container.register(MainAppTabBarFabricProtocol.self) { _ in
-            MainAppTabBarFabric(container: container)
+            MainAppTabBarFabric(mainAppModuleFactory: mainAppModuleFactory, tabBarModuleFactory: tabBarModuleFactory )
         }
         .inObjectScope(.container)
 
         // MARK: - ViewModels
 
         container.register(InsulinConfigViewModelProtocol.self) { _ in
-            InsulinConfigViewModel(
-                coreDM: coreDM,
-                userDefaultsDM: userDefaultsDM)
+            InsulinConfigViewModel(coreDM: coreDM, userDefaultsDM: userDefaultsDM)
         }
 
         container.register(NameRegisterViewModelProtocol.self) { _ in
@@ -74,7 +89,8 @@ final class MainAppAssembly: Assembly {
                 translationService: translationNS,
                 productService: productNS,
                 coreDM: coreDM,
-                userDefaultsDM: userDefaultsDM)
+                userDefaultsDM: userDefaultsDM
+            )
         }
 
         container.register(TemplateViewModelProtocol.self) { _ in

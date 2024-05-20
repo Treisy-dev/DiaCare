@@ -10,8 +10,8 @@ import UIKit
 protocol NotificationViewModelProtocol: UITableViewDataSource {
     var currentDataSource: [PushNotification] { get }
     var finishedDataSource: [PushNotification] { get }
+
     func addNewNotify(title: String, message: String, date: Date)
-    func updateDataSource()
 }
 
 final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITableViewDataSource {
@@ -21,14 +21,21 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
 
     init(coreDM: CoreDataManagerProtocol) {
         coreDataManager = coreDM
+        super.init()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationReceived),
+            name: Notification.Name("updateNotificationDataNotification"),
+            object: nil
+        )
     }
 
-    func updateDataSource() {
-        let notifications = coreDataManager.obtainUserNotifications()
-        currentDataSource = notifications.filter { $0.date >= Date()}
-        finishedDataSource = notifications.filter { $0.date < Date()}
-        currentDataSource.sort { $0.date < $1.date}
-        finishedDataSource.sort { $0.date > $1.date}
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updateNotificationDataNotification"), object: nil)
+    }
+
+    @objc func notificationReceived(_ notification: Notification) {
+        updateDataSource()
     }
 
     func addNewNotify(title: String, message: String, date: Date) {
@@ -64,7 +71,8 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
                 isColored: true,
                 title: currentDataSource[indexPath.row].title,
                 date: getDate(date: currentDataSource[indexPath.row].date),
-                time: getTime(date: currentDataSource[indexPath.row].date))
+                time: getTime(date: currentDataSource[indexPath.row].date)
+            )
             return cell
         } else {
             let cell = NotificationTableViewCell(style: .default, reuseIdentifier: nil)
@@ -73,9 +81,18 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
                 isColored: false,
                 title: finishedDataSource[indexPath.row].title,
                 date: getDate(date: finishedDataSource[indexPath.row].date),
-                time: getTime(date: finishedDataSource[indexPath.row].date))
+                time: getTime(date: finishedDataSource[indexPath.row].date)
+            )
             return cell
         }
+    }
+
+    private func updateDataSource() {
+        let notifications = coreDataManager.obtainUserNotifications()
+        currentDataSource = notifications.filter { $0.date >= Date()}
+        finishedDataSource = notifications.filter { $0.date < Date()}
+        currentDataSource.sort { $0.date < $1.date}
+        finishedDataSource.sort { $0.date > $1.date}
     }
 
     private func getDate(date: Date) -> String {

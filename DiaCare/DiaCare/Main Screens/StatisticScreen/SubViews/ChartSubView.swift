@@ -11,11 +11,11 @@ import UIKit
 final class ChartSubView: UIView {
 
     lazy var chart: LineChartView = LineChartView()
+    var chartData: [ChartDataEntry] = []
+
     private lazy var labelsSwitcher: UISwitch = UISwitch()
     private lazy var switcherHint: UILabel = UILabel()
     private lazy var hintLabel: UILabel = UILabel()
-
-    var chartData: [ChartDataEntry] = []
 
     init(frame: CGRect, chartData: [ChartDataEntry]) {
         super.init(frame: frame)
@@ -33,13 +33,6 @@ final class ChartSubView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUp() {
-        setUpChart()
-        setUpLabelsSwitcher()
-        setUpSwitcherHint()
-        setUpHintLabel()
-    }
-
     func updateUI(chartData: [ChartDataEntry]) {
         self.chartData = chartData
         if chartData.count == 0 {
@@ -50,6 +43,34 @@ final class ChartSubView: UIView {
             hintLabel.isHidden = true
         }
         updateDataForChart()
+    }
+
+    func updateDataForChart() {
+        let dataSet: LineChartDataSet = LineChartDataSet(entries: chartData)
+
+        dataSet.mode = .linear
+        if labelsSwitcher.isOn {
+            dataSet.valueFont = UIFont.systemFont(ofSize: 10)
+            switcherHint.text = "Выключить подписи значений"
+        } else {
+            dataSet.valueFont = UIFont.systemFont(ofSize: 0)
+            switcherHint.text = "Включить подписи значений"
+        }
+        dataSet.lineWidth = 2.0
+        dataSet.circleRadius = 4.0
+        dataSet.circleColors = [UIColor.mainApp]
+        dataSet.fillColor = .clear
+        dataSet.colors = [.mainApp]
+        dataSet.valueFormatter = CustomDataFormater()
+
+        chart.data = LineChartData(dataSet: dataSet)
+    }
+
+    private func setUp() {
+        setUpChart()
+        setUpLabelsSwitcher()
+        setUpSwitcherHint()
+        setUpHintLabel()
     }
 
     private func setUpChart() {
@@ -109,26 +130,5 @@ final class ChartSubView: UIView {
         hintLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-
-    func updateDataForChart() {
-        let dataSet: LineChartDataSet = LineChartDataSet(entries: chartData)
-
-        dataSet.mode = .linear
-        if labelsSwitcher.isOn {
-            dataSet.valueFont = UIFont.systemFont(ofSize: 10)
-            switcherHint.text = "Выключить подписи значений"
-        } else {
-            dataSet.valueFont = UIFont.systemFont(ofSize: 0)
-            switcherHint.text = "Включить подписи значений"
-        }
-        dataSet.lineWidth = 2.0
-        dataSet.circleRadius = 4.0
-        dataSet.circleColors = [UIColor.mainApp]
-        dataSet.fillColor = .clear
-        dataSet.colors = [.mainApp]
-        dataSet.valueFormatter = CustomDataFormater()
-
-        chart.data = LineChartData(dataSet: dataSet)
     }
 }

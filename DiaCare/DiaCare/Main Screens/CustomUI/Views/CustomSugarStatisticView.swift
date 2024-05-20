@@ -7,12 +7,6 @@
 import SnapKit
 import UIKit
 
-enum SugarState {
-    case good
-    case normal
-    case bad
-}
-
 final class CustomSugarStatisticView: UIView {
 
     private lazy var levelLabel: UILabel = UILabel()
@@ -49,13 +43,6 @@ final class CustomSugarStatisticView: UIView {
         setUp()
     }
 
-    private func setUp() {
-        setUpLevelLabel()
-        setUpSugarCountLabel()
-        setUpSugarDimensionLabel()
-        setUpStateHStack()
-    }
-
     func updateUI(countLabel: String, sugarState: SugarState) {
         sugarCountLabel.text = countLabel
         switch sugarState {
@@ -69,6 +56,13 @@ final class CustomSugarStatisticView: UIView {
             coloredView.backgroundColor = .systemRed
             stateLabel.text = "плохо"
         }
+    }
+
+    private func setUp() {
+        setUpLevelLabel()
+        setUpSugarCountLabel()
+        setUpSugarDimensionLabel()
+        setUpStateHStack()
     }
 
     private func setUpLevelLabel() {

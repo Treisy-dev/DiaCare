@@ -9,10 +9,11 @@ import UIKit
 
 final class NewTemplateInjectionSubView: UIView {
 
-    private lazy var breadCountLabel: UILabel = UILabel()
     lazy var breadCountTextField: UITextField = UITextField()
-    private lazy var insulinLabel: UILabel = UILabel()
     lazy var insulinTextField: UITextField = UITextField()
+
+    private lazy var breadCountLabel: UILabel = UILabel()
+    private lazy var insulinLabel: UILabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

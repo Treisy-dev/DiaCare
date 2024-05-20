@@ -7,10 +7,9 @@
 
 import UIKit
 
-class NotificationConfigViewController: UIViewController {
+final class NotificationConfigViewController: UIViewController {
 
     private let contentView: NotificationConfigView = .init()
-
     private let viewModel: NotificationConfigViewModelProtocol
 
     init(viewModel: NotificationConfigViewModelProtocol) {
@@ -37,18 +36,21 @@ class NotificationConfigViewController: UIViewController {
             let alert = UIAlertController(
                 title: "Напоминание добавлено!",
                 message: "Вы добавили напоминание \(self?.contentView.titleTextField.text ?? "")",
-                preferredStyle: .alert)
+                preferredStyle: .alert
+            )
             let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
                 guard let previousVC = self?.navigationController?.topViewController as? NotificationViewController else { return }
                 self?.sendNotification(
                     date: self?.contentView.datePicker.date ?? Date(),
                     title: self?.contentView.titleTextField.text ?? "",
-                    message: self?.contentView.messageTextField.text ?? "")
+                    message: self?.contentView.messageTextField.text ?? ""
+                )
                 previousVC.addNewNotify(
                     title: self?.contentView.titleTextField.text ?? "",
                     message: self?.contentView.messageTextField.text ?? "",
-                    date: self?.contentView.datePicker.date ?? Date())
+                    date: self?.contentView.datePicker.date ?? Date()
+                )
             }
             alert.addAction(okAction)
             self?.present(alert, animated: true, completion: nil)

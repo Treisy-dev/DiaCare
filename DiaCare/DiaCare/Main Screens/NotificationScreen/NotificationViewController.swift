@@ -10,7 +10,6 @@ import UIKit
 final class NotificationViewController: UIViewController {
 
     private let contentView: NotificationView = .init()
-
     private let viewModel: NotificationViewModelProtocol
 
     init(viewModel: NotificationViewModelProtocol) {
@@ -32,17 +31,19 @@ final class NotificationViewController: UIViewController {
         contentView.addButtonTapped = { [weak self] in
             self?.navigationController?.pushViewController(
                 NotificationConfigViewController(viewModel: NotificationConfigViewModel()),
-                animated: true)
+                animated: true
+            )
         }
 
         contentView.notificationTableView.delegate = self
         contentView.notificationTableView.dataSource = viewModel
-        contentView.notificationTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier)
+        contentView.notificationTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.updateDataSource()
+        NotificationCenter.default.post(name: Notification.Name("updateNotificationDataNotification"), object: nil)
         if viewModel.finishedDataSource.count + viewModel.currentDataSource.count == 0 {
             contentView.showHint()
         } else {

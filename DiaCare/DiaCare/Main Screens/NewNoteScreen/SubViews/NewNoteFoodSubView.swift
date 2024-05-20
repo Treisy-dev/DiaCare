@@ -9,11 +9,11 @@ import UIKit
 
 final class NewNoteFoodSubView: UIView {
 
-    private lazy var foodLabel: UILabel = UILabel()
     lazy var foodtableView: UITableView = UITableView()
-    private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить продукт")
-
     var addProductTapped: (() -> Void)?
+
+    private lazy var foodLabel: UILabel = UILabel()
+    private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить продукт")
 
     override init(frame: CGRect) {
         super.init(frame: frame)

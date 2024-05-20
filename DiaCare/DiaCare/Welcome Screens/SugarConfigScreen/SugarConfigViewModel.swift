@@ -9,14 +9,15 @@ import Foundation
 import UIKit
 
 protocol SugarConfigViewModelProtocol: UIPickerViewDataSource {
-    var dataSource: [String] { get set }
+    var dataSource: [String] { get }
+
     func saveUserInfo(lowSugar: String?, targetSugar: String?, hightSugar: String?)
 }
 
 final class SugarConfigViewModel: NSObject, UIPickerViewDataSource, SugarConfigViewModelProtocol {
+    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
     var dataSource: [String] = []
-    let userDefaultsDataManager: UserDefaultsDataManagerProtocol
 
     init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM
@@ -28,7 +29,8 @@ final class SugarConfigViewModel: NSObject, UIPickerViewDataSource, SugarConfigV
         userDefaultsDataManager.addSugarConfigToUserInfo(
             lowSugar: lowSugar,
             targetSugar: targetSugar,
-            hightSugar: hightSugar)
+            hightSugar: hightSugar
+        )
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

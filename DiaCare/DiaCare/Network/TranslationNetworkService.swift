@@ -48,7 +48,8 @@ final class TranslationNetworkService: TranslationNetworkServiceProtocol {
             method: .post,
             parameters: translationParameters,
             encoding: JSONEncoding.default,
-            headers: translationHeaders).responseData { response in
+            headers: translationHeaders
+        ).responseData { response in
             switch response.result {
             case .success(let value):
                 do {

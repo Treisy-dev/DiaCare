@@ -35,7 +35,8 @@ final class ProductNetworkService: ProductNetworkServiceProtocol {
             "https://api.calorieninjas.com/v1/nutrition?query=100g " + product,
             method: .get,
             encoding: JSONEncoding.default,
-            headers: productHeaders).responseData { response in
+            headers: productHeaders
+        ).responseData { response in
             switch response.result {
             case .success(let value):
                 do {

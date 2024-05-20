@@ -9,9 +9,10 @@ import UIKit
 
 final class DragSubView: UIView {
 
+    let preferencesHSFabric: PreferencesHStackFabricProtocol
+
     private lazy var dragVStack: UIStackView = UIStackView()
     private lazy var dragLable: UILabel = UILabel()
-    let preferencesHSFabric: PreferencesHStackFabricProtocol
 
     private lazy var underlineView: CustomUnderlineView = CustomUnderlineView(
         frame: CGRect(x: 0, y: 0, width: 300, height: 1))

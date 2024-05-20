@@ -18,15 +18,18 @@ final class SugarConfigView: UIView {
     lazy var lowSugarField: CustomConfigTextField = CustomConfigTextField(
         frame: frame,
         icon: UIImage.bloodIcon,
-        placeholder: "Выберете низкий сахар")
+        placeholder: "Выберете низкий сахар"
+    )
     lazy var targetSugarField: CustomConfigTextField = CustomConfigTextField(
         frame: frame,
         icon: UIImage.targetIcon,
-        placeholder: "Выберете целевой сахар")
+        placeholder: "Выберете целевой сахар"
+    )
     lazy var hightSugarField: CustomConfigTextField = CustomConfigTextField(
         frame: frame,
         icon: UIImage.bloodIcon,
-        placeholder: "Выберете высокий сахар")
+        placeholder: "Выберете высокий сахар"
+    )
     lazy var pickerView: UIPickerView = UIPickerView()
     lazy var nextButton: UIButton = UIButton()
     lazy var backButton: UIButton = UIButton()
@@ -127,7 +130,8 @@ final class SugarConfigView: UIView {
             self?.delegate?.didPressNext(
                 lowSugar: self?.lowSugarField.text,
                 targetSugar: self?.targetSugarField.text,
-                hightSugar: self?.hightSugarField.text)
+                hightSugar: self?.hightSugarField.text
+            )
         }
         nextButton.addAction(nextAction, for: .touchUpInside)
 

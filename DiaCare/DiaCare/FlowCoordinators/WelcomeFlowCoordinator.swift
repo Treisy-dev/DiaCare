@@ -9,17 +9,19 @@ import Swinject
 import UIKit
 
 class WelcomeFlowCoordinator: Coordinator {
-    var navigationController: UINavigationController
-    let container: Container
 
-    init(container: Container, navigationController: UINavigationController) {
-        self.container = container
+    let moduleFactory: WelcomeModuleFactoryProtocol
+
+    var navigationController: UINavigationController
+
+    init(moduleFactory: WelcomeModuleFactoryProtocol, navigationController: UINavigationController) {
+        self.moduleFactory = moduleFactory
         self.navigationController = navigationController
     }
 
     func start() {
-        guard let viewModel = container.resolve(NameRegisterViewModelProtocol.self) else { return }
-        let viewController = NameRegisterViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createNameRegisterViewController() as? NameRegisterViewController else { return }
+
         navigationController = UINavigationController(rootViewController: viewController)
         viewController.onFinish = {
             self.showSugarConfigScreen()
@@ -27,8 +29,8 @@ class WelcomeFlowCoordinator: Coordinator {
     }
 
     private func showSugarConfigScreen() {
-        guard let viewModel = container.resolve(SugarConfigViewModelProtocol.self) else { return }
-        let viewController = SugarConfigViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createSugarConfigViewController() as? SugarConfigViewController else { return }
+
         viewController.onFinish = { [weak self] in
             self?.showFoodConfigScreen()
         }
@@ -40,8 +42,8 @@ class WelcomeFlowCoordinator: Coordinator {
     }
 
     private func showFoodConfigScreen() {
-        guard let viewModel = container.resolve(FoodConfigViewModelProtocol.self) else { return }
-        let viewController = FoodConfigViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createFoodConfigViewController() as? FoodConfigViewController else { return }
+
         viewController.onFinish = { [weak self] in
             self?.showInsulinConfigScreen()
         }
@@ -53,8 +55,8 @@ class WelcomeFlowCoordinator: Coordinator {
     }
 
     private func showInsulinConfigScreen() {
-        guard let viewModel = container.resolve(InsulinConfigViewModelProtocol.self) else { return }
-        let viewController = InsulinConfigViewController(viewModel: viewModel)
+        guard let viewController = moduleFactory.createInsulinCOnfigView() as? InsulinConfigViewController else { return }
+
         viewController.onFinish = { [weak self] in
             self?.showMainScreens()
         }
@@ -66,8 +68,7 @@ class WelcomeFlowCoordinator: Coordinator {
     }
 
     private func showMainScreens() {
-        guard let mainAppTabBarFabric = container.resolve(MainAppTabBarFabricProtocol.self) else { return }
-        let tbController = mainAppTabBarFabric.makeMainAppTabBarController()
+        let tbController = moduleFactory.createMainAppTabBar()
 
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             sceneDelegate.window?.rootViewController = tbController

@@ -9,14 +9,16 @@ import Foundation
 import UIKit
 
 protocol FoodConfigViewModelProtocol: UIPickerViewDataSource {
-    var dataSource: [String] { get set }
+    var dataSource: [String] { get }
+
     func saveUserInfo(breadCount: String?, insulinCount: String?)
 }
 
 final class FoodConfigViewModel: NSObject, UIPickerViewDataSource, FoodConfigViewModelProtocol {
 
-    var dataSource: [String] = []
     let userDefaultsDataManager: UserDefaultsDataManagerProtocol
+
+    var dataSource: [String] = []
 
     init(userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM

@@ -9,11 +9,10 @@ import UIKit
 
 final class TemplateViewController: UIViewController {
 
-    private let contentView: TemplateView
-
-    private let viewModel: TemplateViewModelProtocol
-
     var addNewTemplate: (() -> Void)?
+
+    private let contentView: TemplateView
+    private let viewModel: TemplateViewModelProtocol
 
     init(viewModel: TemplateViewModelProtocol) {
         self.viewModel = viewModel
@@ -36,16 +35,18 @@ final class TemplateViewController: UIViewController {
         contentView.templatesCollectionView.dataSource = viewModel
         contentView.templatesCollectionView.register(
             TemplateCollectionViewCell.self,
-            forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseIdentifier)
+            forCellWithReuseIdentifier: TemplateCollectionViewCell.reuseIdentifier
+        )
 
         contentView.templatesCollectionView.register(
             NewTemplateCollectionViewCell.self,
-            forCellWithReuseIdentifier: NewTemplateCollectionViewCell.reuseIdentifier)
+            forCellWithReuseIdentifier: NewTemplateCollectionViewCell.reuseIdentifier
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.updateDataSource()
+        NotificationCenter.default.post(name: Notification.Name("updateTemplateNotification"), object: nil)
         contentView.templatesCollectionView.reloadData()
     }
 }
@@ -54,11 +55,12 @@ extension TemplateViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let width = collectionView.frame.width / 2 - 10
-            let height = 153.0
-            return CGSize(width: width, height: height)
-        }
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let width = collectionView.frame.width / 2 - 10
+        let height = 153.0
+        return CGSize(width: width, height: height)
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.cellForItem(at: indexPath) is NewTemplateCollectionViewCell {
