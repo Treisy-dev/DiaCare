@@ -9,7 +9,7 @@ import Foundation
 
 protocol ProductConfigViewModelProtocol {
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol { get }
-    
+
     func getUserBreadCount() -> String
 }
 
