@@ -70,6 +70,7 @@ final class NewNoteViewController: UIViewController {
         super.viewDidAppear(animated)
         updateContentViewLayout()
         changeInjectionStats()
+        contentView.scrollToUpside()
     }
 
     private func resetChanges() {

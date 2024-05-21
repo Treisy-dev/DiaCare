@@ -79,6 +79,11 @@ final class StatisticViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        contentView?.scrollToUpside()
+    }
+
     private func updateData(startDate: Date, endDate: Date, for duration: DateDuration) {
         var obtainedChartData: [ChartDataEntry]
         switch duration {

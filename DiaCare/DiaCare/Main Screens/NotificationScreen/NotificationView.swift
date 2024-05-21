@@ -52,6 +52,12 @@ final class NotificationView: UIView {
         notificationTableView.isHidden = false
     }
 
+    func scrollToUpside() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.notificationContentView.transform = .identity
+        }
+    }
+
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self)
 

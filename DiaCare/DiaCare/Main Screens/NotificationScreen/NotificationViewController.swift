@@ -52,6 +52,11 @@ final class NotificationViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        contentView.scrollToUpside()
+    }
+
     func addNewNotify(title: String, message: String, date: Date) {
         viewModel.addNewNotify(title: title, message: message, date: date)
     }

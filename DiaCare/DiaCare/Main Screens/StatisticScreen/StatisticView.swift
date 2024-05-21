@@ -98,6 +98,12 @@ final class StatisticView: UIView {
         }
     }
 
+    func scrollToUpside() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.contentView.transform = .identity
+        }
+    }
+
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
         chartSubView.updateDataForChart()
     }
