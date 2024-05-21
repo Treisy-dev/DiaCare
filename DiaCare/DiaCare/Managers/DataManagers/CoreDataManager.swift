@@ -15,7 +15,7 @@ protocol CoreDataManagerProtocol {
     func deleteAllTypes()
     func obtainCategoryFromProduct(for word: String) -> String?
     func obtainUsersProduct() -> [UserProducts]
-    func addToHistory(breadCount: String, sugar: String, shortInsulin: String)
+    func addToHistory(breadCount: String, sugar: String, shortInsulin: String, longInsulin: String)
     func obtainAverageSugar() -> String
     func obtainAllCategories() -> [String]
     func addUserProduct(category: String, name: String, protein: String, fat: String, carbs: String)
@@ -172,17 +172,18 @@ final class CoreDataManager: CoreDataManagerProtocol {
         return []
     }
 
-    func addToHistory(breadCount: String, sugar: String, shortInsulin: String) {
+    func addToHistory(breadCount: String, sugar: String, shortInsulin: String, longInsulin: String) {
         guard let breadCount = Double(breadCount),
             let sugar = Double(sugar),
-            let shortInsulin = Double(shortInsulin) else { return }
+            let shortInsulin = Double(shortInsulin),
+            let longInsulin = Double(longInsulin) else { return }
         let newNote = NotesHistory(context: viewContext)
         newNote.id = UUID()
         newNote.date = Date()
         newNote.breadCount = breadCount
         newNote.sugar = sugar
         newNote.shortInsulin = shortInsulin
-        newNote.longInsulin = 0
+        newNote.longInsulin = longInsulin
 
         saveContext()
     }

@@ -63,7 +63,7 @@ final class NewNoteView: UIView {
         } else if recognizer.state == .changed {
             let newMaxY = initialCenterYConstraintConstant + translation.y
 
-            if newMaxY <= 950 + scrollAddition && newMaxY >= 770 - scrollAddition / 6 {
+            if newMaxY <= 1050 + scrollAddition && newMaxY >= 750 - scrollAddition / 6 {
                 let newTransform = initialTransform.translatedBy(x: 0, y: translation.y)
                 newNoteContentView.transform = newTransform
             }
@@ -99,7 +99,7 @@ final class NewNoteView: UIView {
         newNoteContentView.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
             make.top.equalTo(doctorImageView.snp.bottom).inset(20)
-            make.height.equalTo(700)
+            make.height.equalTo(800)
         }
     }
 
@@ -151,8 +151,8 @@ final class NewNoteView: UIView {
         injectionSubView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(33)
             make.trailing.equalToSuperview().inset(33)
-            make.top.equalTo(foodSubView.snp_bottomMargin).offset(20)
-            make.height.equalTo(255)
+            make.top.equalTo(foodSubView.snp.bottom).offset(20)
+            make.height.equalTo(340)
         }
     }
 
@@ -172,7 +172,7 @@ final class NewNoteView: UIView {
 
         resetButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(33)
-            make.top.equalTo(injectionSubView.snp_bottomMargin).offset(40)
+            make.top.equalTo(injectionSubView.snp.bottom).offset(40)
             make.width.equalTo(158)
             make.height.equalTo(40)
         }
@@ -196,7 +196,7 @@ final class NewNoteView: UIView {
         saveButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(33)
             make.leading.equalTo(resetButton.snp.trailing).offset(11)
-            make.top.equalTo(injectionSubView.snp_bottomMargin).offset(40)
+            make.top.equalTo(injectionSubView.snp.bottom).offset(40)
             make.height.equalTo(40)
         }
     }

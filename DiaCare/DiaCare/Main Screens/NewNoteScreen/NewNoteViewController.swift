@@ -19,7 +19,8 @@ final class NewNoteViewController: UIViewController {
         contentView = NewNoteView(frame: CGRect(), averageSugar: viewModel.averageSugar)
         super.init(nibName: nil, bundle: nil)
         contentView.injectionSubView.breadTextField.delegate = self
-        contentView.injectionSubView.insulinTextField.delegate = self
+        contentView.injectionSubView.shortInsulinTextField.delegate = self
+        contentView.injectionSubView.longInsulinTextField.delegate = self
         navigationController?.isNavigationBarHidden = true
     }
 
@@ -41,7 +42,8 @@ final class NewNoteViewController: UIViewController {
             self?.viewModel.saveNewNote(
                 breadCount: self?.contentView.injectionSubView.breadTextField.text ?? "0.0",
                 sugar: self?.contentView.sugarSubView.sugarCountLabel.text ?? "5.5",
-                shortInsulin: self?.contentView.injectionSubView.insulinTextField.text ?? "0.0"
+                shortInsulin: self?.contentView.injectionSubView.shortInsulinTextField.text ?? "0.0",
+                longInsulin: self?.contentView.injectionSubView.longInsulinTextField.text ?? "0.0"
             )
 
             self?.resetChanges()
@@ -73,9 +75,11 @@ final class NewNoteViewController: UIViewController {
     private func resetChanges() {
         NotificationCenter.default.post(name: Notification.Name("resetNoteChangesNotification"), object: nil)
         contentView.injectionSubView.breadTextField.text = "0"
-        contentView.injectionSubView.insulinTextField.text = "0"
+        contentView.injectionSubView.shortInsulinTextField.text = "0"
+        contentView.injectionSubView.longInsulinTextField.text = "0"
         contentView.injectionSubView.breadSlider.value = 0
-        contentView.injectionSubView.insulinSlider.value = 0
+        contentView.injectionSubView.shortInsulinSlider.value = 0
+        contentView.injectionSubView.longInsulinSlider.value = 0
         contentView.sugarSubView.sugarCountLabel.text = viewModel.getAverageSugar()
     }
 
@@ -84,7 +88,7 @@ final class NewNoteViewController: UIViewController {
             make.height.equalTo(140 + 70 * CGFloat(Float(viewModel.userProducts.count)))
         }
         contentView.newNoteContentView.snp.updateConstraints { make in
-            make.height.equalTo(700 + 70 * CGFloat(Float(viewModel.userProducts.count)))
+            make.height.equalTo(800 + 70 * CGFloat(Float(viewModel.userProducts.count)))
         }
         contentView.scrollAddition = 70 * CGFloat(Float(viewModel.userProducts.count))
         contentView.layoutIfNeeded()
@@ -96,8 +100,8 @@ final class NewNoteViewController: UIViewController {
             let insulinCountFloat = Float(viewModel.getInsulinCount()) else { return }
         contentView.injectionSubView.breadTextField.text = viewModel.getBreadCount()
         contentView.injectionSubView.breadSlider.value = breadCountFloat
-        contentView.injectionSubView.insulinTextField.text = viewModel.getInsulinCount()
-        contentView.injectionSubView.insulinSlider.value = insulinCountFloat
+        contentView.injectionSubView.shortInsulinTextField.text = viewModel.getInsulinCount()
+        contentView.injectionSubView.shortInsulinSlider.value = insulinCountFloat
     }
 }
 

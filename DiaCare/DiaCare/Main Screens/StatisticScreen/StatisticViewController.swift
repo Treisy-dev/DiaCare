@@ -96,7 +96,7 @@ final class StatisticViewController: UIViewController {
             foodStats: (
                 shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
                 breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
-                longInsulin: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate))
+                longInsulin: viewModel.getLongInsulinBy(startDate: startDate, endDate: endDate))
         )
         NotificationCenter.default.post(name: Notification.Name("updateStatisticDataNotification"), object: (startDate, endDate))
         if viewModel.dataSource.count == 0 {

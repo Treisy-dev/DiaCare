@@ -12,7 +12,7 @@ protocol NewNoteViewModelProtocol: UITableViewDataSource {
     var averageSugar: String { get }
     var userProducts: [UserProductModel] { get }
 
-    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String)
+    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String, longInsulin: String)
     func getBreadCount() -> String
     func getInsulinCount() -> String
     func getAverageSugar() -> String
@@ -84,8 +84,8 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         return averageSugar
     }
 
-    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String) {
-        coreDataManager.addToHistory(breadCount: breadCount, sugar: sugar, shortInsulin: shortInsulin)
+    func saveNewNote(breadCount: String, sugar: String, shortInsulin: String, longInsulin: String) {
+        coreDataManager.addToHistory(breadCount: breadCount, sugar: sugar, shortInsulin: shortInsulin, longInsulin: longInsulin)
     }
 
     func getBreadCount() -> String {
