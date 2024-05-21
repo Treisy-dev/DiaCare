@@ -166,7 +166,7 @@ final class NewTemplateView: UIView {
     private func setUpCategoryTextField() {
         newTemplateContentView.addSubview(categoryTextField)
         categoryTextField.layer.cornerRadius = 10
-        categoryTextField.text = "breakfast"
+        categoryTextField.text = "Завтрак"
         categoryTextField.layer.borderWidth = 1
         categoryTextField.layer.borderColor = UIColor.systemGray.cgColor
         categoryTextField.textAlignment = .center

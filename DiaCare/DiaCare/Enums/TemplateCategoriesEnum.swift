@@ -8,13 +8,13 @@
 import UIKit
 
 enum TemplateCategories: String {
-    case breakfast
-    case snack
-    case secondBreakfast
-    case lunch
-    case dinner
-    case afternoonSnack
-    case none
+    case breakfast = "Завтрак"
+    case snack = "Перекус"
+    case secondBreakfast = "Второй завтрак"
+    case lunch = "Обед"
+    case dinner = "Ужин"
+    case afternoonSnack = "Второй ужин"
+    case none = ""
 
     func getImageByType() -> UIImage {
         switch self {

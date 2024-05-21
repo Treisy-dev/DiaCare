@@ -24,7 +24,7 @@ final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
     var coreDataManager: CoreDataManagerProtocol
     var userDefaultsDataManager: UserDefaultsDataManagerProtocol
     var userProducts: [UserProductModel] = []
-    var pickerViewDataSource: [String] = ["breakfast", "snack", "secondBreakfast", "lunch", "dinner", "afternoonSnack"]
+    var pickerViewDataSource: [String] = ["Завтрак", "Перекус", "Второй завтрак", "Обед", "Ужин", "Второй ужин"]
 
     init(coreDM: CoreDataManagerProtocol, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         coreDataManager = coreDM
@@ -39,13 +39,24 @@ final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
         let productCategory = coreDataManager.obtainCategoryFromProduct(for: userProducts[indexPath.row].name)
         let cell = UserProductTableViewCell(style: .default, reuseIdentifier: nil)
         cell.selectionStyle = .none
-        let category = getCategoryFromString(productCategory ?? "")
-        cell.config(
-            productName: userProducts[indexPath.row].name,
-            productCategory: category,
-            proteinCount: userProducts[indexPath.row].protein,
-            productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
-        )
+        if productCategory == nil {
+            let temlateCategory = coreDataManager.obtainCategoryFromTemplate(for: userProducts[indexPath.row].name)
+            let category = getCategoryFromStringTemplate(temlateCategory ?? "")
+            cell.configTemplate(
+                productName: userProducts[indexPath.row].name,
+                templateCategory: category,
+                proteinCount: userProducts[indexPath.row].protein,
+                productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
+            )
+        } else {
+            let category = getCategoryFromStringProduct(productCategory ?? "")
+            cell.config(
+                productName: userProducts[indexPath.row].name,
+                productCategory: category,
+                proteinCount: userProducts[indexPath.row].protein,
+                productStats: (userProducts[indexPath.row].fat, userProducts[indexPath.row].carbs, userProducts[indexPath.row].breadCount)
+            )
+        }
         return cell
     }
 
@@ -114,8 +125,16 @@ final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
         userProducts.append(product)
     }
 
-    private func getCategoryFromString(_ categoryString: String) -> ProductCategories {
+    private func getCategoryFromStringProduct(_ categoryString: String) -> ProductCategories {
         if let category = ProductCategories(rawValue: categoryString) {
+            return category
+        } else {
+            return .none
+        }
+    }
+
+    private func getCategoryFromStringTemplate(_ categoryString: String) -> TemplateCategories {
+        if let category = TemplateCategories(rawValue: categoryString) {
             return category
         } else {
             return .none

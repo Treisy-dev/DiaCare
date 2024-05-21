@@ -8,12 +8,12 @@
 import UIKit
 
 enum ProductCategories: String {
-    case fruit
-    case vegetable
-    case cereal
-    case fish
-    case meat
-    case none
+    case fruit = "Фрукт"
+    case vegetable = "Овощ"
+    case cereal = "Крупа"
+    case fish = "Рыба"
+    case meat = "Мясо"
+    case none = ""
 
     func getImageByType() -> UIImage {
         switch self {

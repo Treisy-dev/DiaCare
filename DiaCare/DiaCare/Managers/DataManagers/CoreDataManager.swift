@@ -65,34 +65,34 @@ final class CoreDataManager: CoreDataManagerProtocol {
 
     func setUpDefaultProductTypes() {
         let fruits = [
-            "apple", "banana", "orange", "grape", "strawberry", "pear", "kiwi", "mango", "pineapple",
-            "melon", "watermelon", "cherry", "apricot", "peach", "plum", "nectarine", "persimmon",
-            "pomegranate", "dates", "fig", "lemon", "lime", "grapefruit", "pomelo", "mandarin",
-            "papaya", "rambutan", "lychee", "mangosteen", "star fruit", "durian"
+            "Яблоко", "Банан", "Апельсин", "Виноград", "Клубника", "Груша", "Киви", "Манго", "Ананас",
+            "Дыня", "Арбуз", "Черешня", "Абрикос", "Персик", "Слива", "Нектарин", "Хурма",
+            "Гранат", "Финики", "Инжир", "Лимон", "Лайм", "Грейпфрут", "Помело", "Мандарин",
+            "Папайя", "Рамбутан", "Личи", "Мангостин", "Карамбола", "Дуриан"
         ]
 
         let vegetables = [
-            "cucumber", "tomato", "cabbage", "carrot", "onion", "potato", "beetroot", "eggplant",
-            "pepper", "zucchini", "garlic", "pumpkin", "asparagus", "broccoli", "cauliflower",
-            "Brussels sprouts", "peas", "beans", "corn", "greens", "mushrooms"
+            "Огурец", "Помидор", "Капуста", "Морковь", "Лук", "Картофель", "Свекла", "Баклажан",
+            "Перец", "Цуккини", "Чеснок", "Тыква", "Спаржа", "Брокколи", "Цветная капуста",
+            "Брюссельская капуста", "Горох", "Фасоль", "Кукуруза", "Зелень", "Грибы"
         ]
 
         let cereals = [
-            "rice", "buckwheat", "millet", "oatmeal", "pearl barley", "barley", "corn grits",
-            "semolina", "bulgur", "quinoa", "couscous"
+            "Рис", "Гречка", "Пшено", "Овсянка", "Перловая крупа", "Ячмень", "Кукурузная крупа",
+            "Манка", "Булгур", "Киноа", "Кускус"
         ]
 
         let fish = [
-            "herring", "salmon", "tuna", "cod", "hake", "pollock", "mackerel", "sole", "trout", "carp",
-            "catfish", "perch", "pike", "bream", "pike-perch", "crucian carp", "tilapia", "dorado", "seabass"
+            "Сельдь", "Лосось", "Тунец", "Треска", "Хек", "Минтай", "Скумбрия", "Соль", "Форель", "Сазан",
+            "Сом", "Окунь", "Щука", "Лещ", "Судак", "Карась", "Тилапия", "Дорадо", "Сибас"
         ]
 
         let meat = [
-            "chicken", "beef", "pork", "lamb", "turkey", "rabbit", "lamb", "horse meat", "game meat",
-            "sausage", "sausages", "ham", "brisket", "pork knuckle"
+            "Курица", "Говядина", "Свинина", "Баранина", "Индейка", "Кролик", "Ягненок", "Конина", "Дичь",
+            "Колбаса", "Сосиски", "Ветчина", "Грудинка", "Рулька"
         ]
 
-        let categories = ["fruit", "vegetable", "cereal", "fish", "meat"]
+        let categories = ["Фрукт", "Овощ", "Крупа", "Рыба", "Мясо"]
         let foods = [fruits, vegetables, cereals, fish, meat]
 
         for (category, foodList) in zip(categories, foods) {

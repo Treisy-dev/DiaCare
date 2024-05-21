@@ -31,8 +31,7 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
     init(coreDM: CoreDataManagerProtocol) {
         coreDataManager = coreDM
         dataSource = coreDataManager.obtainAllCategories()
-        dataSource.sort()
-        dataSource.insert("Продукт без категории", at: 0)
+        dataSource.sort { $0 > $1}
     }
 
     func saveProduct() {
