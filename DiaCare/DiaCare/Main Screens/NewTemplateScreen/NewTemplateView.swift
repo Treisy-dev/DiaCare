@@ -16,6 +16,7 @@ final class NewTemplateView: UIView {
     lazy var foodSubView: NewTemplateFoodSubView = NewTemplateFoodSubView(frame: .zero)
     lazy var injectionSubView: NewTemplateInjectionSubView = NewTemplateInjectionSubView(frame: .zero)
     lazy var statsSubView: NewTemplateStatsSubView = NewTemplateStatsSubView(frame: .zero)
+    var panGestureRecognizer: UIPanGestureRecognizer?
     var saveTapped: (() -> Void)?
     var resetTapped: (() -> Void)?
     var scrollAddition: CGFloat = 0
@@ -29,22 +30,16 @@ final class NewTemplateView: UIView {
     private lazy var saveButton: UIButton = UIButton()
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
-    private var panGestureRecognizer: UIPanGestureRecognizer?
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if panGestureRecognizer == nil {
-            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            guard let panGestureRecognizer else {return}
-            newTemplateContentView.addGestureRecognizer(panGestureRecognizer)
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         setUp()
+        if panGestureRecognizer == nil {
+            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+            guard let panGestureRecognizer else {return}
+            newTemplateContentView.addGestureRecognizer(panGestureRecognizer)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

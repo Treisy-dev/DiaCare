@@ -35,6 +35,7 @@ final class NewTemplateViewController: UIViewController {
         contentView.nameTextField.delegate = self
         contentView.injectionSubView.breadCountTextField.delegate = self
         contentView.injectionSubView.insulinTextField.delegate = self
+        contentView.panGestureRecognizer?.delegate = self
         contentView.foodSubView.foodTableView.register(
             UserProductTableViewCell.self,
             forCellReuseIdentifier: UserProductTableViewCell.reuseIdentifier
@@ -121,17 +122,27 @@ final class NewTemplateViewController: UIViewController {
     }
 }
 
-extension NewTemplateViewController: UITableViewDelegate, UIPickerViewDelegate {
+extension NewTemplateViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        updateContentViewLayout()
+    }
+}
+
+extension NewTemplateViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         contentView.categoryTextField.text = viewModel.pickerViewDataSource[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return viewModel.pickerViewDataSource[row]
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        70
     }
 }
 
@@ -142,5 +153,21 @@ extension NewTemplateViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.selectAll(textField)
+    }
+}
+
+extension NewTemplateViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let touchLocation = touch.location(in: contentView.foodSubView)
+        let trackedFrame = CGRect(
+            x: contentView.foodSubView.foodTableView.frame.minX + 30,
+            y: contentView.foodSubView.foodTableView.frame.minY,
+            width: contentView.foodSubView.foodTableView.frame.width - 60,
+            height: contentView.foodSubView.foodTableView.frame.height
+        )
+        if trackedFrame.contains(touchLocation) {
+            return false
+        }
+        return true
     }
 }

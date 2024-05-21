@@ -60,6 +60,17 @@ final class NewTemplateViewModel: NSObject, NewTemplateViewModelProtocol {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            userProducts.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
