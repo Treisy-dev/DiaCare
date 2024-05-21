@@ -112,7 +112,7 @@ extension NewNoteViewController: UITextFieldDelegate {
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.selectAll(nil)
+        textField.selectAll(textField)
     }
 }
 

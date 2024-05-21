@@ -216,7 +216,7 @@ final class NewTemplateView: UIView {
         resetButton.layer.cornerRadius = 10
         resetButton.layer.borderWidth = 1
         resetButton.layer.borderColor = UIColor.mainApp.cgColor
-        resetButton.setTitle("Сбросить", for: .normal)
+        resetButton.setTitle("Отменить", for: .normal)
         resetButton.setTitleColor(.mainApp, for: .normal)
         let resetAction = UIAction { [weak self] _ in
             self?.resetTapped?()

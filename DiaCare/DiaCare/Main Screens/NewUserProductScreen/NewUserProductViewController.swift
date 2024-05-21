@@ -35,6 +35,10 @@ final class NewUserProductViewController: UIViewController {
     override func viewDidLoad() {
         contentView.categoryPickerView.delegate = self
         contentView.categoryPickerView.dataSource = viewModel
+        contentView.productNameTextField.delegate = self
+        contentView.proteinInputView.countTextField.delegate = self
+        contentView.fatInputView.countTextField.delegate = self
+        contentView.carbsInputView.countTextField.delegate = self
 
         contentView.closeAction = { [weak self] in
             self?.onFinish?()
@@ -90,5 +94,15 @@ extension NewUserProductViewController: UIPickerViewDelegate {
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return viewModel.dataSource[row]
+    }
+}
+
+extension NewUserProductViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectAll(textField)
     }
 }

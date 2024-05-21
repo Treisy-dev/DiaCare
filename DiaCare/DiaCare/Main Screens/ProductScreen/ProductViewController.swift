@@ -207,4 +207,10 @@ extension ProductViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if searchBar.text != "" {
+            searchBar.selectAll(searchBar)
+        }
+    }
 }

@@ -32,6 +32,9 @@ final class NewTemplateViewController: UIViewController {
         super.viewDidLoad()
         contentView.foodSubView.foodTableView.delegate = self
         contentView.foodSubView.foodTableView.dataSource = viewModel
+        contentView.nameTextField.delegate = self
+        contentView.injectionSubView.breadCountTextField.delegate = self
+        contentView.injectionSubView.insulinTextField.delegate = self
         contentView.foodSubView.foodTableView.register(
             UserProductTableViewCell.self,
             forCellReuseIdentifier: UserProductTableViewCell.reuseIdentifier
@@ -129,5 +132,15 @@ extension NewTemplateViewController: UITableViewDelegate, UIPickerViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         70
+    }
+}
+
+extension NewTemplateViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectAll(textField)
     }
 }
