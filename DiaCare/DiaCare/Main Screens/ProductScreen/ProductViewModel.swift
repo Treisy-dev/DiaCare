@@ -74,8 +74,10 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {
         translateWord(word: queryText) { [weak self] result in
             self?.getDefaultSizeProduct(product: result) { [weak self] product in
-                self?.productItem = product.items
-                completion()
+                self?.translateProducts(products: product.items, completion: { result in
+                    self?.productItem = result
+                    completion()
+                })
             }
         }
     }
@@ -112,6 +114,34 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func addUserProduct(product: UserProductModel) {
         usersProduct.append(product)
+    }
+
+    private func translateProducts(products: [Product], completion: @escaping ([Product]) -> Void) {
+        var resultArray: [Product] = []
+        let dispatchGroup = DispatchGroup()
+        for product in products {
+            dispatchGroup.enter()
+            translationNS.translateWordToRussian(word: product.name, completion: { result in
+                switch result {
+                case .success(let word):
+                    resultArray.append(Product(
+                        name: word,
+                        calories: product.calories,
+                        serving_size_g: product.serving_size_g,
+                        fat_total_g: product.fat_total_g,
+                        protein_g: product.protein_g,
+                        carbohydrates_total_g: product.carbohydrates_total_g)
+                    )
+                case .failure(let error):
+                    print(error)
+                    resultArray.append(product)
+                }
+                dispatchGroup.leave()
+            })
+        }
+        dispatchGroup.notify(queue: .main) {
+            completion(resultArray)
+        }
     }
 
     private func updateUserSavedProducts() {
