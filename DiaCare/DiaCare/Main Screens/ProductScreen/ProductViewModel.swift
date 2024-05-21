@@ -124,13 +124,15 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
             translationNS.translateWordToRussian(word: product.name, completion: { result in
                 switch result {
                 case .success(let word):
-                    resultArray.append(Product(
-                        name: word,
-                        calories: product.calories,
-                        serving_size_g: product.serving_size_g,
-                        fat_total_g: product.fat_total_g,
-                        protein_g: product.protein_g,
-                        carbohydrates_total_g: product.carbohydrates_total_g)
+                    resultArray.append(
+                        Product(
+                            name: word.capitalized,
+                            calories: product.calories,
+                            serving_size_g: product.serving_size_g,
+                            fat_total_g: product.fat_total_g,
+                            protein_g: product.protein_g,
+                            carbohydrates_total_g: product.carbohydrates_total_g
+                        )
                     )
                 case .failure(let error):
                     print(error)
