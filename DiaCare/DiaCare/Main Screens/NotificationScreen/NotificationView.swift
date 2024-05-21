@@ -141,6 +141,7 @@ final class NotificationView: UIView {
 
     private func setUpNotificationTableView() {
         notificationContentView.addSubview(notificationTableView)
+        notificationTableView.separatorStyle = .none
 
         notificationTableView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(42)
