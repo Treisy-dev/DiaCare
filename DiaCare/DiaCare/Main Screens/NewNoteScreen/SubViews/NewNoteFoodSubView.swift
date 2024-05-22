@@ -13,6 +13,7 @@ final class NewNoteFoodSubView: UIView {
     var addProductTapped: (() -> Void)?
 
     private lazy var foodLabel: UILabel = UILabel()
+    private lazy var tableViewHint: UILabel = UILabel()
     private lazy var addFoodButton: CustomAddFoodButton = CustomAddFoodButton(frame: frame, title: "Добавить продукт")
 
     override init(frame: CGRect) {
@@ -30,6 +31,7 @@ final class NewNoteFoodSubView: UIView {
         setUpFoodLabel()
         setUpAddFoodButton()
         setUpFoodTableView()
+        setUpTableViewHint()
     }
 
     private func setUpFoodLabel() {
@@ -53,6 +55,18 @@ final class NewNoteFoodSubView: UIView {
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(addFoodButton.snp.bottom).offset(10)
             make.bottom.equalToSuperview().inset(30)
+        }
+    }
+
+    private func setUpTableViewHint() {
+        addSubview(tableViewHint)
+        tableViewHint.text = "Тяни продукт влево для удаления"
+        tableViewHint.font = UIFont.systemFont(ofSize: 13)
+        tableViewHint.textColor = .lightGray.withAlphaComponent(0.8)
+
+        tableViewHint.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(foodtableView.snp.bottom).offset(5)
         }
     }
 
