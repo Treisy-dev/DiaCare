@@ -50,6 +50,11 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
             ]
         tbController.selectedIndex = 4
 
+        for item in tbController.tabBar.items ?? [] {
+            item.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+            item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
+        }
+
         return tbController
     }
 }

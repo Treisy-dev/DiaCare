@@ -80,6 +80,9 @@ final class ProductViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         contentView.typesSegmentControl.selectedSegmentIndex = viewModel.selectedIndex.value
+        if viewModel.userSavedProducts.count != 0 {
+            contentView.addButton.setTitle("Добавить(\(viewModel.userSavedProducts.count))", for: .normal)
+        }
     }
 
     private func setUpBindings() {
