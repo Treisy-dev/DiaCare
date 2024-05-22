@@ -37,7 +37,9 @@ final class NotificationViewController: UIViewController {
 
         contentView.notificationTableView.delegate = self
         contentView.notificationTableView.dataSource = viewModel
-        contentView.notificationTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier
+        contentView.notificationTableView.register(
+            NotificationTableViewCell.self,
+            forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier
         )
     }
 

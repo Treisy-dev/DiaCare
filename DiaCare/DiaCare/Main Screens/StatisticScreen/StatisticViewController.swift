@@ -40,7 +40,8 @@ final class StatisticViewController: UIViewController {
             frame: .zero,
             chartData: viewModel.getSugarHistoryDay(
                 startDate: startDate ?? Date(),
-                endDate: endDate ?? Date()),
+                endDate: endDate ?? Date()
+            ),
             lowSugar: viewModel.getMinimalSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
             averageSugar: viewModel.getAverageSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
             highSugar: viewModel.getMaximalSugarBy(startDate: startDate ?? Date(), endDate: endDate ?? Date()),
@@ -93,15 +94,17 @@ final class StatisticViewController: UIViewController {
             obtainedChartData = viewModel.getSugarHistoryWeek(startDate: startDate, endDate: endDate)
         }
         contentView?.updateUI(
-            chartData: obtainedChartData.sorted {$0.x < $1.x},
+            chartData: obtainedChartData.sorted { $0.x < $1.x },
             sugarStats: (
                 lowSugar: viewModel.getMinimalSugarBy(startDate: startDate, endDate: endDate),
                 averageSugar: viewModel.getAverageSugarBy(startDate: startDate, endDate: endDate),
-                highSugar: viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate)),
+                highSugar: viewModel.getMaximalSugarBy(startDate: startDate, endDate: endDate)
+            ),
             foodStats: (
                 shortInsulin: viewModel.getShortInsulinBy(startDate: startDate, endDate: endDate),
                 breadCount: viewModel.getBreadCountBy(startDate: startDate, endDate: endDate),
-                longInsulin: viewModel.getLongInsulinBy(startDate: startDate, endDate: endDate))
+                longInsulin: viewModel.getLongInsulinBy(startDate: startDate, endDate: endDate)
+            )
         )
         NotificationCenter.default.post(name: Notification.Name("updateStatisticDataNotification"), object: (startDate, endDate))
         if viewModel.dataSource.count == 0 {

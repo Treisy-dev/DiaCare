@@ -89,10 +89,10 @@ final class NotificationViewModel: NSObject, NotificationViewModelProtocol, UITa
 
     private func updateDataSource() {
         let notifications = coreDataManager.obtainUserNotifications()
-        currentDataSource = notifications.filter { $0.date >= Date()}
-        finishedDataSource = notifications.filter { $0.date < Date()}
-        currentDataSource.sort { $0.date < $1.date}
-        finishedDataSource.sort { $0.date > $1.date}
+        currentDataSource = notifications.filter { $0.date >= Date() }
+        finishedDataSource = notifications.filter { $0.date < Date() }
+        currentDataSource.sort { $0.date < $1.date }
+        finishedDataSource.sort { $0.date > $1.date }
     }
 
     private func getDate(date: Date) -> String {

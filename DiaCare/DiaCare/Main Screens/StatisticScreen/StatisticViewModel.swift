@@ -87,7 +87,7 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
 
     func getMinimalSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState) {
         var sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
-        sugarData.sort { $0.0 < $1.0}
+        sugarData.sort { $0.0 < $1.0 }
         guard let minimalSugar = sugarData.first?.0 else { return (0, .normal) }
         guard let target = Double(userDefaultsDataManager.getLowTarget()) else { return (0, .normal) }
 
@@ -107,7 +107,7 @@ final class StatisticViewModel: NSObject, StatisticViewModelProtocol {
 
     func getMaximalSugarBy(startDate: Date, endDate: Date) -> (Double, SugarState) {
         var sugarData = coreDataManager.obtainAllSugarWithDateHistory(from: startDate, to: endDate)
-        sugarData.sort { $0.0 < $1.0}
+        sugarData.sort { $0.0 < $1.0 }
         guard let maximalSugar = sugarData.last?.0 else { return (0, .normal) }
         guard let target = Double(userDefaultsDataManager.getHighTarget()) else { return (0, .normal) }
 

@@ -32,7 +32,7 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
         coreDataManager = coreDM
         dataSource = coreDataManager.obtainAllCategories()
         super.init()
-        dataSource.sort { $0 < $1}
+        dataSource.sort { $0 < $1 }
         addNoneTypeIfNeeded()
     }
 

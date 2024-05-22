@@ -84,7 +84,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func getProteintForTemplate(for template: Templates) -> String {
         var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return "" }
         for product in products {
             guard let protein = Double(product.protein) else { return ""}
             result += protein
@@ -94,7 +94,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func getFatForTemplate(for template: Templates) -> String {
         var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return "" }
         for product in products {
             guard let fat = Double(product.fat) else { return ""}
             result += fat
@@ -104,9 +104,9 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func getCarbsForTemplate(for template: Templates) -> String {
         var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return "" }
         for product in products {
-            guard let carbohydrates = Double(product.carbohydrates) else { return ""}
+            guard let carbohydrates = Double(product.carbohydrates) else { return "" }
             result += carbohydrates
         }
         return String(format: "%.1f", result)
@@ -178,7 +178,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     private func getCarbsCount(breadCount: String) -> String {
         guard let carbsInBreadCount = Double(userDefaultsDataManager.getUserBreadCount()),
-            let breadCountDouble = Double(breadCount) else { return ""}
+            let breadCountDouble = Double(breadCount) else { return "" }
 
         return String(format: "%.1f", breadCountDouble * carbsInBreadCount)
     }

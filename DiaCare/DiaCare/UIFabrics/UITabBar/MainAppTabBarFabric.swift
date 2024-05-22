@@ -32,7 +32,10 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
             navigationController: UINavigationController()
         )
         templateFlowCoordinator.start()
-        let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(moduleFactory: mainAppModuleFactory, navigationController: UINavigationController())
+        let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(
+            moduleFactory: mainAppModuleFactory,
+            navigationController: UINavigationController()
+        )
         newNoteFlowCoordinator.start()
         let statisticViewController = tabBarModuleFactory.createStatisticViewController()
         let notificationViewController = tabBarModuleFactory.createNotificationViewController()
@@ -49,14 +52,4 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
 
         return tbController
     }
-//    private func configTabBarItem(viewController: UIViewController, image: UIImage) -> UIViewController {
-//        let templateTabBarItem = UITabBarItem(
-//            title: nil,
-//            image: image.resizeImage(newSize: CGSize(width: 30, height: 30)),
-//            selectedImage: nil
-//        )
-//        viewController.tabBarItem = templateTabBarItem
-//
-//        return viewController
-//    }
 }
