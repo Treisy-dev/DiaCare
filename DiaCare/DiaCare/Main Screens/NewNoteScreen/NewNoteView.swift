@@ -34,7 +34,7 @@ final class NewNoteView: UIView {
         setUp()
         if panGestureRecognizer == nil {
             panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            guard let panGestureRecognizer else {return}
+            guard let panGestureRecognizer else { return }
             newNoteContentView.addGestureRecognizer(panGestureRecognizer)
         }
     }

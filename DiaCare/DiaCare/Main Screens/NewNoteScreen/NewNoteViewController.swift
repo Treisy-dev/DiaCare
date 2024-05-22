@@ -133,17 +133,11 @@ extension NewNoteViewController: UITableViewDelegate {
 }
 
 extension NewNoteViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let touchLocation = touch.location(in: contentView.foodSubView)
-        let trackedFrame = CGRect(
-            x: contentView.foodSubView.foodtableView.frame.minX + 30,
-            y: contentView.foodSubView.foodtableView.frame.minY,
-            width: contentView.foodSubView.foodtableView.frame.width - 60,
-            height: contentView.foodSubView.foodtableView.frame.height
-        )
-        if trackedFrame.contains(touchLocation) {
-            return false
-        }
-        return true
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
+    -> Bool {
+        true
     }
 }

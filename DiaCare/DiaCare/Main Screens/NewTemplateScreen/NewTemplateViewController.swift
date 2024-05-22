@@ -157,17 +157,10 @@ extension NewTemplateViewController: UITextFieldDelegate {
 }
 
 extension NewTemplateViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let touchLocation = touch.location(in: contentView.foodSubView)
-        let trackedFrame = CGRect(
-            x: contentView.foodSubView.foodTableView.frame.minX + 30,
-            y: contentView.foodSubView.foodTableView.frame.minY,
-            width: contentView.foodSubView.foodTableView.frame.width - 60,
-            height: contentView.foodSubView.foodTableView.frame.height
-        )
-        if trackedFrame.contains(touchLocation) {
-            return false
-        }
-        return true
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
+    -> Bool {
+        true
     }
 }
