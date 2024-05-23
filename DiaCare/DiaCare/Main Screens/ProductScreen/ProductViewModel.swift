@@ -74,15 +74,17 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
     func searchProducts(for queryText: String, completion: @escaping () -> Void) {
         translateWord(word: queryText) { [weak self] result in
             self?.getDefaultSizeProduct(product: result) { [weak self] product in
-                self?.productItem = product.items
-                completion()
+                self?.translateProducts(products: product.items, completion: { result in
+                    self?.productItem = result
+                    completion()
+                })
             }
         }
     }
 
     func getProteintForTemplate(for template: Templates) -> String {
         var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return "" }
         for product in products {
             guard let protein = Double(product.protein) else { return ""}
             result += protein
@@ -92,7 +94,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func getFatForTemplate(for template: Templates) -> String {
         var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return "" }
         for product in products {
             guard let fat = Double(product.fat) else { return ""}
             result += fat
@@ -102,9 +104,9 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func getCarbsForTemplate(for template: Templates) -> String {
         var result: Double = 0
-        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return ""}
+        guard let products = template.templateProduct?.allObjects as? [TemplateProduct] else { return "" }
         for product in products {
-            guard let carbohydrates = Double(product.carbohydrates) else { return ""}
+            guard let carbohydrates = Double(product.carbohydrates) else { return "" }
             result += carbohydrates
         }
         return String(format: "%.1f", result)
@@ -112,6 +114,36 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     func addUserProduct(product: UserProductModel) {
         usersProduct.append(product)
+    }
+
+    private func translateProducts(products: [Product], completion: @escaping ([Product]) -> Void) {
+        var resultArray: [Product] = []
+        let dispatchGroup = DispatchGroup()
+        for product in products {
+            dispatchGroup.enter()
+            translationNS.translateWordToRussian(word: product.name, completion: { result in
+                switch result {
+                case .success(let word):
+                    resultArray.append(
+                        Product(
+                            name: word.capitalized,
+                            calories: product.calories,
+                            serving_size_g: product.serving_size_g,
+                            fat_total_g: product.fat_total_g,
+                            protein_g: product.protein_g,
+                            carbohydrates_total_g: product.carbohydrates_total_g
+                        )
+                    )
+                case .failure(let error):
+                    print(error)
+                    resultArray.append(product)
+                }
+                dispatchGroup.leave()
+            })
+        }
+        dispatchGroup.notify(queue: .main) {
+            completion(resultArray)
+        }
     }
 
     private func updateUserSavedProducts() {
@@ -146,7 +178,7 @@ final class ProductViewModel: NSObject, ProductViewModelProtocol {
 
     private func getCarbsCount(breadCount: String) -> String {
         guard let carbsInBreadCount = Double(userDefaultsDataManager.getUserBreadCount()),
-            let breadCountDouble = Double(breadCount) else { return ""}
+            let breadCountDouble = Double(breadCount) else { return "" }
 
         return String(format: "%.1f", breadCountDouble * carbsInBreadCount)
     }

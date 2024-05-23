@@ -20,9 +20,6 @@ final class ProfileView: UIView {
     private lazy var doctorImageView: UIImageView = UIImageView()
     private var preferencesHStackFabric: PreferencesHStackFabricProtocol = PreferencesHStackFabric()
 
-    private var initialCenterYConstraintConstant: CGFloat = 0
-    private var panGestureRecognizer: UIPanGestureRecognizer?
-
     init(frame: CGRect, userNameData: [String: String], selectedLanguage: String, userDefaultsDM: UserDefaultsDataManagerProtocol) {
         userDefaultsDataManager = userDefaultsDM
         dragSubView = DragSubView(
@@ -53,16 +50,6 @@ final class ProfileView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if panGestureRecognizer == nil {
-            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            guard let panGestureRecognizer else {return}
-            profileContentView.addGestureRecognizer(panGestureRecognizer)
-        }
     }
 
     private func setUp() {
@@ -114,7 +101,7 @@ final class ProfileView: UIView {
         doctorImageView.image = UIImage.doctor
         doctorImageView.snp.makeConstraints { make in
             make.trailing.equalTo(safeAreaLayoutGuide).inset(33)
-            make.top.equalTo(self.snp_topMargin).inset(-50)
+            make.top.equalTo(self.snp.top).offset(50)
             make.width.equalTo(155)
             make.height.equalTo(310)
         }
@@ -153,19 +140,6 @@ final class ProfileView: UIView {
             make.top.equalTo(dragSubView.snp.bottom).offset(35)
             make.trailing.greaterThanOrEqualToSuperview().inset(50)
             make.leading.lessThanOrEqualToSuperview().offset(50)
-        }
-    }
-
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-
-        if recognizer.state == .began {
-            initialCenterYConstraintConstant = profileContentView.frame.maxY
-        } else if recognizer.state == .changed {
-            let newMaxY = initialCenterYConstraintConstant + translation.y
-            if newMaxY <= 965 && newMaxY >= 900 {
-                profileContentView.center.y = newMaxY - profileContentView.frame.height / 2
-            }
         }
     }
 }

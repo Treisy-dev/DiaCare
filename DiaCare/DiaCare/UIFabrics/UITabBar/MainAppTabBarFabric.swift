@@ -32,7 +32,10 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
             navigationController: UINavigationController()
         )
         templateFlowCoordinator.start()
-        let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(moduleFactory: mainAppModuleFactory, navigationController: UINavigationController())
+        let newNoteFlowCoordinator = NewNoteScreenFlowCoordinator(
+            moduleFactory: mainAppModuleFactory,
+            navigationController: UINavigationController()
+        )
         newNoteFlowCoordinator.start()
         let statisticViewController = tabBarModuleFactory.createStatisticViewController()
         let notificationViewController = tabBarModuleFactory.createNotificationViewController()
@@ -47,16 +50,11 @@ final class MainAppTabBarFabric: MainAppTabBarFabricProtocol {
             ]
         tbController.selectedIndex = 4
 
+        for item in tbController.tabBar.items ?? [] {
+            item.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+            item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
+        }
+
         return tbController
     }
-//    private func configTabBarItem(viewController: UIViewController, image: UIImage) -> UIViewController {
-//        let templateTabBarItem = UITabBarItem(
-//            title: nil,
-//            image: image.resizeImage(newSize: CGSize(width: 30, height: 30)),
-//            selectedImage: nil
-//        )
-//        viewController.tabBarItem = templateTabBarItem
-//
-//        return viewController
-//    }
 }

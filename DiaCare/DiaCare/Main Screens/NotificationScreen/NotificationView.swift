@@ -52,6 +52,12 @@ final class NotificationView: UIView {
         notificationTableView.isHidden = false
     }
 
+    func scrollToUpside() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.notificationContentView.transform = .identity
+        }
+    }
+
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self)
 
@@ -141,6 +147,7 @@ final class NotificationView: UIView {
 
     private func setUpNotificationTableView() {
         notificationContentView.addSubview(notificationTableView)
+        notificationTableView.separatorStyle = .none
 
         notificationTableView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(42)

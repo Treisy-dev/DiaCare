@@ -49,5 +49,4 @@ final class ProfuctConfigViewController: UIViewController {
     override func viewDidLoad() {
 
     }
-
 }

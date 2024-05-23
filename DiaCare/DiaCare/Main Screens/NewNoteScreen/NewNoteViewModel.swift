@@ -50,6 +50,17 @@ final class NewNoteViewModel: NSObject, NewNoteViewModelProtocol, UITableViewDat
         userProducts.count
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            userProducts.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !userProducts[indexPath.row].isTemplate {
             let productCategory = coreDataManager.obtainCategoryFromProduct(for: userProducts[indexPath.row].name)

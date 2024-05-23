@@ -140,9 +140,9 @@ final class NewNoteSugarSubView: UIView {
 
     private func setUpHintLabel() {
         addSubview(hintLabel)
-        hintLabel.text = "тяни для изменений"
-        hintLabel.font = UIFont.systemFont(ofSize: 11)
-        hintLabel.textColor = .lightGray.withAlphaComponent(0.7)
+        hintLabel.text = "Тяни для изменений"
+        hintLabel.font = UIFont.systemFont(ofSize: 13)
+        hintLabel.textColor = .lightGray.withAlphaComponent(0.8)
 
         hintLabel.snp.makeConstraints { make in
             make.top.equalTo(sugarView.snp.bottom).offset(5)

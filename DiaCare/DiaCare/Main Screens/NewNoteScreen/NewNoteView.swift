@@ -12,6 +12,7 @@ final class NewNoteView: UIView {
     var sugarSubView: NewNoteSugarSubView
     var foodSubView: NewNoteFoodSubView = NewNoteFoodSubView(frame: CGRect())
     var injectionSubView: NewNoteInjectionSubView = NewNoteInjectionSubView(frame: CGRect())
+    var panGestureRecognizer: UIPanGestureRecognizer?
     var scrollAddition: CGFloat = 0
     var saveTapped: (() -> Void)?
     var resetTapped: (() -> Void)?
@@ -24,7 +25,6 @@ final class NewNoteView: UIView {
     private var averageSugar: String?
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
-    private var panGestureRecognizer: UIPanGestureRecognizer?
 
     init(frame: CGRect, averageSugar: String) {
         sugarSubView = NewNoteSugarSubView(frame: frame, avarageSugar: averageSugar)
@@ -32,20 +32,15 @@ final class NewNoteView: UIView {
         self.averageSugar = averageSugar
         backgroundColor = .white
         setUp()
+        if panGestureRecognizer == nil {
+            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+            guard let panGestureRecognizer else { return }
+            newNoteContentView.addGestureRecognizer(panGestureRecognizer)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if panGestureRecognizer == nil {
-            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            guard let panGestureRecognizer else {return}
-            newNoteContentView.addGestureRecognizer(panGestureRecognizer)
-        }
     }
 
     func scrollToUpside() {

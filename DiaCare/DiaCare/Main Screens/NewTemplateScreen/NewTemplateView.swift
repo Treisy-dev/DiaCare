@@ -16,6 +16,7 @@ final class NewTemplateView: UIView {
     lazy var foodSubView: NewTemplateFoodSubView = NewTemplateFoodSubView(frame: .zero)
     lazy var injectionSubView: NewTemplateInjectionSubView = NewTemplateInjectionSubView(frame: .zero)
     lazy var statsSubView: NewTemplateStatsSubView = NewTemplateStatsSubView(frame: .zero)
+    var panGestureRecognizer: UIPanGestureRecognizer?
     var saveTapped: (() -> Void)?
     var resetTapped: (() -> Void)?
     var scrollAddition: CGFloat = 0
@@ -29,22 +30,16 @@ final class NewTemplateView: UIView {
     private lazy var saveButton: UIButton = UIButton()
     private var initialCenterYConstraintConstant: CGFloat = 0
     private var initialTransform = CGAffineTransform.identity
-    private var panGestureRecognizer: UIPanGestureRecognizer?
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if panGestureRecognizer == nil {
-            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-            guard let panGestureRecognizer else {return}
-            newTemplateContentView.addGestureRecognizer(panGestureRecognizer)
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         setUp()
+        if panGestureRecognizer == nil {
+            panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+            guard let panGestureRecognizer else {return}
+            newTemplateContentView.addGestureRecognizer(panGestureRecognizer)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -166,7 +161,7 @@ final class NewTemplateView: UIView {
     private func setUpCategoryTextField() {
         newTemplateContentView.addSubview(categoryTextField)
         categoryTextField.layer.cornerRadius = 10
-        categoryTextField.text = "breakfast"
+        categoryTextField.text = "Завтрак"
         categoryTextField.layer.borderWidth = 1
         categoryTextField.layer.borderColor = UIColor.systemGray.cgColor
         categoryTextField.textAlignment = .center
@@ -216,7 +211,7 @@ final class NewTemplateView: UIView {
         resetButton.layer.cornerRadius = 10
         resetButton.layer.borderWidth = 1
         resetButton.layer.borderColor = UIColor.mainApp.cgColor
-        resetButton.setTitle("Сбросить", for: .normal)
+        resetButton.setTitle("Отменить", for: .normal)
         resetButton.setTitleColor(.mainApp, for: .normal)
         let resetAction = UIAction { [weak self] _ in
             self?.resetTapped?()

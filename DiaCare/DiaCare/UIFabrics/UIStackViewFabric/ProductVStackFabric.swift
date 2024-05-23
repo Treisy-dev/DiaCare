@@ -22,7 +22,7 @@ final class ProductVStackFabric {
         vStack.alignment = .center
         label.text = titleLabel
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = titleLabelColor.withAlphaComponent(0.5)
+        label.textColor = titleLabelColor.withAlphaComponent(0.8)
 
         countLabel.text = count
         countLabel.font = UIFont.systemFont(ofSize: 14)
@@ -35,7 +35,7 @@ final class ProductVStackFabric {
     func makeCircledProductPropVStack(titleLabel: String, titleLabelColor: UIColor, count: String) -> UIStackView {
         let vStack = UIStackView()
         let label = UILabel()
-        let circelView = CustomCircledView(frame: .zero, color: titleLabelColor.withAlphaComponent(0.5), count: count)
+        let circelView = CustomCircledView(frame: .zero, color: titleLabelColor.withAlphaComponent(0.8), count: count)
         circelView.snp.makeConstraints { make in
             make.width.height.equalTo(50)
         }
@@ -44,7 +44,7 @@ final class ProductVStackFabric {
         vStack.alignment = .center
         label.text = titleLabel
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = titleLabelColor.withAlphaComponent(0.5)
+        label.textColor = titleLabelColor.withAlphaComponent(0.8)
 
         vStack.addArrangedSubview(label)
         vStack.addArrangedSubview(circelView)

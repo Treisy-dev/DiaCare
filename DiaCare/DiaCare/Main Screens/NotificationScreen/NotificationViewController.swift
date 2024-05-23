@@ -37,7 +37,9 @@ final class NotificationViewController: UIViewController {
 
         contentView.notificationTableView.delegate = self
         contentView.notificationTableView.dataSource = viewModel
-        contentView.notificationTableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier
+        contentView.notificationTableView.register(
+            NotificationTableViewCell.self,
+            forCellReuseIdentifier: NotificationTableViewCell.reuseIdentifier
         )
     }
 
@@ -50,6 +52,11 @@ final class NotificationViewController: UIViewController {
             contentView.notificationTableView.reloadData()
             contentView.hideHint()
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        contentView.scrollToUpside()
     }
 
     func addNewNotify(title: String, message: String, date: Date) {

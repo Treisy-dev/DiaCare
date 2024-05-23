@@ -44,16 +44,16 @@ final class TemplateViewModel: NSObject, TemplateViewModelProtocol {
                 withReuseIdentifier: NewTemplateCollectionViewCell.reuseIdentifier,
                 for: indexPath
             )
-                as? NewTemplateCollectionViewCell else { return UICollectionViewCell()}
+                as? NewTemplateCollectionViewCell else { return UICollectionViewCell() }
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TemplateCollectionViewCell.reuseIdentifier,
                 for: indexPath
             )
-                as? TemplateCollectionViewCell else { return UICollectionViewCell()}
+                as? TemplateCollectionViewCell else { return UICollectionViewCell() }
             guard let productsArray = dataSource[indexPath.row].templateProduct?.allObjects as? [TemplateProduct]
-            else { return UICollectionViewCell()}
+            else { return UICollectionViewCell() }
 
             let category = getCategoryFromString(dataSource[indexPath.row].category)
             cell.config(

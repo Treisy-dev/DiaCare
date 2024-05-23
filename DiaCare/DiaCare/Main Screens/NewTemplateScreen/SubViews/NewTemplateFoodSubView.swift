@@ -58,6 +58,7 @@ final class NewTemplateFoodSubView: UIView {
     private func setUpFoodTableView() {
         addSubview(foodTableView)
         foodTableView.separatorStyle = .none
+        foodTableView.isScrollEnabled = false
         foodTableView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(-5)
             make.trailing.equalToSuperview().inset(-5)

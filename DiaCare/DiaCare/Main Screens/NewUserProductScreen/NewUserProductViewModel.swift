@@ -31,8 +31,9 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
     init(coreDM: CoreDataManagerProtocol) {
         coreDataManager = coreDM
         dataSource = coreDataManager.obtainAllCategories()
-        dataSource.sort()
-        dataSource.insert("Продукт без категории", at: 0)
+        super.init()
+        dataSource.sort { $0 < $1 }
+        addNoneTypeIfNeeded()
     }
 
     func saveProduct() {
@@ -49,6 +50,12 @@ final class NewUserProductViewModel: NSObject, NewUserProductViewModelProtocol {
             fat: fat,
             carbs: carbs
         )
+    }
+
+    private func addNoneTypeIfNeeded() {
+        if !dataSource.contains(where: {$0 == "Продукт без категории"}) {
+            dataSource.insert("Продукт без категории", at: 0)
+        }
     }
 }
 

@@ -41,6 +41,7 @@ final class SettingsSubView: UIView {
         settingsVStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        customTextField.text = "Русский"
         customTextField.snp.makeConstraints { make in
             make.height.equalTo(30)
         }

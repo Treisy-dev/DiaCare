@@ -32,6 +32,10 @@ final class NewTemplateViewController: UIViewController {
         super.viewDidLoad()
         contentView.foodSubView.foodTableView.delegate = self
         contentView.foodSubView.foodTableView.dataSource = viewModel
+        contentView.nameTextField.delegate = self
+        contentView.injectionSubView.breadCountTextField.delegate = self
+        contentView.injectionSubView.insulinTextField.delegate = self
+        contentView.panGestureRecognizer?.delegate = self
         contentView.foodSubView.foodTableView.register(
             UserProductTableViewCell.self,
             forCellReuseIdentifier: UserProductTableViewCell.reuseIdentifier
@@ -118,7 +122,21 @@ final class NewTemplateViewController: UIViewController {
     }
 }
 
-extension NewTemplateViewController: UITableViewDelegate, UIPickerViewDelegate {
+extension NewTemplateViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        updateContentViewLayout()
+    }
+}
+
+extension NewTemplateViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         contentView.categoryTextField.text = viewModel.pickerViewDataSource[row]
     }
@@ -126,8 +144,23 @@ extension NewTemplateViewController: UITableViewDelegate, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return viewModel.pickerViewDataSource[row]
     }
+}
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        70
+extension NewTemplateViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectAll(textField)
+    }
+}
+
+extension NewTemplateViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
+    -> Bool {
+        true
     }
 }

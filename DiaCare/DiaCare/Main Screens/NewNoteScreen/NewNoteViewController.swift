@@ -37,6 +37,7 @@ final class NewNoteViewController: UIViewController {
 
         contentView.foodSubView.foodtableView.delegate = self
         contentView.foodSubView.foodtableView.dataSource = viewModel
+        contentView.panGestureRecognizer?.delegate = self
 
         contentView.saveTapped = { [weak self] in
             self?.viewModel.saveNewNote(
@@ -70,6 +71,7 @@ final class NewNoteViewController: UIViewController {
         super.viewDidAppear(animated)
         updateContentViewLayout()
         changeInjectionStats()
+        contentView.scrollToUpside()
     }
 
     private func resetChanges() {
@@ -112,12 +114,30 @@ extension NewNoteViewController: UITextFieldDelegate {
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.selectAll(nil)
+        textField.selectAll(textField)
     }
 }
 
 extension NewNoteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        updateContentViewLayout()
+    }
+}
+
+extension NewNoteViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
+    -> Bool {
+        true
     }
 }
