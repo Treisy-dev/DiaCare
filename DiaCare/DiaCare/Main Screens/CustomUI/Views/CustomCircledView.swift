@@ -37,9 +37,14 @@ final class CustomCircledView: UIView {
     private func setUpSugarCountLabel() {
         addSubview(countLabel)
         countLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        countLabel.adjustsFontSizeToFitWidth = true
+        countLabel.minimumScaleFactor = 0.8
+        countLabel.textAlignment = .center
 
         countLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(2)
+            make.trailing.equalToSuperview().inset(2)
         }
     }
 }

@@ -31,7 +31,7 @@ enum TemplateCategories: String {
         case .afternoonSnack:
             return UIImage.afternoonSnack.resizeImage(newSize: CGSize(width: 45, height: 45))
         case .none:
-            return UIImage.afternoonSnack.resizeImage(newSize: CGSize(width: 45, height: 45))
+            return UIImage.lunch.resizeImage(newSize: CGSize(width: 45, height: 45))
         }
     }
 }
