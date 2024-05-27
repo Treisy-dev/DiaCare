@@ -10,10 +10,10 @@ import UIKit
 final class NewNoteSugarSubView: UIView {
 
     lazy var sugarCountLabel: UILabel = UILabel()
+    lazy var sugarView: UIView = UIView()
 
     private lazy var downArrow: UIButton = UIButton()
     private lazy var upArrow: UIButton = UIButton()
-    private lazy var sugarView: UIView = UIView()
     private lazy var sugarLabel: UILabel = UILabel()
     private lazy var bloodIcon: UIImageView = UIImageView()
     private lazy var hintLabel: UILabel = UILabel()

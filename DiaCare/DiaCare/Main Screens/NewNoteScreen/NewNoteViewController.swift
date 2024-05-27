@@ -140,4 +140,9 @@ extension NewNoteViewController: UIGestureRecognizerDelegate {
     -> Bool {
         true
     }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let location = touch.location(in: contentView.sugarSubView)
+        return contentView.sugarSubView.sugarView.frame.contains(location) ? false : true
+    }
 }
