@@ -186,6 +186,8 @@ extension ProductViewController: UITableViewDelegate {
                     isTemplate: true
                 )
                 )
+                guard let productCount = self?.viewModel.usersProduct.count else { return }
+                self?.contentView.addButton.setTitle("Добавить(\(productCount))", for: .normal)
             }
             let noAction = UIAlertAction(title: "Нет", style: .cancel) { _ in
                 alertController.dismiss(animated: true, completion: nil)
